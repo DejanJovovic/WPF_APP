@@ -1,0 +1,12 @@
+pera;peric;pera@gmail.com;1234;1234;MUSKI;INSTRUKTOR;False
+pera;peric;pera@gmail.com;1234;1234;MUSKI;INSTRUKTOR;True
+Mihajlo;Mikic;mika@gmail.com;1234;1234;MUSKI;INSTRUKTOR;True
+Djordje;Petrovic;djole@gmail.com;1234;1234;MUSKI;INSTRUKTOR;True
+Lazar;laza;laza@gmail.com;1234;1234;MUSKI;INSTRUKTOR;False
+Zile;Zile;zile@gmail.com;1234;1234;MUSKI;INSTRUKTOR;True
+Milan;Kostic;mila@gmail.com;1234;1234;MUSKI;INSTRUKTOR;True
+zzz123456;zzz;zzz;1234;1234;MUSKI;INSTRUKTOR;False
+ddd;dd;dd;;;MUSKI;INSTRUKTOR;False
+ss;sss;ss;;;MUSKI;INSTRUKTOR;False
+kole;kostic;kole@gmail.com;;;MUSKI;ADMINISTRATOR;True
+Lazar;peric;laki@gmail.com;;;MUSKI;INSTRUKTOR;True

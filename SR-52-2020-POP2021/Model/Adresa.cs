@@ -7,18 +7,16 @@ using System.Threading.Tasks;
 namespace SR_52_2020_POP2021.Model
 {
     [Serializable]
-
     public class Adresa
     {
-        private string _sifra;
+        public string _id;
 
-        public string Sifra
+        public string ID
         {
-            get { return _sifra; }
-            set { _sifra = value; }
+            get { return _id; }
+            set { _id = value; }
         }
-
-        private string _ulica;
+        public string _ulica;
 
         public string Ulica
         {
@@ -26,7 +24,7 @@ namespace SR_52_2020_POP2021.Model
             set { _ulica = value; }
         }
 
-        private string _broj;
+        public string _broj;
 
         public string Broj
         {
@@ -34,13 +32,14 @@ namespace SR_52_2020_POP2021.Model
             set { _broj = value; }
         }
 
-        private string _grad;
+        public string _grad;
 
         public string Grad
         {
             get { return _grad; }
             set { _grad = value; }
         }
+
 
         private string _drzava;
 
@@ -50,14 +49,9 @@ namespace SR_52_2020_POP2021.Model
             set { _drzava = value; }
         }
 
-        public Adresa()
-        {
-
-        }
         public override string ToString()
         {
-            return "Adresa: " + Ulica + " " + Broj;
+            return "Ulica " + Ulica + " broj " + Broj + " grad" + Grad + " drzava " + Drzava;
         }
-
     }
 }

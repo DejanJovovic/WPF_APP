@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace SR_52_2020_POP2021.Model
 {
-    public enum ETipKorisnika
+    public enum EPol
     {
-        ADMINISTRATOR,
-        POLAZNIK,
-        INSTRUKTOR
+        M,
+        Z
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SR_52_2020_POP2021.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SR_52_2020_POP2021
+namespace SR_52_2020_POP2021.Windows
 {
     /// <summary>
     /// Interaction logic for HomeWindow.xaml
@@ -21,7 +22,16 @@ namespace SR_52_2020_POP2021
     {
         public HomeWindow()
         {
+            Podaci.Instanca.CitanjeEntiteta("korisnici.txt");
+            Podaci.Instanca.CitanjeEntiteta("instruktori.txt");
             InitializeComponent();
+        }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            SviInstruktori sviInstruktori = new SviInstruktori();
+            this.Hide();
+            sviInstruktori.Show();
         }
     }
 }
