@@ -23,5 +23,10 @@ namespace SR_52_2020_POP2021.Model
 
         public Korisnik Korisnik { get => korisnik; set => korisnik = value; }
         public int IdFitnesCentra { get => idFitnesCentra; set => idFitnesCentra = value; }
+
+        public override string ToString()
+        {
+            return korisnik.ToString() + ", idFitnes centra: " + IdFitnesCentra + ", Obrisan Instr: " + obrisano;
+        }
     }
 }

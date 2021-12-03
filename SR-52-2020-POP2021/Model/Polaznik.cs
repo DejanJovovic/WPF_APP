@@ -19,5 +19,10 @@ namespace SR_52_2020_POP2021.Model
             this.Korisnik = korisnik;
         }
         public Korisnik Korisnik { get => korisnik; set => korisnik = value; }
+
+        public override string ToString()
+        {
+            return korisnik.ToString() + ", Obrisan POlaznik: " + obrisano;
+        }
     }
 }

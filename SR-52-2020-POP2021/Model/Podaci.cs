@@ -32,6 +32,7 @@ namespace SR_52_2020_POP2021.Model
             treninziServis = new TreninziServis();
             adminiServis = new AdminiServis();
             polazniciServis = new PolazniciServis();
+            instruktoriServis = new InstruktoriServis();
         }
 
         static Podaci() { }
@@ -54,11 +55,11 @@ namespace SR_52_2020_POP2021.Model
         public void ucitajFajlove()
         {
             lstAdrese = adreseServis.citanjeFajla();
-            //lstFitnesCentri = fitnesCentriServis.citanjeFajla();
+            lstFitnesCentri = fitnesCentriServis.citanjeFajla();
             //lstTreninzi = treninziServis.citanjeFajla();
-            //lstInstruktori = instruktoriServis.citanjeFajla();
-            //lstAdmini = adminiServis.citanjeFajla();
-            //lstPolaznici = polazniciServis.citanjeFajla();
+            lstInstruktori = instruktoriServis.citanjeFajla();
+            lstAdmini = adminiServis.citanjeFajla();
+            lstPolaznici = polazniciServis.citanjeFajla();
         }
        
 

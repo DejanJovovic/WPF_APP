@@ -33,7 +33,7 @@ namespace SR_52_2020_POP2021.Services
             }
 
             return lst;
-    }
+        }
 
         public void upisFajla(ObservableCollection<Adresa> lista)
         {

@@ -23,7 +23,16 @@ namespace SR_52_2020_POP2021.Windows
         public HomeWindow()
         {
             Podaci.Instanca.ucitajFajlove();
-            MessageBox.Show("Broj ucitanih adresa iz txt fajla: " + Podaci.Instanca.lstAdrese.Count.ToString());
+            MessageBox.Show(
+                "\n#Broj ucitanih adresa: " + Podaci.Instanca.lstAdrese.Count.ToString() +
+                "\n#Br f centara:" + Podaci.Instanca.lstFitnesCentri.Count.ToString() +
+                "\n#Br admina:" + Podaci.Instanca.lstAdmini.Count.ToString() + 
+                "\n#Admin1:" + Podaci.Instanca.lstAdmini.ElementAt(0).ToString() +
+                "\n#Br instr:" + Podaci.Instanca.lstInstruktori.Count.ToString() +
+                "\n#Instr1:" + Podaci.Instanca.lstInstruktori.ElementAt(0).ToString() +
+                "\n#Br polaznika:" + Podaci.Instanca.lstPolaznici.Count.ToString() +
+                "\n#Polaznik1:" + Podaci.Instanca.lstPolaznici.ElementAt(0).ToString()
+                );
             InitializeComponent();
         }
 

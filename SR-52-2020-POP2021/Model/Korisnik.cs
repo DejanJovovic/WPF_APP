@@ -42,7 +42,12 @@ namespace SR_52_2020_POP2021.Model
         public string Lozinka { get => lozinka; set => lozinka = value; }
         public ETipKorisnika TipKorisnika { get => tipKorisnika; set => tipKorisnika = value; }
 
-       
+        public override string ToString()
+        {
+            return Ime + " " + Prezime + " " + Jmbg + " " + Pol + " " + Adresa + " " + Email + " " + Lozinka + " " + TipKorisnika;
+        }
+
+
     }
 
 }

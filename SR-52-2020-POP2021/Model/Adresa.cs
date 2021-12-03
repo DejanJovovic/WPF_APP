@@ -25,6 +25,14 @@ namespace SR_52_2020_POP2021.Model
             this.Grad = grad;
             this.Drzava = drzava;
         }
+        public Adresa(Adresa a)
+        {
+            this.Id = a.Id;
+            this.Ulica = a.Ulica;
+            this.Broj = a.Broj;
+            this.Grad = a.Grad;
+            this.Drzava = a.Drzava;
+        }
 
         public int Id { get => id; set => id = value; }
         public string Ulica { get => ulica; set => ulica = value; }
