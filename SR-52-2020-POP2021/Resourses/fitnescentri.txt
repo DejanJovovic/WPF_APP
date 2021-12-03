@@ -1,0 +1,2 @@
+1;Strong fitness;1;false
+2;Exclusive fitness;2;false

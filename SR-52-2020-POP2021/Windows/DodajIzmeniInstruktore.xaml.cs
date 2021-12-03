@@ -56,23 +56,23 @@ namespace SR_52_2020_POP2021.Windows
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
 
-            if (odabraniStatus.Equals(EStatus.DODAJ))
-            {
-                odabraniInstruktor.Aktivan = true;
-                Instruktor instruktor = new Instruktor
-                {
+            //if (odabraniStatus.Equals(EStatus.DODAJ))
+            //{
+            //    odabraniInstruktor.Aktivan = true;
+            //    Instruktor instruktor = new Instruktor
+            //    {
 
-                    Korisnik = odabraniInstruktor
-                };
-                Podaci.Instanca.Korisnici.Add(odabraniInstruktor);
-                Podaci.Instanca.Instruktori.Add(instruktor);
-            }
+            //        Korisnik = odabraniInstruktor
+            //    };
+            //    Podaci.Instanca.Korisnici.Add(odabraniInstruktor);
+            //    Podaci.Instanca.Instruktori.Add(instruktor);
+            //}
 
-            Podaci.Instanca.SacuvajEntitet("korisnici.txt");
-            Podaci.Instanca.SacuvajEntitet("instruktori.txt");
+            //Podaci.Instanca.SacuvajEntitet("korisnici.txt");
+            //Podaci.Instanca.SacuvajEntitet("instruktori.txt");
 
-            this.DialogResult = true;
-            this.Close();
+            //this.DialogResult = true;
+            //this.Close();
 
         }
     }

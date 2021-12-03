@@ -1,0 +1,6 @@
+1;Neznanog junaka;22;Beograd;Srbija;false
+2;Kumodraska;12;Beograd;Srbija;false
+3;Mihajla Pupina;3;Beograd;Srbija;false
+4;Kralja Petra I;45;Beograd;Srbija;false
+5;Nikole Tesle;14;Beograd;Srbija;false
+6;Cara Lazara;88;Beograd;Srbija;false

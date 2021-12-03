@@ -6,110 +6,43 @@ using System.Threading.Tasks;
 
 namespace SR_52_2020_POP2021.Model
 {
-    [Serializable]
+
     public class Korisnik
     {
 
-        private string _ime;
+        string ime;
+        string prezime;
+        string jmbg;//identifikacija
+        EPol pol;
+        Adresa adresa;
+        string email;
+        string lozinka;
+        ETipKorisnika tipKorisnika;
 
-        public string Ime
+        public bool obrisano = false;//logicko brisanje
+
+        public Korisnik(string ime, string prezime, string jmbg, EPol pol, Adresa adresa, string email, string lozinka, ETipKorisnika tipKorisnika)
         {
-            get { return _ime; }
-            set { _ime = value; }
+            this.Ime = ime;
+            this.Prezime = prezime;
+            this.Jmbg = jmbg;
+            this.Pol = pol;
+            this.Adresa = adresa;
+            this.Email = email;
+            this.Lozinka = lozinka;
+            this.TipKorisnika = tipKorisnika;
         }
 
-        private string _prezime;
+        public string Ime { get => ime; set => ime = value; }
+        public string Prezime { get => prezime; set => prezime = value; }
+        public string Jmbg { get => jmbg; set => jmbg = value; }
+        public EPol Pol { get => pol; set => pol = value; }
+        public Adresa Adresa { get => adresa; set => adresa = value; }
+        public string Email { get => email; set => email = value; }
+        public string Lozinka { get => lozinka; set => lozinka = value; }
+        public ETipKorisnika TipKorisnika { get => tipKorisnika; set => tipKorisnika = value; }
 
-        public string Prezime
-        {
-            get { return _prezime; }
-            set { _prezime = value; }
-        }
-
-        private string _lozinka;
-
-        public string Lozinka
-        {
-            get { return _lozinka; }
-            set { _lozinka = value; }
-        }
-
-        private string _email;
-
-        public string Email
-        {
-            get { return _email; }
-            set { _email = value; }
-        }
-
-        private string _JMBG;
-
-        public string JMBG
-        {
-            get { return _JMBG; }
-            set { _JMBG = value; }
-        }
-
-        private Adresa _adresa;
-
-        public Adresa Adresa
-        {
-            get { return _adresa; }
-            set { _adresa = value; }
-        }
-
-        private EPol _pol;
-
-        public EPol Pol
-        {
-            get { return _pol; }
-            set { _pol = value; }
-        }
-
-        private ETipKorisnika _tipKorisnika;
-
-        public ETipKorisnika TipKorisnika
-        {
-            get { return _tipKorisnika; }
-            set { _tipKorisnika = value; }
-        }
-
-        private bool _aktivan;
-
-        public bool Aktivan
-        {
-            get { return _aktivan; }
-            set { _aktivan = value; }
-        }
-
-
-        public Korisnik() { }
-
-        public override string ToString()
-        {
-            return "Ja sam " + Ime + " " + Prezime + " tip " + TipKorisnika + " moj email je: " + Email;
-        }
-
-        public string KorisnikZaUpisUFajl()
-        {
-            return Ime + ";" + Prezime + ";" + Email + ";" + Lozinka + ";" + JMBG + ";" + Pol + ";" + TipKorisnika + ";" + Aktivan;
-        }
-
-        public Korisnik Clone()
-        {
-            Korisnik kopija = new Korisnik();
-            kopija.Ime = Ime;
-            kopija.Prezime = Prezime;
-            kopija.Aktivan = Aktivan;
-            kopija.Adresa = Adresa;
-            kopija.Email = Email;
-            kopija.Pol = Pol;
-            kopija.Lozinka = Lozinka;
-            kopija.JMBG = JMBG;
-            kopija.TipKorisnika = TipKorisnika;
-
-            return kopija;
-        }
+       
     }
 
 }

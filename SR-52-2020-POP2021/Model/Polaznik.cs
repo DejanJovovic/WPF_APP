@@ -7,21 +7,17 @@ using System.Threading.Tasks;
 
 namespace SR_52_2020_POP2021.Model
 {
-    public class Instruktor
+    public class Polaznik
     {
         Korisnik korisnik;
-        int idFitnesCentra;
         public ObservableCollection<Trening> lstTreninzi = new ObservableCollection<Trening>();
 
         public bool obrisano = false;//logicko brisanje
 
-        public Instruktor(Korisnik korisnik, int idFitnesCentra)
+        public Polaznik(Korisnik korisnik)
         {
             this.Korisnik = korisnik;
-            this.IdFitnesCentra = idFitnesCentra;
         }
-
         public Korisnik Korisnik { get => korisnik; set => korisnik = value; }
-        public int IdFitnesCentra { get => idFitnesCentra; set => idFitnesCentra = value; }
     }
 }

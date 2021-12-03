@@ -6,52 +6,35 @@ using System.Threading.Tasks;
 
 namespace SR_52_2020_POP2021.Model
 {
-    [Serializable]
+
     public class Adresa
     {
-        public string _id;
 
-        public string ID
+        int id;
+        string ulica;
+        string broj;
+        string grad;
+        string drzava;
+        public bool obrisano = false;//logicko brisanje
+
+        public Adresa(int id, string ulica, string broj, string grad, string drzava)
         {
-            get { return _id; }
-            set { _id = value; }
-        }
-        public string _ulica;
-
-        public string Ulica
-        {
-            get { return _ulica; }
-            set { _ulica = value; }
-        }
-
-        public string _broj;
-
-        public string Broj
-        {
-            get { return _broj; }
-            set { _broj = value; }
+            this.Id = id;
+            this.Ulica = ulica;
+            this.Broj = broj;
+            this.Grad = grad;
+            this.Drzava = drzava;
         }
 
-        public string _grad;
-
-        public string Grad
-        {
-            get { return _grad; }
-            set { _grad = value; }
-        }
-
-
-        private string _drzava;
-
-        public string Drzava
-        {
-            get { return _drzava; }
-            set { _drzava = value; }
-        }
+        public int Id { get => id; set => id = value; }
+        public string Ulica { get => ulica; set => ulica = value; }
+        public string Broj { get => broj; set => broj = value; }
+        public string Grad { get => grad; set => grad = value; }
+        public string Drzava { get => drzava; set => drzava = value; }
 
         public override string ToString()
         {
-            return "Ulica " + Ulica + " broj " + Broj + " grad" + Grad + " drzava " + Drzava;
+            return "Ulica: " + Ulica + " Broj: " + Broj + " Grad: " + Grad + " Drzava: " + Drzava;
         }
     }
 }

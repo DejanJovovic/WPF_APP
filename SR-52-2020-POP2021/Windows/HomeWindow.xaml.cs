@@ -22,8 +22,8 @@ namespace SR_52_2020_POP2021.Windows
     {
         public HomeWindow()
         {
-            Podaci.Instanca.CitanjeEntiteta("korisnici.txt");
-            Podaci.Instanca.CitanjeEntiteta("instruktori.txt");
+            Podaci.Instanca.ucitajFajlove();
+            MessageBox.Show("Broj ucitanih adresa iz txt fajla: " + Podaci.Instanca.lstAdrese.Count.ToString());
             InitializeComponent();
         }
 

@@ -26,78 +26,78 @@ namespace SR_52_2020_POP2021.Windows
         {
             InitializeComponent();
             UpdateView();
-            view.Filter = CustomFilter;
+            //view.Filter = CustomFilter;
         }
 
-        private bool CustomFilter(object obj)
-        {
-            Korisnik korisnik = obj as Korisnik;
-            //Korisnik korisnik1 = (Korisnik)obj ;
+        //private bool CustomFilter(object obj)
+        //{
+        //    Korisnik korisnik = obj as Korisnik;
+        //    Korisnik korisnik1 = (Korisnik)obj;
 
-            if (korisnik.TipKorisnika.Equals(ETipKorisnika.INSTRUKTOR) && korisnik.Aktivan)
-            {
-                if (txtPretraga.Text != "")
-                {
-                    return korisnik.Ime.Contains(txtPretraga.Text);
-                }
-                else
-                    return true;
-            }
-            return false;
-        }
+        //    if (korisnik.TipKorisnika.Equals(ETipKorisnika.INSTRUKTOR) && korisnik.Aktivan)
+        //    {
+        //        if (txtPretraga.Text != "")
+        //        {
+        //            return korisnik.Ime.Contains(txtPretraga.Text);
+        //        }
+        //        else
+        //            return true;
+        //    }
+        //    return false;
+        //}
 
         private void UpdateView()
         {
-            DGInstruktori.ItemsSource = null;
-            view = CollectionViewSource.GetDefaultView(Podaci.Instanca.Korisnici);
-            DGInstruktori.ItemsSource = view;
-            DGInstruktori.IsSynchronizedWithCurrentItem = true;
+            //DGInstruktori.ItemsSource = null;
+            //view = CollectionViewSource.GetDefaultView(Podaci.Instanca.Korisnici);
+            //DGInstruktori.ItemsSource = view;
+            //DGInstruktori.IsSynchronizedWithCurrentItem = true;
 
-            DGInstruktori.ColumnWidth = new DataGridLength(1, DataGridLengthUnitType.Star);
+            //DGInstruktori.ColumnWidth = new DataGridLength(1, DataGridLengthUnitType.Star);
         }
 
         private void DodavanjeInstruktora_Click(object sender, RoutedEventArgs e)
         {
-            Korisnik noviKorisnik = new Korisnik();
-            DodajIzmeniInstruktore dodajIzmeniInstruktore = new DodajIzmeniInstruktore(noviKorisnik);
-            this.Hide();
-            if (!(bool)dodajIzmeniInstruktore.ShowDialog())
-            {
+            //Korisnik noviKorisnik = new Korisnik();
+            //DodajIzmeniInstruktore dodajIzmeniInstruktore = new DodajIzmeniInstruktore(noviKorisnik);
+            //this.Hide();
+            //if (!(bool)dodajIzmeniInstruktore.ShowDialog())
+            //{
 
-            }
-            this.Show();
+            //}
+            //this.Show();
         }
 
         private void IzmenaInstruktora_Click(object sender, RoutedEventArgs e)
         {
-            Korisnik selectedInstruktor = view.CurrentItem as Korisnik;
+            //Korisnik selectedInstruktor = view.CurrentItem as Korisnik;
 
-            Korisnik stariInstruktor = selectedInstruktor.Clone();
+            //Korisnik stariInstruktor = selectedInstruktor.Clone();
 
-            DodajIzmeniInstruktore dodajIzmeniInstruktore = new DodajIzmeniInstruktore(selectedInstruktor, EStatus.IZMENI);
-            this.Hide();
-            if (!(bool)dodajIzmeniInstruktore.ShowDialog())
-            {
-                int index = Podaci.Instanca.Korisnici.ToList().FindIndex(k => k.Email.Equals(stariInstruktor.Email));
-                Podaci.Instanca.Korisnici[index] = stariInstruktor;
-            }
-            this.Show();
+            //DodajIzmeniInstruktore dodajIzmeniInstruktore = new DodajIzmeniInstruktore(selectedInstruktor, EStatus.IZMENI);
+            //this.Hide();
+            //if (!(bool)dodajIzmeniInstruktore.ShowDialog())
+            //{
+            //    int index = Podaci.Instanca.Korisnici.ToList().FindIndex(k => k.Email.Equals(stariInstruktor.Email));
+            //    Podaci.Instanca.Korisnici[index] = stariInstruktor;
+            //}
+            //this.Show();
 
-            view.Refresh();
+            //view.Refresh();
 
         }
 
         private void BrisanjeInstruktora_Click(object sender, RoutedEventArgs e)
         {
-            Korisnik instruktorZaBrisanje = view.CurrentItem as Korisnik;
-            Podaci.Instanca.DeleteUser(instruktorZaBrisanje.Email);
+            //Korisnik instruktorZaBrisanje = view.CurrentItem as Korisnik;
+            //Podaci.Instanca.DeleteUser(instruktorZaBrisanje.Email);
 
-            int index = Podaci.Instanca.Korisnici.ToList().FindIndex(korisnik => korisnik.Email.Equals(instruktorZaBrisanje.Email));
-            Podaci.Instanca.Korisnici[index].Aktivan = false;
+            //int index = Podaci.Instanca.Korisnici.ToList().FindIndex(korisnik => korisnik.Email.Equals(instruktorZaBrisanje.Email));
+            //Podaci.Instanca.Korisnici[index].Aktivan = false;
 
 
-            UpdateView();
-            view.Refresh();
+            //UpdateView();
+            //view.Refresh();
         }
 
         private void DGInstruktori_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

@@ -57,10 +57,16 @@
     </ApplicationDefinition>
     <Compile Include="Model\Adresa.cs" />
     <Compile Include="Model\ETipKorisnika.cs" />
-    <Compile Include="Services\IInstruktorServis.cs" />
-    <Compile Include="Services\IKorisnickiServis.cs" />
-    <Compile Include="Services\InstruktorServis.cs" />
-    <Compile Include="Services\KorisnickiServis.cs" />
+    <Compile Include="Model\FitnesCentar.cs" />
+    <Compile Include="Model\Polaznik.cs" />
+    <Compile Include="Model\Trening.cs" />
+    <Compile Include="Services\AdminiServis.cs" />
+    <Compile Include="Services\AdreseServis.cs" />
+    <Compile Include="Services\FitnesCentriServis.cs" />
+    <Compile Include="Services\IAzuriranjaFajlova.cs" />
+    <Compile Include="Services\InstruktoriServis.cs" />
+    <Compile Include="Services\PolazniciServis.cs" />
+    <Compile Include="Services\TreninziServis.cs" />
     <Compile Include="Windows\DodajIzmeniInstruktore.xaml.cs">
       <DependentUpon>DodajIzmeniInstruktore.xaml</DependentUpon>
     </Compile>
@@ -70,16 +76,8 @@
     <Compile Include="Windows\SviInstruktori.xaml.cs">
       <DependentUpon>SviInstruktori.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Windows\DodajIzmeniInstruktore.xaml">

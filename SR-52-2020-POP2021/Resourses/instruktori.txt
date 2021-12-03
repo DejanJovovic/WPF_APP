@@ -1,11 +1,1 @@
-pera@gmail.com
-mika@gmail.com
-djole@gmail.com
-laza@gmail.com
-zile@gmail.com
-mila@gmail.com
-zzz
-dd
-ss
-kole@gmail.com
-laki@gmail.com
+Nikola;Nikolic;2;M;3;nikolan@gmail.com;2;INSTRUKTOR;false;1
