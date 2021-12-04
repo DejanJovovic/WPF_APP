@@ -55,6 +55,17 @@ namespace SR_52_2020_POP2021.Windows
                     osveziDGKorisnici();
                 }
             }
+            else if (cbTipKorisnika.SelectedIndex == 2)//instruktori
+            {
+                Instruktor instr = new Instruktor();
+
+                RegistracijaInstruktoraWindow ri = new RegistracijaInstruktoraWindow(instr);
+                ri.ShowDialog();
+                if (ri.DialogResult == true)
+                {
+                    osveziDGKorisnici();
+                }
+            }
         }
 
         private void btnIzmena_Click(object sender, RoutedEventArgs e)
@@ -117,6 +128,32 @@ namespace SR_52_2020_POP2021.Windows
                 osveziDGKorisnici();
 
             }
+            else if (cbTipKorisnika.SelectedIndex == 2)//instruktori
+            {
+
+                Instruktor selektovanInstruktor = viewKorisnici.CurrentItem as Instruktor;
+                if (selektovanInstruktor != null)
+                {
+                    Instruktor copyInstruktor = new Instruktor(selektovanInstruktor);
+
+
+                    RegistracijaInstruktoraWindow ri = new RegistracijaInstruktoraWindow(selektovanInstruktor, EStatus.IZMENI);
+                    ri.ShowDialog();
+
+                    if (ri.DialogResult != true)
+                    {
+
+                        int index = Podaci.Instanca.lstInstruktori.IndexOf(selektovanInstruktor);
+                        Podaci.Instanca.lstInstruktori[index] = copyInstruktor;
+                    }
+
+
+
+                }
+
+                osveziDGKorisnici();
+
+            }
 
 
         }
@@ -150,6 +187,20 @@ namespace SR_52_2020_POP2021.Windows
                     osveziDGKorisnici();
                 }
             }
+            else if (cbTipKorisnika.SelectedIndex == 2)//instruktori
+            {
+                Instruktor selektovanInstruktor = viewKorisnici.CurrentItem as Instruktor;
+                PotvrdaBrisanjaWindow pb = new PotvrdaBrisanjaWindow();
+                pb.ShowDialog();
+                if (pb.DialogResult == true)
+                {
+                    selektovanInstruktor.obrisano = true;
+                    InstruktoriServis instrServis = new InstruktoriServis();
+                    instrServis.upisFajla(Podaci.Instanca.lstInstruktori);//azuriraj fajl
+
+                    osveziDGKorisnici();
+                }
+            }
         }
 
         private void cbTipKorisnika_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -160,7 +211,7 @@ namespace SR_52_2020_POP2021.Windows
         {
 
             if (cbTipKorisnika.SelectedIndex == 0)//admini
-                viewKorisnici = CollectionViewSource.GetDefaultView(Podaci.Instanca.lstAdmini.Where(ins => ins.obrisano == false).ToList());//log brisanje, neobrisani svi
+                viewKorisnici = CollectionViewSource.GetDefaultView(Podaci.Instanca.lstAdmini.Where(ins => ins.obrisano == false && ins.Jmbg!=Podaci.Instanca.jmbgPrijavljen).ToList());//log brisanje, neobrisani svi
             else if (cbTipKorisnika.SelectedIndex == 1)//polaznici
                 viewKorisnici = CollectionViewSource.GetDefaultView(Podaci.Instanca.lstPolaznici.Where(ins => ins.obrisano == false).ToList());
             else if (cbTipKorisnika.SelectedIndex == 2)//instruktori
@@ -193,6 +244,30 @@ namespace SR_52_2020_POP2021.Windows
 
         }
 
-       
+        private void btnPodaciProfila_Click(object sender, RoutedEventArgs e)
+        {
+            Korisnik admin = Podaci.Instanca.lstAdmini.Where(a => a.Jmbg == Podaci.Instanca.jmbgPrijavljen).FirstOrDefault();//naci objekat admina koji je prijavljen
+            if (admin != null)
+            {
+
+                Korisnik copyAdmin = new Korisnik(admin);
+
+                RegistracijaAdminaWindow ra = new RegistracijaAdminaWindow(admin, EStatus.IZMENI);
+                ra.ShowDialog();
+
+                if (ra.DialogResult != true)//ako nije potvrdjena izmena a zbog bindinga neki podaci promenjeni u objektu vratiti na kopiju objekta pre otvaranja forme
+                {
+                    int index = Podaci.Instanca.lstAdmini.IndexOf(admin);
+                    Podaci.Instanca.lstAdmini[index] = copyAdmin;
+                }
+                if (ra.DialogResult == true)
+                {
+                    if (copyAdmin.Jmbg == Podaci.Instanca.jmbgPrijavljen)//ako je admin promenio svoj jmbg azurirati jmbg prijavljenog
+                    {
+                        Podaci.Instanca.jmbgPrijavljen = admin.Jmbg;
+                    }
+                }
+            }
+        }
     }
 }

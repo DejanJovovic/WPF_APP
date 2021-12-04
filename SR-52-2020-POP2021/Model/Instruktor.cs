@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SR_52_2020_POP2021.Model
 {
-    public class Instruktor
+    public class Instruktor : INotifyPropertyChanged
     {
         Korisnik korisnik;
         int idFitnesCentra;
@@ -26,6 +27,13 @@ namespace SR_52_2020_POP2021.Model
             this.Jmbg = korisnik.Jmbg;
             this.ImePrezime = korisnik.Ime + " " + korisnik.Prezime;
         }
+        public Instruktor()
+        {
+            this.Korisnik = new Korisnik();
+            this.Korisnik.Adresa = new Adresa();
+            this.idFitnesCentra = 1;
+        }
+
         public Instruktor(Instruktor instr)
         {
             this.Korisnik = new Korisnik();
@@ -49,18 +57,53 @@ namespace SR_52_2020_POP2021.Model
 
             this.obrisano = instr.obrisano;
 
+            this.Jmbg = instr.Jmbg;
             this.ImePrezime = instr.Korisnik.Ime + " " + instr.Korisnik.Prezime;
 
         }
         //public Korisnik(string ime, string prezime, string jmbg, EPol pol, Adresa adresa, string email, string lozinka, ETipKorisnika tipKorisnika)
         // public Adresa(int id, string ulica, string broj, string grad, string drzava)
 
-        public Korisnik Korisnik { get => korisnik; set => korisnik = value; }
+        //public Korisnik Korisnik { get => korisnik; set => korisnik = value; }
+        public Korisnik Korisnik
+        {
+            get
+            {
+                return korisnik;
+            }
+            set
+            {
+                korisnik = value;
+                OnPropertyChanged("Korisnik");
+            }
+        }
 
         public string Jmbg { get => jmbg; set => jmbg = value; }
         public string ImePrezime { get => imePrezime; set => imePrezime = value; }
-        public int IdFitnesCentra { get => idFitnesCentra; set => idFitnesCentra = value; }
-       
+        //public int IdFitnesCentra { get => idFitnesCentra; set => idFitnesCentra = value; }
+        public int IdFitnesCentra
+        {
+            get
+            {
+                return idFitnesCentra;
+            }
+            set
+            {
+                idFitnesCentra = value;
+                OnPropertyChanged("IdFitnesCentra");
+            }
+        }
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(String propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
         public override string ToString()
         {

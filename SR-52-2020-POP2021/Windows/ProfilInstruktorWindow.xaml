@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Profil instruktora" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Button x:Name="btnPodaciProfila" Content="Podaci profila" HorizontalAlignment="Left" Margin="667,21,0,0" VerticalAlignment="Top" Width="102" Click="btnPodaciProfila_Click"/>
+
     </Grid>
 </Window>

@@ -91,6 +91,9 @@
     <Compile Include="Windows\RegistracijaAdminaWindow.xaml.cs">
       <DependentUpon>RegistracijaAdminaWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\RegistracijaInstruktoraWindow.xaml.cs">
+      <DependentUpon>RegistracijaInstruktoraWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\RegistracijaPolaznikaWindow.xaml.cs">
       <DependentUpon>RegistracijaPolaznikaWindow.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\RegistracijaAdminaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RegistracijaInstruktoraWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

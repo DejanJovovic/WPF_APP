@@ -1,3 +1,8 @@
-Nikola;Nikolic;2;M;4;nikolan@gmail.com;2;INSTRUKTOR;false;1
-Jovana;Jovic;21;M;6;nikolan@gmail.com;21;INSTRUKTOR;false;1
-Svetlana;Svetic;22;M;7;nikolan@gmail.com;22;INSTRUKTOR;false;2
+Nikola;Nikolic;2;M;4;nikolan@gmail.com;2;INSTRUKTOR;False;1
+Jovana;Jovic;21;M;6;nikolan@gmail.com;21;INSTRUKTOR;False;1
+Svetlana;Svetic;22;M;7;nikolan@gmail.com;22;INSTRUKTOR;False;2
+fwe;fwe;456;Z;14;456;456;INSTRUKTOR;True;0
+few;fwe;777;M;15;yuku;777;INSTRUKTOR;False;1
+few;fwe;234234;M;16;423423;423;INSTRUKTOR;True;2
+few;fwe;234423;M;17;423;423;INSTRUKTOR;True;1
+fwe;fwe;889;M;18;fwe;889;INSTRUKTOR;True;2
