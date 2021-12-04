@@ -1,2 +1,4 @@
 Mirjana;Miric;3;Z;5;mirjanam@gmail.com;3;POLAZNIK;False
 77;77;77;M;9;77;77;POLAZNIK;False
+fwe;fwe;678;M;11;jytj;678;POLAZNIK;False
+123;fwe;332;Z;12;332;332;POLAZNIK;True

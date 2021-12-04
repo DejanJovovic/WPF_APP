@@ -22,6 +22,8 @@ namespace SR_52_2020_POP2021.Model
 
         public bool obrisano = false;//logicko brisanje
 
+        string imePrezime;
+
         public Korisnik(string ime, string prezime, string jmbg, EPol pol, Adresa adresa, string email, string lozinka, ETipKorisnika tipKorisnika)
         {
             this.Ime = ime;
@@ -32,6 +34,8 @@ namespace SR_52_2020_POP2021.Model
             this.Email = email;
             this.Lozinka = lozinka;
             this.TipKorisnika = tipKorisnika;
+
+            this.ImePrezime = Ime + " " + Prezime;
         }
 
         public Korisnik() {
@@ -41,15 +45,24 @@ namespace SR_52_2020_POP2021.Model
 
         public Korisnik(Korisnik k)
         {
+            this.Adresa = new Adresa();
             this.Ime = k.Ime;
             this.Prezime = k.Prezime;
             this.Jmbg = k.Jmbg;
             this.Pol = k.Pol;
-            this.Adresa = k.Adresa;
+
+            this.Adresa.Id = k.Adresa.Id;
+            this.Adresa.Ulica = k.Adresa.Ulica;
+            this.Adresa.Broj = k.Adresa.Broj;
+            this.Adresa.Grad = k.Adresa.Grad;
+            this.Adresa.Drzava = k.Adresa.Drzava;
+
             this.Email = k.Email;
             this.Lozinka = k.Lozinka;
             this.TipKorisnika = k.TipKorisnika;
             this.obrisano = k.obrisano;
+
+            this.ImePrezime = k.Ime + " " + k.Prezime;
         }
 
         //public string Ime { get => ime; set => ime = value; }
@@ -163,7 +176,7 @@ namespace SR_52_2020_POP2021.Model
             }
         }
 
-
+        public string ImePrezime { get => imePrezime; set => imePrezime = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(String propertyName)

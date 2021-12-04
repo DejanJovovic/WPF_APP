@@ -77,7 +77,7 @@ namespace SR_52_2020_POP2021.Windows
             dgInstruktori.ColumnWidth = new DataGridLength(1, DataGridLengthUnitType.Star);
 
             if (dgInstruktori.Columns.Count > 0)
-                dgInstruktori.Columns[0].Header = "Ime i prezime";
+                dgInstruktori.Columns[1].Header = "Ime i prezime";
 
 
 

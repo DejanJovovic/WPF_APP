@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SR_52_2020_POP2021.Windows"
         mc:Ignorable="d"
-        Title="Profil administratora" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Profil administratora" Height="447.472" Width="897.331" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <DataGrid x:Name="dgKorisnici" HorizontalAlignment="Left" Height="287" Margin="59,98,0,0" VerticalAlignment="Top" Width="758" IsReadOnly="True" SelectionMode="Single" AutoGeneratingColumn="dgKorisnici_AutoGeneratingColumn"/>
+        <Label Content="Tip korisnika: " HorizontalAlignment="Left" Margin="59,44,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbTipKorisnika" HorizontalAlignment="Left" Margin="146,48,0,0" VerticalAlignment="Top" Width="214" SelectionChanged="cbTipKorisnika_SelectionChanged"/>
+        <Button x:Name="btnUpis" Content="Upis" HorizontalAlignment="Left" Margin="411,50,0,0" VerticalAlignment="Top" Width="75" Click="btnUpis_Click"/>
+        <Button x:Name="btnIzmena" Content="Izmena" HorizontalAlignment="Left" Margin="526,50,0,0" VerticalAlignment="Top" Width="75" Click="btnIzmena_Click"/>
+        <Button x:Name="btnBrisanje" Content="Brisanje" HorizontalAlignment="Left" Margin="637,50,0,0" VerticalAlignment="Top" Width="75" Click="btnBrisanje_Click"/>
+
     </Grid>
 </Window>

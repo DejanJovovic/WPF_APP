@@ -15,13 +15,20 @@ namespace SR_52_2020_POP2021.Model
 
         public bool obrisano = false;//logicko brisanje
 
+        string jmbg;
+        string imePrezime;
+
         public Polaznik(Korisnik korisnik)
         {
             this.Korisnik = korisnik;
+
+            this.jmbg = korisnik.Jmbg;
+            this.ImePrezime = korisnik.Ime + " " + korisnik.Prezime;
         }
         public Polaznik()
         {
-
+            this.Korisnik = new Korisnik();
+            this.Korisnik.Adresa = new Adresa();
         }
         public Polaznik(Polaznik polaznik)
         {
@@ -44,6 +51,9 @@ namespace SR_52_2020_POP2021.Model
 
             this.obrisano = polaznik.obrisano;
 
+            this.jmbg = polaznik.Korisnik.Jmbg;
+            this.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
+
         }
         //public Korisnik(string ime, string prezime, string jmbg, EPol pol, Adresa adresa, string email, string lozinka, ETipKorisnika tipKorisnika)
         // public Adresa(int id, string ulica, string broj, string grad, string drzava)
@@ -63,7 +73,9 @@ namespace SR_52_2020_POP2021.Model
             }
         }
 
-
+        public string Jmbg { get => jmbg; set => jmbg = value; }
+        public string ImePrezime { get => imePrezime; set => imePrezime = value; }
+    
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(String propertyName)

@@ -1,0 +1,15 @@
+﻿<Window x:Class="SR_52_2020_POP2021.Windows.PotvrdaBrisanjaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SR_52_2020_POP2021.Windows"
+        mc:Ignorable="d"
+        Title="Potvrda brisanja" Height="259.129" Width="558.567" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Da li potvrdjujete brisanje odabranog podatka ?" HorizontalAlignment="Left" Margin="116,71,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+        <Button x:Name="btnDa" Content="Da" HorizontalAlignment="Left" Margin="188,139,0,0" VerticalAlignment="Top" Width="75" Click="btnDa_Click"/>
+        <Button x:Name="btnNe" Content="Ne" HorizontalAlignment="Left" Margin="298,139,0,0" VerticalAlignment="Top" Width="75" Click="btnNe_Click"/>
+
+    </Grid>
+</Window>

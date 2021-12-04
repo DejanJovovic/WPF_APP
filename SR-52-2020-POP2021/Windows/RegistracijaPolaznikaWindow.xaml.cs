@@ -68,6 +68,8 @@ namespace SR_52_2020_POP2021.Windows
             {
                 this.polaznik.Korisnik.TipKorisnika = ETipKorisnika.POLAZNIK;
                 this.polaznik.Korisnik.Adresa.Id = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese
+                this.polaznik.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
+                this.polaznik.Jmbg = polaznik.Korisnik.Jmbg;
 
                 Podaci.Instanca.lstPolaznici.Add(polaznik);
                 Podaci.Instanca.lstAdrese.Add(polaznik.Korisnik.Adresa);
@@ -79,8 +81,11 @@ namespace SR_52_2020_POP2021.Windows
 
             }else if (status == EStatus.IZMENI)
             {
+                this.polaznik.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
+                this.polaznik.Jmbg = polaznik.Korisnik.Jmbg;
 
-                Podaci.Instanca.jmbgPrijavljen = polaznik.Korisnik.Jmbg; //ukoliko je promenjen jmbg promeniti ga u klasi Podaci za prijavljenog polaznika
+                if(Podaci.Instanca.tipPrijavljen==ETipKorisnika.POLAZNIK)//ako je polaznik promenio svoj jmbg
+                    Podaci.Instanca.jmbgPrijavljen = polaznik.Korisnik.Jmbg; //ukoliko je promenjen jmbg promeniti ga u klasi Podaci za prijavljenog polaznika
 
                 Adresa a = Podaci.Instanca.lstAdrese.Where(adr => adr.Id == polaznik.Korisnik.Adresa.Id).FirstOrDefault();//prvo naci adresu iz liste adresa na osnovu id
                 int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);

@@ -15,6 +15,7 @@ namespace SR_52_2020_POP2021.Model
 
         public bool obrisano = false;//logicko brisanje
 
+        string jmbg;
         string imePrezime;
 
         public Instruktor(Korisnik korisnik, int idFitnesCentra)
@@ -22,6 +23,7 @@ namespace SR_52_2020_POP2021.Model
             this.Korisnik = korisnik;
             this.IdFitnesCentra = idFitnesCentra;
 
+            this.Jmbg = korisnik.Jmbg;
             this.ImePrezime = korisnik.Ime + " " + korisnik.Prezime;
         }
         public Instruktor(Instruktor instr)
@@ -54,8 +56,11 @@ namespace SR_52_2020_POP2021.Model
         // public Adresa(int id, string ulica, string broj, string grad, string drzava)
 
         public Korisnik Korisnik { get => korisnik; set => korisnik = value; }
-        public int IdFitnesCentra { get => idFitnesCentra; set => idFitnesCentra = value; }
+
+        public string Jmbg { get => jmbg; set => jmbg = value; }
         public string ImePrezime { get => imePrezime; set => imePrezime = value; }
+        public int IdFitnesCentra { get => idFitnesCentra; set => idFitnesCentra = value; }
+       
 
         public override string ToString()
         {
