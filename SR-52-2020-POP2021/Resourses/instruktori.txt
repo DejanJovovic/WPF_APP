@@ -1,1 +1,3 @@
-Nikola;Nikolic;2;M;3;nikolan@gmail.com;2;INSTRUKTOR;false;1
+Nikola;Nikolic;2;M;4;nikolan@gmail.com;2;INSTRUKTOR;false;1
+Jovana;Jovic;21;M;6;nikolan@gmail.com;21;INSTRUKTOR;false;1
+Svetlana;Svetic;22;M;7;nikolan@gmail.com;22;INSTRUKTOR;false;2

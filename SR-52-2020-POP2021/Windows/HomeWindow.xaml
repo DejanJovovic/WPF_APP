@@ -5,11 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SR_52_2020_POP2021.Windows"
         mc:Ignorable="d"
-        Title="HomeWindow" Height="450" Width="800">
+        Title="Fitnes centri" Height="450" Width="1000.983">
     <Grid>
+        <Label Content="Fitnes centar:" HorizontalAlignment="Left" Margin="54,25,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cbFitnesCentri" HorizontalAlignment="Left" Margin="157,29,0,0" VerticalAlignment="Top" Width="200" SelectionChanged="cbFitnesCentri_SelectionChanged"/>
+        <Label x:Name="lbAdresaFitnesCentra" Content="Label" HorizontalAlignment="Left" Margin="381,25,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dgInstruktori" HorizontalAlignment="Left" Height="259" Margin="59,114,0,0" VerticalAlignment="Top" Width="590" AutoGeneratingColumn="dgInstruktori_AutoGeneratingColumn" IsReadOnly="True" SelectionMode="Single"/>
+        <Label Content="Instruktori fitnes centra" HorizontalAlignment="Left" Margin="59,77,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="14"/>
+        <Label Content="Pretraga:" HorizontalAlignment="Left" Margin="357,77,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbPretragaInstruktora" HorizontalAlignment="Left" Height="23" Margin="419,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+        <Button x:Name="btnRegistracija" Content="Registracija" HorizontalAlignment="Left" Margin="780,14,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btnPrijava" Content="Prijava" HorizontalAlignment="Left" Margin="893,14,0,0" VerticalAlignment="Top" Width="75"/>
 
-        <Label Name="lblWelcome" Content="Welcome"/>
-        <Button Name="btnStart" Content="Pocetak" Height="100" Width="200" Click="btnStart_Click"/>
+
 
     </Grid>
 </Window>
