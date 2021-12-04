@@ -26,6 +26,8 @@ namespace SR_52_2020_POP2021.Model
         }
         public Instruktor(Instruktor instr)
         {
+            this.Korisnik = new Korisnik();
+
             this.Korisnik.Ime = instr.Korisnik.Ime;
             this.Korisnik.Prezime = instr.Korisnik.Prezime;
             this.Korisnik.Jmbg = instr.Korisnik.Jmbg;

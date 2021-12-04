@@ -34,7 +34,10 @@ namespace SR_52_2020_POP2021.Model
             this.TipKorisnika = tipKorisnika;
         }
 
-        public Korisnik() { }
+        public Korisnik() {
+
+            this.Adresa = new Adresa();
+        }
 
         public Korisnik(Korisnik k)
         {

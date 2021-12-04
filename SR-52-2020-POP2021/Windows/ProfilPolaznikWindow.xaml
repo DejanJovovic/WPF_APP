@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Profil polaznika" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Button x:Name="btnPodaciProfila" Content="Podaci profila" HorizontalAlignment="Left" Margin="636,29,0,0" VerticalAlignment="Top" Width="109" Click="btnPodaciProfila_Click"/>
+
     </Grid>
 </Window>

@@ -29,6 +29,11 @@ namespace SR_52_2020_POP2021.Windows
             dodajCombo();
             this.polaznik = polaznik;
             this.status = status;
+            if (status == EStatus.IZMENI)
+            {
+                btnDodaj.Content = "Izmeni";
+                this.Title = "Izmena podataka o polazniku";
+            }
 
             tbIme.DataContext = polaznik.Korisnik;
             tbPrezime.DataContext = polaznik.Korisnik;
@@ -61,11 +66,30 @@ namespace SR_52_2020_POP2021.Windows
         {
             if (status == EStatus.DODAJ)
             {
+                this.polaznik.Korisnik.TipKorisnika = ETipKorisnika.POLAZNIK;
                 this.polaznik.Korisnik.Adresa.Id = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese
 
                 Podaci.Instanca.lstPolaznici.Add(polaznik);
+                Podaci.Instanca.lstAdrese.Add(polaznik.Korisnik.Adresa);
+
                 PolazniciServis polazniciServis = new PolazniciServis();
                 polazniciServis.upisFajla(Podaci.Instanca.lstPolaznici);
+                AdreseServis adrServis = new AdreseServis();
+                adrServis.upisFajla(Podaci.Instanca.lstAdrese);
+
+            }else if (status == EStatus.IZMENI)
+            {
+
+                Podaci.Instanca.jmbgPrijavljen = polaznik.Korisnik.Jmbg; //ukoliko je promenjen jmbg promeniti ga u klasi Podaci za prijavljenog polaznika
+
+                Adresa a = Podaci.Instanca.lstAdrese.Where(adr => adr.Id == polaznik.Korisnik.Adresa.Id).FirstOrDefault();//prvo naci adresu iz liste adresa na osnovu id
+                int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);
+                Podaci.Instanca.lstAdrese[indexAdrese] = new Adresa(polaznik.Korisnik.Adresa);//na indeksu te adrese dodeliti modifikovanu adresu
+
+                PolazniciServis polazniciServis = new PolazniciServis();
+                polazniciServis.upisFajla(Podaci.Instanca.lstPolaznici);
+                AdreseServis adrServis = new AdreseServis();
+                adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
             }
 
             DialogResult = true;

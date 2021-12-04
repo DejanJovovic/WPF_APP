@@ -25,6 +25,8 @@ namespace SR_52_2020_POP2021.Model
         }
         public Polaznik(Polaznik polaznik)
         {
+            this.Korisnik = new Korisnik();
+
             this.Korisnik.Ime = polaznik.Korisnik.Ime;
             this.Korisnik.Prezime = polaznik.Korisnik.Prezime;
             this.Korisnik.Jmbg = polaznik.Korisnik.Jmbg;

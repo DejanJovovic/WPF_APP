@@ -1,8 +1,9 @@
-1;Neznanog junaka;22;Novi Sad;Srbija;false
-2;Kumodraska;12;Novi Sad;Srbija;false
-3;Mihajla Pupina;3;Novi Sad;Srbija;false
-4;Kralja Petra I;45;Novi Sad;Srbija;false
-5;Nikole Tesle;14;Novi Sad;Srbija;false
-6;Cara Lazara;88;Novi Sad;Srbija;false
-7;Cara Lazara;89;Novi Sad;Srbija;false
-8;Cara Lazara;80;Novi Sad;Srbija;false
+1;Neznanog junaka;22;Novi Sad;Srbija;False
+2;Kumodraska;12;Novi Sad;Srbija;False
+3;Mihajla Pupina;3;Novi Sad;Srbija;False
+4;Kralja Petra I;45;Novi Sad;Srbija;False
+5;Nikole Tesle;14;Novi Sad;Srbija;False
+6;Cara Lazara;88;Novi Sad;Srbija;False
+7;Cara Lazara;89;Novi Sad;Srbija;False
+8;Cara Lazara;80;Novi Sad;Srbija;False
+9;88;88;88;Grcka;False
