@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SR_52_2020_POP2021.Model
 {
-    public class Polaznik
+    public class Polaznik: INotifyPropertyChanged
     {
         Korisnik korisnik;
         public ObservableCollection<Trening> lstTreninzi = new ObservableCollection<Trening>();
@@ -17,6 +18,10 @@ namespace SR_52_2020_POP2021.Model
         public Polaznik(Korisnik korisnik)
         {
             this.Korisnik = korisnik;
+        }
+        public Polaznik()
+        {
+
         }
         public Polaznik(Polaznik polaznik)
         {
@@ -42,7 +47,30 @@ namespace SR_52_2020_POP2021.Model
         // public Adresa(int id, string ulica, string broj, string grad, string drzava)
 
 
-        public Korisnik Korisnik { get => korisnik; set => korisnik = value; }
+        //public Korisnik Korisnik { get => korisnik; set => korisnik = value; }
+        public Korisnik Korisnik
+        {
+            get
+            {
+                return korisnik;
+            }
+            set
+            {
+                korisnik = value;
+                OnPropertyChanged("Korisnik");
+            }
+        }
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(String propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
         public override string ToString()
         {

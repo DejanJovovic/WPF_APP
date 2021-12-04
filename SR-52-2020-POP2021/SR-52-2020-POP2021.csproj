@@ -73,6 +73,21 @@
     <Compile Include="Windows\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\PrijavaWindow.xaml.cs">
+      <DependentUpon>PrijavaWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProfilAdminWindow.xaml.cs">
+      <DependentUpon>ProfilAdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProfilInstruktorWindow.xaml.cs">
+      <DependentUpon>ProfilInstruktorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProfilPolaznikWindow.xaml.cs">
+      <DependentUpon>ProfilPolaznikWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\RegistracijaPolaznikaWindow.xaml.cs">
+      <DependentUpon>RegistracijaPolaznikaWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\SviInstruktori.xaml.cs">
       <DependentUpon>SviInstruktori.xaml</DependentUpon>
     </Compile>
@@ -85,6 +100,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\HomeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\PrijavaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProfilAdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProfilInstruktorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProfilPolaznikWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\RegistracijaPolaznikaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

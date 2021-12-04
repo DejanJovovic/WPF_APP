@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace SR_52_2020_POP2021.Model
 {
 
-    public class Adresa
+    public class Adresa: INotifyPropertyChanged
     {
 
         int id;
@@ -25,6 +26,7 @@ namespace SR_52_2020_POP2021.Model
             this.Grad = grad;
             this.Drzava = drzava;
         }
+        public Adresa() { }
         public Adresa(Adresa a)
         {
             this.Id = a.Id;
@@ -36,11 +38,89 @@ namespace SR_52_2020_POP2021.Model
             this.obrisano = a.obrisano;
         }
 
-        public int Id { get => id; set => id = value; }
-        public string Ulica { get => ulica; set => ulica = value; }
-        public string Broj { get => broj; set => broj = value; }
-        public string Grad { get => grad; set => grad = value; }
-        public string Drzava { get => drzava; set => drzava = value; }
+        //public int Id { get => id; set => id = value; }
+        //public string Ulica { get => ulica; set => ulica = value; }
+        //public string Broj { get => broj; set => broj = value; }
+        //public string Grad { get => grad; set => grad = value; }
+        //public string Drzava { get => drzava; set => drzava = value; }
+
+
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+        public string Ulica
+        {
+            get
+            {
+                return ulica;
+            }
+            set
+            {
+                ulica = value;
+                OnPropertyChanged("Ulica");
+            }
+        }
+        public string Broj
+        {
+            get
+            {
+                return broj;
+            }
+            set
+            {
+                broj = value;
+                OnPropertyChanged("Broj");
+            }
+        }
+
+        public string Grad
+        {
+            get
+            {
+                return grad;
+            }
+            set
+            {
+                grad = value;
+                OnPropertyChanged("Grad");
+            }
+        }
+
+        public string Drzava
+        {
+            get
+            {
+                return drzava;
+            }
+            set
+            {
+                drzava = value;
+                OnPropertyChanged("Drzava");
+            }
+        }
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(String propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+
+
 
         public override string ToString()
         {

@@ -39,6 +39,7 @@ namespace SR_52_2020_POP2021.Windows
             InitializeComponent();
 
             ucitajCombo_FitnesCentri();
+            lbPrijavljenKorisnik.Visibility = Visibility.Hidden;
         }
         void ucitajCombo_FitnesCentri()
         {
@@ -106,6 +107,91 @@ namespace SR_52_2020_POP2021.Windows
             if ((string)e.Column.Header == "IdFitnesCentra" || (string)e.Column.Header == "Korisnik")
             {
                 e.Cancel = true;
+            }
+        }
+
+        private void btnRegistracija_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnRegistracija.Content.ToString() == "Registracija")
+            {
+                Polaznik noviPolaznik = new Polaznik();
+                noviPolaznik.Korisnik = new Korisnik();
+                noviPolaznik.Korisnik.Adresa = new Adresa();
+
+                RegistracijaPolaznikaWindow regWind = new RegistracijaPolaznikaWindow(noviPolaznik);
+                regWind.ShowDialog();
+
+            }else if(btnRegistracija.Content.ToString() == "Prikazi profil")
+            {
+                if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.ADMINISTRATOR)
+                {
+                    ProfilAdminWindow pa = new ProfilAdminWindow();
+                    pa.ShowDialog();
+                }
+                else if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)
+                {
+                    ProfilPolaznikWindow pp = new ProfilPolaznikWindow();
+                    pp.ShowDialog();
+                }
+                else if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.INSTRUKTOR)
+                {
+                    ProfilInstruktorWindow pi = new ProfilInstruktorWindow();
+                    pi.ShowDialog();
+                }
+            }
+          
+        }
+
+       
+
+        private void btnPrijava_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnPrijava.Content.ToString() == "Prijava")
+            {
+                PrijavaWindow pw = new PrijavaWindow();
+                pw.ShowDialog();
+
+                if (pw.DialogResult == true)
+                {
+
+                    prikaziPodatkePrijavljen_Lb();
+                    btnRegistracija.Content = "Prikazi profil";
+                    btnPrijava.Content = "Odjava"; //ako je uspesna prijava dugme postaje dugme za odjavu
+                }
+
+            }else if(btnPrijava.Content.ToString() == "Odjava") //kada se klikne na odjavu opet se moze prijaviti, ponisten jmbg prijavljenog iz Podaci klase
+            {
+                btnPrijava.Content = "Prijava";
+                btnRegistracija.Content = "Registracija";
+                Podaci.Instanca.jmbgPrijavljen = "";
+                lbPrijavljenKorisnik.Visibility = Visibility.Hidden;
+
+            }
+        }
+
+
+        void prikaziPodatkePrijavljen_Lb()
+        {
+            lbPrijavljenKorisnik.Visibility = Visibility.Visible; //prikazati podatke o prijavljenom korisniku u labelu, gornji levi ugao
+
+            if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.ADMINISTRATOR)
+            {
+                Korisnik k = Podaci.Instanca.lstAdmini.Where(a => a.Jmbg == Podaci.Instanca.jmbgPrijavljen).FirstOrDefault();
+                if (k != null)
+                    lbPrijavljenKorisnik.Content = "Prijavljen korisnik: " + k.Ime + " " + k.Prezime + ", Jmbg: " + k.Jmbg + ", Tip korisnika: " + k.TipKorisnika;
+
+            }
+            else if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)
+            {
+                Polaznik p = Podaci.Instanca.lstPolaznici.Where(a => a.Korisnik.Jmbg == Podaci.Instanca.jmbgPrijavljen).FirstOrDefault();
+                if (p != null)
+                    lbPrijavljenKorisnik.Content = "Prijavljen korisnik: " + p.Korisnik.Ime + " " + p.Korisnik.Prezime + ", Jmbg: " + p.Korisnik.Jmbg + ", Tip korisnika: " + p.Korisnik.TipKorisnika;
+            }
+            else if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.INSTRUKTOR)
+            {
+                Instruktor instr = Podaci.Instanca.lstInstruktori.Where(a => a.Korisnik.Jmbg == Podaci.Instanca.jmbgPrijavljen).FirstOrDefault();
+                if (instr != null)
+                    lbPrijavljenKorisnik.Content = "Prijavljen korisnik: " + instr.Korisnik.Ime + " " + instr.Korisnik.Prezime + ", Jmbg: " + instr.Korisnik.Jmbg + ", Tip korisnika: " + instr.Korisnik.TipKorisnika;
             }
         }
 

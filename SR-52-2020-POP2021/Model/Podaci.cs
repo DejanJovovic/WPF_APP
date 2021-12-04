@@ -14,6 +14,9 @@ namespace SR_52_2020_POP2021.Model
     public sealed class Podaci
     {
 
+        public string jmbgPrijavljen = "";
+        public ETipKorisnika tipPrijavljen;
+
 
         private static readonly Podaci instanca = new Podaci();
 
