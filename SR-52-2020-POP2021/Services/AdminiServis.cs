@@ -50,7 +50,18 @@ namespace SR_52_2020_POP2021.Services
 
         public void upisFajla(ObservableCollection<Korisnik> lista)
         {
-            throw new NotImplementedException();
+            StreamWriter sw = new StreamWriter(@"..\..\Resourses\admini.txt");
+            foreach (Korisnik admin in Podaci.Instanca.lstAdmini)
+            {
+               
+
+                sw.WriteLine(admin.Ime + ";" + admin.Prezime + ";" + admin.Jmbg + ";" + admin.Pol + ";" +
+                    admin.Adresa.Id + ";" + admin.Email + ";" + admin.Lozinka + ";" + admin.TipKorisnika + ";" + admin.obrisano);
+            }
+
+            sw.Close();
         }
+
+        //public Korisnik(string ime, string prezime, string jmbg, EPol pol, Adresa adresa, string email, string lozinka, ETipKorisnika tipKorisnika)
     }
 }

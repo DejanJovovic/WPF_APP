@@ -56,12 +56,33 @@ namespace SR_52_2020_POP2021.Model
         {
             lstAdrese = adreseServis.citanjeFajla();
             lstFitnesCentri = fitnesCentriServis.citanjeFajla();
-            //lstTreninzi = treninziServis.citanjeFajla();
             lstInstruktori = instruktoriServis.citanjeFajla();
             lstAdmini = adminiServis.citanjeFajla();
             lstPolaznici = polazniciServis.citanjeFajla();
+            lstTreninzi = treninziServis.citanjeFajla();
+
+            ucitajTreninge_InstruktoriPolaznici();
         }
-       
+
+        //ucitane treninge treba dodati u liste odgovarajucih instruktora i polaznika
+        void ucitajTreninge_InstruktoriPolaznici()
+        {
+            foreach(Trening t in lstTreninzi)
+            {
+                foreach(Instruktor instr in lstInstruktori)
+                {
+                    if (instr.Korisnik.Jmbg == t.Instruktor.Korisnik.Jmbg)
+                        instr.lstTreninzi.Add(new Trening(t));
+                }
+                foreach (Polaznik polaznik in lstPolaznici)
+                {
+                    if(t.Polaznik!=null)
+                        if (polaznik.Korisnik.Jmbg == t.Polaznik.Korisnik.Jmbg)
+                            polaznik.lstTreninzi.Add(new Trening(t));
+                }
+            }
+        }
+
 
 
 

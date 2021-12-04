@@ -29,6 +29,20 @@ namespace SR_52_2020_POP2021.Model
             this.Polaznik = polaznik;
         }
 
+        public Trening(Trening t)
+        {
+            this.Id = t.Id;
+            this.DatumTreninga = t.DatumTreninga;
+            this.VremePocetka = t.VremePocetka;
+            this.TrajanjeTreninga = t.TrajanjeTreninga;
+            this.Slobodan = t.Slobodan;
+            this.Instruktor = new Instruktor(t.Instruktor);
+            this.Polaznik = new Polaznik(t.Polaznik);
+
+            this.obrisano = t.obrisano;
+
+        }
+
         public int Id { get => id; set => id = value; }
         public DateTime DatumTreninga { get => datumTreninga; set => datumTreninga = value; }
         public string VremePocetka { get => vremePocetka; set => vremePocetka = value; }

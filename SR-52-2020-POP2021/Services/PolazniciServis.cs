@@ -52,7 +52,18 @@ namespace SR_52_2020_POP2021.Services
 
         public void upisFajla(ObservableCollection<Polaznik> lista)
         {
-            throw new NotImplementedException();
+            StreamWriter sw = new StreamWriter(@"..\..\Resourses\polaznici.txt");
+            foreach (Polaznik polaznik in Podaci.Instanca.lstPolaznici)
+            {
+
+
+                sw.WriteLine(polaznik.Korisnik.Ime + ";" + polaznik.Korisnik.Prezime + ";" + polaznik.Korisnik.Jmbg + ";" + polaznik.Korisnik.Pol + ";" +
+                    polaznik.Korisnik.Adresa.Id + ";" + polaznik.Korisnik.Email + ";" + polaznik.Korisnik.Lozinka + ";" + polaznik.Korisnik.TipKorisnika + ";" +
+                    polaznik.obrisano);
+            }
+
+            sw.Close();
         }
+        //public Polaznik(Korisnik korisnik)
     }
 }

@@ -54,7 +54,20 @@ namespace SR_52_2020_POP2021.Services
 
         public void upisFajla(ObservableCollection<Instruktor> lista)
         {
-            throw new NotImplementedException();
+            StreamWriter sw = new StreamWriter(@"..\..\Resourses\instruktori.txt");
+            foreach (Instruktor instr in Podaci.Instanca.lstInstruktori)
+            {
+
+
+                sw.WriteLine(instr.Korisnik.Ime + ";" + instr.Korisnik.Prezime + ";" + instr.Korisnik.Jmbg + ";" + instr.Korisnik.Pol + ";" +
+                    instr.Korisnik.Adresa.Id + ";" + instr.Korisnik.Email + ";" + instr.Korisnik.Lozinka + ";" + instr.Korisnik.TipKorisnika + ";" +
+                    instr.obrisano + ";" + instr.IdFitnesCentra);
+            }
+
+            sw.Close();
         }
+        // public Instruktor(Korisnik korisnik, int idFitnesCentra)
+        //public Korisnik(string ime, string prezime, string jmbg, EPol pol, Adresa adresa, string email, string lozinka, ETipKorisnika tipKorisnika)
+        // public Adresa(int id, string ulica, string broj, string grad, string drzava)
     }
 }

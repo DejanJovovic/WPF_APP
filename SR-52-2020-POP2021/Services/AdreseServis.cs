@@ -37,7 +37,17 @@ namespace SR_52_2020_POP2021.Services
 
         public void upisFajla(ObservableCollection<Adresa> lista)
         {
-            throw new NotImplementedException();
+            StreamWriter sw = new StreamWriter(@"..\..\Resourses\adrese.txt");
+            foreach (Adresa adresa in Podaci.Instanca.lstAdrese)
+            {
+
+
+                sw.WriteLine(adresa.Id + ";" + adresa.Ulica + ";" + adresa.Broj + ";" + adresa.Grad + ";" +
+                    adresa.Drzava + ";" + adresa.obrisano);
+            }
+
+            sw.Close();
         }
+        // public Adresa(int id, string ulica, string broj, string grad, string drzava)
     }
 }

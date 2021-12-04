@@ -43,7 +43,17 @@ namespace SR_52_2020_POP2021.Services
 
         public void upisFajla(ObservableCollection<FitnesCentar> lista)
         {
-            throw new NotImplementedException();
+            StreamWriter sw = new StreamWriter(@"..\..\Resourses\fitnescentri.txt");
+            foreach (FitnesCentar fc in Podaci.Instanca.lstFitnesCentri)
+            {
+
+
+                sw.WriteLine(fc.Id + ";" + fc.Naziv + ";" + fc.Adresa.Id + ";" + fc.obrisano);
+            }
+
+            sw.Close();
         }
+
+        //    public FitnesCentar(int id, string naziv, Adresa adresa)
     }
 }

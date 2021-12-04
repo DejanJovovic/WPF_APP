@@ -32,6 +32,8 @@ namespace SR_52_2020_POP2021.Model
             this.Broj = a.Broj;
             this.Grad = a.Grad;
             this.Drzava = a.Drzava;
+
+            this.obrisano = a.obrisano;
         }
 
         public int Id { get => id; set => id = value; }
