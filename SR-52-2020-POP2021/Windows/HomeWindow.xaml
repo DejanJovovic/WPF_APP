@@ -17,6 +17,7 @@
         <Button x:Name="btnRegistracija" Content="Registracija" HorizontalAlignment="Left" Margin="780,14,0,0" VerticalAlignment="Top" Width="75" Click="btnRegistracija_Click"/>
         <Button x:Name="btnPrijava" Content="Prijava" HorizontalAlignment="Left" Margin="893,14,0,0" VerticalAlignment="Top" Width="75" Click="btnPrijava_Click"/>
         <Label x:Name="lbPrijavljenKorisnik" Content="Prijavljen korisnik:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button x:Name="btnPrikaziTermine" Content="Prikazi termine" HorizontalAlignment="Left" Margin="665,380,0,0" VerticalAlignment="Top" Width="113" Click="btnPrikaziTermine_Click"/>
 
 
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SR_52_2020_POP2021.Windows"
         mc:Ignorable="d"
-        Title="Profil administratora" Height="447.472" Width="897.331" WindowStartupLocation="CenterScreen">
+        Title="Profil administratora" Height="445.341" Width="1023.049" WindowStartupLocation="CenterScreen">
     <Grid>
         <DataGrid x:Name="dgKorisnici" HorizontalAlignment="Left" Height="287" Margin="59,98,0,0" VerticalAlignment="Top" Width="758" IsReadOnly="True" SelectionMode="Single" AutoGeneratingColumn="dgKorisnici_AutoGeneratingColumn"/>
         <Label Content="Tip korisnika: " HorizontalAlignment="Left" Margin="59,44,0,0" VerticalAlignment="Top"/>
@@ -13,7 +13,9 @@
         <Button x:Name="btnUpis" Content="Upis" HorizontalAlignment="Left" Margin="411,50,0,0" VerticalAlignment="Top" Width="75" Click="btnUpis_Click"/>
         <Button x:Name="btnIzmena" Content="Izmena" HorizontalAlignment="Left" Margin="526,50,0,0" VerticalAlignment="Top" Width="75" Click="btnIzmena_Click"/>
         <Button x:Name="btnBrisanje" Content="Brisanje" HorizontalAlignment="Left" Margin="637,50,0,0" VerticalAlignment="Top" Width="75" Click="btnBrisanje_Click"/>
-        <Button x:Name="btnPodaciProfila" Content="Podaci profila" HorizontalAlignment="Left" Margin="791,10,0,0" VerticalAlignment="Top" Width="88" Click="btnPodaciProfila_Click"/>
+        <Button x:Name="btnPodaciProfila" Content="Podaci profila" HorizontalAlignment="Left" Margin="908,10,0,0" VerticalAlignment="Top" Width="88" Click="btnPodaciProfila_Click"/>
+        <Button x:Name="btnFitnesCentri" Content="Fitnes centri" HorizontalAlignment="Left" Margin="908,50,0,0" VerticalAlignment="Top" Width="90" Click="btnFitnesCentri_Click"/>
+        <Button x:Name="btnZatvori" Content="Zatvori" HorizontalAlignment="Left" Margin="921,384,0,0" VerticalAlignment="Top" Width="75" Click="btnZatvori_Click"/>
 
     </Grid>
 </Window>

@@ -15,21 +15,16 @@ using System.Windows.Shapes;
 namespace SR_52_2020_POP2021.Windows
 {
     /// <summary>
-    /// Interaction logic for PotvrdaBrisanjaWindow.xaml
+    /// Interaction logic for FitnesCentriWindow.xaml
     /// </summary>
-    public partial class PotvrdaBrisanjaWindow : Window
+    public partial class FitnesCentriWindow : Window
     {
-        public PotvrdaBrisanjaWindow()
+        public FitnesCentriWindow()
         {
             InitializeComponent();
         }
 
-        private void btnDa_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;//ovo se prati iz forme koja je pozvala da je potvrdjeno brisanje
-        }
-
-        private void btnNe_Click(object sender, RoutedEventArgs e)
+        private void btnZatvori_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

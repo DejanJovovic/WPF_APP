@@ -24,7 +24,7 @@ namespace SR_52_2020_POP2021.Windows
         ICollectionView viewInstruktori;
         public HomeWindow()
         {
-            Podaci.Instanca.ucitajFajlove();
+            Podaci.Instanca.ucitajFajlove();//pokretanjem aplikacije prvo se ucitaju svi fajlovi u liste koje su u Podaci klasi
 
             //MessageBox.Show(
             //    "\n#Broj ucitanih adresa: " + Podaci.Instanca.lstAdrese.Count.ToString() +
@@ -39,8 +39,10 @@ namespace SR_52_2020_POP2021.Windows
             InitializeComponent();
 
             ucitajCombo_FitnesCentri();
-            lbPrijavljenKorisnik.Visibility = Visibility.Hidden;
+            lbPrijavljenKorisnik.Visibility = Visibility.Hidden;//prikazace se podaci u gornjem levom uglu kad se prijavi neki korisnik
         }
+
+        //u combo se ucitaju svi fitnes centri, njihovi nazivi
         void ucitajCombo_FitnesCentri()
         {
             if (Podaci.Instanca.lstFitnesCentri.Count > 0)
@@ -49,11 +51,11 @@ namespace SR_52_2020_POP2021.Windows
                 lbAdresaFitnesCentra.Content = "Adresa:";
 
                 foreach (FitnesCentar fc in Podaci.Instanca.lstFitnesCentri)
-                    cbFitnesCentri.Items.Add(fc.Naziv);
+                    cbFitnesCentri.Items.Add(fc.Naziv);//dodaju se nazivi fitnes centara u combo box
                 if (cbFitnesCentri.Items.Count > 0)
                 {
-                    cbFitnesCentri.SelectedIndex = 0;
-                    osveziDGInstruktori(cbFitnesCentri.SelectedItem.ToString());
+                    cbFitnesCentri.SelectedIndex = 0;//prvi selektovan inicijalno
+                    osveziDGInstruktori(cbFitnesCentri.SelectedItem.ToString());//da se prikaze selektovan, tj ovde prvo prikaze sve instruktore iz svih fitnes centaara
                 }
             }
         }
@@ -62,7 +64,7 @@ namespace SR_52_2020_POP2021.Windows
         {
 
 
-            if (nazivFC == "svi")
+            if (nazivFC == "svi")//ako je prosledjeno svi prikazuje sve instruktore
                 viewInstruktori = CollectionViewSource.GetDefaultView(Podaci.Instanca.lstInstruktori.Where(ins => ins.obrisano == false).ToList());//log brisanje, neobrisani svi
             else {
                 FitnesCentar fc = Podaci.Instanca.lstFitnesCentri.Where(f => f.Naziv == nazivFC).FirstOrDefault();//nadje objekat fc po nazivu 
@@ -77,7 +79,7 @@ namespace SR_52_2020_POP2021.Windows
             dgInstruktori.ColumnWidth = new DataGridLength(1, DataGridLengthUnitType.Star);
 
             if (dgInstruktori.Columns.Count > 0)
-                dgInstruktori.Columns[1].Header = "Ime i prezime";
+                dgInstruktori.Columns[1].Header = "Ime i prezime";//naziv kolone za ime i prezime
 
 
 
@@ -91,7 +93,7 @@ namespace SR_52_2020_POP2021.Windows
                 FitnesCentar fc = Podaci.Instanca.lstFitnesCentri.Where(f => f.Naziv.Equals(cbFitnesCentri.SelectedItem.ToString())).FirstOrDefault();
                 if (fc != null)
                 {
-                    lbAdresaFitnesCentra.Content = "Adresa: " + fc.Adresa.Ulica + " " + fc.Adresa.Broj + " " + fc.Adresa.Grad;
+                    lbAdresaFitnesCentra.Content = "Adresa: " + fc.Adresa.Ulica + " " + fc.Adresa.Broj + " " + fc.Adresa.Grad;//adresa sa desne strane combo boxa
                     osveziDGInstruktori(cbFitnesCentri.SelectedItem.ToString()); //da prikaze instruktore po nazivu fitnes centra
                 }
             }
@@ -104,7 +106,7 @@ namespace SR_52_2020_POP2021.Windows
 
         private void dgInstruktori_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if ((string)e.Column.Header == "IdFitnesCentra" || (string)e.Column.Header == "Korisnik")
+            if ((string)e.Column.Header == "IdFitnesCentra" || (string)e.Column.Header == "Korisnik") //da ne prikaze ove podatke u kolonama data grida
             {
                 e.Cancel = true;
             }
@@ -112,18 +114,19 @@ namespace SR_52_2020_POP2021.Windows
 
         private void btnRegistracija_Click(object sender, RoutedEventArgs e)
         {
-            if (btnRegistracija.Content.ToString() == "Registracija")
+            if (btnRegistracija.Content.ToString() == "Registracija")//ako na buttonu pise registracija bice registracija, ovaj prikaz se menja u Prikazi profil kad se korisnik prijavi
             {
                 Polaznik noviPolaznik = new Polaznik();
                 noviPolaznik.Korisnik = new Korisnik();
                 noviPolaznik.Korisnik.Adresa = new Adresa();
 
-                RegistracijaPolaznikaWindow regWind = new RegistracijaPolaznikaWindow(noviPolaznik);
+                //otvara se forma za registraciju novog polaznika, podrazumevano u modu za dodavanje
+                RegistracijaPolaznikaWindow regWind = new RegistracijaPolaznikaWindow(noviPolaznik);//mogu se registrovati samo polaznici a ostale moze admin kad se prijavi
                 regWind.ShowDialog();
 
-            }else if(btnRegistracija.Content.ToString() == "Prikazi profil")
+            }else if(btnRegistracija.Content.ToString() == "Prikazi profil")//ako je na buttonu prikazi da prikaze za prijavljeni tip korisnika
             {
-                if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.ADMINISTRATOR)
+                if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.ADMINISTRATOR)//prijavom se promenio tip korisnika u klasi Podaci i sada prikazati profil admina ako je on odabran
                 {
                     ProfilAdminWindow pa = new ProfilAdminWindow();
                     pa.ShowDialog();
@@ -149,21 +152,21 @@ namespace SR_52_2020_POP2021.Windows
             if (btnPrijava.Content.ToString() == "Prijava")
             {
                 PrijavaWindow pw = new PrijavaWindow();
-                pw.ShowDialog();
+                pw.ShowDialog();//otvoren prozor za prijavu
 
-                if (pw.DialogResult == true)
+                if (pw.DialogResult == true)//ako je uspesna prijava iz otvorene forme za prijavu
                 {
 
-                    prikaziPodatkePrijavljen_Lb();
-                    btnRegistracija.Content = "Prikazi profil";
+                    prikaziPodatkePrijavljen_Lb();//u gornjem levom uglu po prijavi podaci prijavljenog
+                    btnRegistracija.Content = "Prikazi profil";//promeni tekst buttona za registraciju 
                     btnPrijava.Content = "Odjava"; //ako je uspesna prijava dugme postaje dugme za odjavu
                 }
 
             }else if(btnPrijava.Content.ToString() == "Odjava") //kada se klikne na odjavu opet se moze prijaviti, ponisten jmbg prijavljenog iz Podaci klase
             {
                 btnPrijava.Content = "Prijava";
-                btnRegistracija.Content = "Registracija";
-                Podaci.Instanca.jmbgPrijavljen = "";
+                btnRegistracija.Content = "Registracija";//resetuj dugmad prikaz po odjavi
+                Podaci.Instanca.jmbgPrijavljen = "";//
                 lbPrijavljenKorisnik.Visibility = Visibility.Hidden;
 
             }
@@ -195,11 +198,10 @@ namespace SR_52_2020_POP2021.Windows
             }
         }
 
-        //private void btnStart_Click(object sender, RoutedEventArgs e)
-        //{
-        //    SviInstruktori sviInstruktori = new SviInstruktori();
-        //    this.Hide();
-        //    sviInstruktori.Show();
-        //}
+        private void btnPrikaziTermine_Click(object sender, RoutedEventArgs e)
+        {
+            ProfilInstruktorWindow piw = new ProfilInstruktorWindow();
+            piw.ShowDialog();
+        }
     }
 }

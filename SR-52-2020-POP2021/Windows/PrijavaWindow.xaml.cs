@@ -23,28 +23,28 @@ namespace SR_52_2020_POP2021.Windows
         public PrijavaWindow()
         {
             InitializeComponent();
-            cbTipoviKorisnika.ItemsSource = Enum.GetValues(typeof(ETipKorisnika)).Cast<ETipKorisnika>();
+            cbTipoviKorisnika.ItemsSource = Enum.GetValues(typeof(ETipKorisnika)).Cast<ETipKorisnika>(); //inicijalizuje combo za tipove korisnika
             cbTipoviKorisnika.SelectedIndex = 1;
         }
 
         private void btnPrijava_Click(object sender, RoutedEventArgs e)
         {
-            if(tbKorisnicko.Text=="" || pbLozinka.Password == "")
+            if(tbKorisnicko.Text=="" || pbLozinka.Password == "") //provera da podaci moraju biti uneti
             {
                 MessageBox.Show("Morate uneti korisnicko ime i lozinku!");
             }
             else
             {
                 bool pronadjen = false;
-                if (cbTipoviKorisnika.SelectedIndex == 0)//admini
+                if (cbTipoviKorisnika.SelectedIndex == 0)//admini selektovana opcija
                 {
-                    foreach(Korisnik k in Podaci.Instanca.lstAdmini)
+                    foreach(Korisnik k in Podaci.Instanca.lstAdmini)//pretraga kroz listu admina
                     {
-                        if(k.Jmbg==tbKorisnicko.Text && k.Lozinka == pbLozinka.Password)
+                        if(k.Jmbg==tbKorisnicko.Text && k.Lozinka == pbLozinka.Password)//ako se odredjenom adminu poklapaju korisnicko i lozinka s unetim
                         {
-                            pronadjen = true;
+                            pronadjen = true;//indikator promenjen da je pronadjen
                             Podaci.Instanca.jmbgPrijavljen = k.Jmbg;
-                            Podaci.Instanca.tipPrijavljen = k.TipKorisnika;
+                            Podaci.Instanca.tipPrijavljen = k.TipKorisnika; //setovana ova dva podatka u klasi Podaci da se zna u proverama kome se sta prikazuje kao opcija
                             DialogResult = true;
                         }
                     }

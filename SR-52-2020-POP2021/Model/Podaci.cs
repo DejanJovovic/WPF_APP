@@ -15,17 +15,18 @@ namespace SR_52_2020_POP2021.Model
     {
 
         public string jmbgPrijavljen = "";
-        public ETipKorisnika tipPrijavljen;
+        public ETipKorisnika tipPrijavljen; //prilikom prijave setuju se da bi se znao tip korisnika i jmbg prijavljenog. Odjavom jmbgPrijavljen se vraca na ""
 
 
         private static readonly Podaci instanca = new Podaci();
 
+        //servisi zasad citaju iz fajlova, bice modifikovani za bazu
         private AdreseServis adreseServis;
         private FitnesCentriServis fitnesCentriServis;
         private TreninziServis treninziServis;
         private AdminiServis adminiServis;
         private InstruktoriServis instruktoriServis;
-        private PolazniciServis polazniciServis;
+        private PolazniciServis polazniciServis; 
 
 
         private Podaci()
@@ -40,7 +41,7 @@ namespace SR_52_2020_POP2021.Model
 
         static Podaci() { }
 
-        public static Podaci Instanca
+        public static Podaci Instanca   //singleton da bi bila jedna instanca i sve liste jedinstvene
         {
             get
             {
@@ -53,9 +54,9 @@ namespace SR_52_2020_POP2021.Model
         public ObservableCollection<Trening> lstTreninzi = new ObservableCollection<Trening>();
         public ObservableCollection<Korisnik> lstAdmini = new ObservableCollection<Korisnik>();
         public ObservableCollection<Instruktor> lstInstruktori = new ObservableCollection<Instruktor>();
-        public ObservableCollection<Polaznik> lstPolaznici = new ObservableCollection<Polaznik>();
+        public ObservableCollection<Polaznik> lstPolaznici = new ObservableCollection<Polaznik>();   //listama se pristupa iz svih klasa za azuriranje
 
-        public void ucitajFajlove()
+        public void ucitajFajlove()  //poziva se pokretanjem aplikacije da se podaci iscitaju iz fajlova u liste
         {
             lstAdrese = adreseServis.citanjeFajla();
             lstFitnesCentri = fitnesCentriServis.citanjeFajla();
@@ -64,17 +65,17 @@ namespace SR_52_2020_POP2021.Model
             lstPolaznici = polazniciServis.citanjeFajla();
             lstTreninzi = treninziServis.citanjeFajla();
 
-            ucitajTreninge_InstruktoriPolaznici();
+            ucitajTreninge_InstruktoriPolaznici(); //dodatno dodati lsite treninga instruktorima i polaznicima
         }
 
         //ucitane treninge treba dodati u liste odgovarajucih instruktora i polaznika
         void ucitajTreninge_InstruktoriPolaznici()
         {
-            foreach(Trening t in lstTreninzi)
+            foreach(Trening t in lstTreninzi) 
             {
                 foreach(Instruktor instr in lstInstruktori)
                 {
-                    if (instr.Korisnik.Jmbg == t.Instruktor.Korisnik.Jmbg)
+                    if (instr.Korisnik.Jmbg == t.Instruktor.Korisnik.Jmbg)//prepoznat instruktor po jmbg, dodati mu trening u listu treninga
                         instr.lstTreninzi.Add(new Trening(t));
                 }
                 foreach (Polaznik polaznik in lstPolaznici)

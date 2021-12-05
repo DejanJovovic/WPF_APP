@@ -46,5 +46,10 @@ namespace SR_52_2020_POP2021.Windows
 
            
         }
+
+        private void btnZatvori_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

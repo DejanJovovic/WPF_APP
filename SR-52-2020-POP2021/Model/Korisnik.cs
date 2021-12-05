@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SR_52_2020_POP2021.Model
 {
 
-    public class Korisnik: INotifyPropertyChanged
+    public class Korisnik: INotifyPropertyChanged   //za data binding
     {
 
         string ime;

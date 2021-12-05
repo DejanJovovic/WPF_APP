@@ -7,7 +7,12 @@
         mc:Ignorable="d"
         Title="Profil polaznika" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button x:Name="btnPodaciProfila" Content="Podaci profila" HorizontalAlignment="Left" Margin="636,29,0,0" VerticalAlignment="Top" Width="109" Click="btnPodaciProfila_Click"/>
+        <Button x:Name="btnPodaciProfila" Content="Podaci profila" HorizontalAlignment="Left" Margin="668,10,0,0" VerticalAlignment="Top" Width="109" Click="btnPodaciProfila_Click"/>
+        <Button x:Name="btnZatvori" Content="Zatvori" HorizontalAlignment="Left" Margin="702,377,0,0" VerticalAlignment="Top" Width="75" Click="btnZatvori_Click"/>
+        <DataGrid x:Name="dgTreninzi" HorizontalAlignment="Left" Height="306" Margin="66,86,0,0" VerticalAlignment="Top" Width="535"/>
+        <Label Content="Odaberite datum:" HorizontalAlignment="Left" Margin="70,24,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dtDatumPrikaz" HorizontalAlignment="Left" Margin="193,25,0,0" VerticalAlignment="Top"/>
+        <Label Content="Treninzi po datumu" HorizontalAlignment="Left" Margin="463,51,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
 
     </Grid>
 </Window>
