@@ -67,6 +67,9 @@
     <Compile Include="Services\InstruktoriServis.cs" />
     <Compile Include="Services\PolazniciServis.cs" />
     <Compile Include="Services\TreninziServis.cs" />
+    <Compile Include="Windows\FitnesCentarUpisIzmena_Window.xaml.cs">
+      <DependentUpon>FitnesCentarUpisIzmena_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\FitnesCentriWindow.xaml.cs">
       <DependentUpon>FitnesCentriWindow.xaml</DependentUpon>
     </Compile>
@@ -101,6 +104,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\FitnesCentarUpisIzmena_Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\FitnesCentriWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

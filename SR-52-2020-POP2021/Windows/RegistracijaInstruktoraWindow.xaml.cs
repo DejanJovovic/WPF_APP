@@ -68,7 +68,8 @@ namespace SR_52_2020_POP2021.Windows
 
 
             foreach (FitnesCentar fc in Podaci.Instanca.lstFitnesCentri)
-                cbIdFitnesCentra.Items.Add(fc.Id);
+                if(fc.obrisano==false)
+                    cbIdFitnesCentra.Items.Add(fc.Id);
 
             if(cbIdFitnesCentra.Items.Count>0)
                 cbIdFitnesCentra.SelectedIndex = 0;

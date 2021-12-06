@@ -40,6 +40,7 @@ namespace SR_52_2020_POP2021.Windows
 
             ucitajCombo_FitnesCentri();
             lbPrijavljenKorisnik.Visibility = Visibility.Hidden;//prikazace se podaci u gornjem levom uglu kad se prijavi neki korisnik
+            btnPrikaziTermine.Visibility = Visibility.Hidden;//prikazace se samo prijavljenim polaznicima. Moraju prvo selektovati instruktora da bi im se prikazala lista njegovih termina treninga
         }
 
         //u combo se ucitaju svi fitnes centri, njihovi nazivi
@@ -138,7 +139,7 @@ namespace SR_52_2020_POP2021.Windows
                 }
                 else if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.INSTRUKTOR)
                 {
-                    ProfilInstruktorWindow pi = new ProfilInstruktorWindow();
+                    ProfilInstruktorWindow pi = new ProfilInstruktorWindow(null);//ako formu otvara polaznik s pocetne strane, desno od datagrida za selektovanog instruktora taj instr se prosledjuje
                     pi.ShowDialog();
                 }
             }
@@ -160,6 +161,10 @@ namespace SR_52_2020_POP2021.Windows
                     prikaziPodatkePrijavljen_Lb();//u gornjem levom uglu po prijavi podaci prijavljenog
                     btnRegistracija.Content = "Prikazi profil";//promeni tekst buttona za registraciju 
                     btnPrijava.Content = "Odjava"; //ako je uspesna prijava dugme postaje dugme za odjavu
+
+
+                    if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)//samo polaznik moze da zakaze termin treninga kod selektovanog instruktora
+                        btnPrikaziTermine.Visibility = Visibility.Visible;
                 }
 
             }else if(btnPrijava.Content.ToString() == "Odjava") //kada se klikne na odjavu opet se moze prijaviti, ponisten jmbg prijavljenog iz Podaci klase
@@ -168,6 +173,7 @@ namespace SR_52_2020_POP2021.Windows
                 btnRegistracija.Content = "Registracija";//resetuj dugmad prikaz po odjavi
                 Podaci.Instanca.jmbgPrijavljen = "";//
                 lbPrijavljenKorisnik.Visibility = Visibility.Hidden;
+                btnPrikaziTermine.Visibility = Visibility.Hidden;
 
             }
         }
@@ -200,8 +206,17 @@ namespace SR_52_2020_POP2021.Windows
 
         private void btnPrikaziTermine_Click(object sender, RoutedEventArgs e)
         {
-            ProfilInstruktorWindow piw = new ProfilInstruktorWindow();
-            piw.ShowDialog();
+            Instruktor selektovanInstr = viewInstruktori.CurrentItem as Instruktor;
+
+            if (selektovanInstr != null)
+            {
+                ProfilInstruktorWindow piw = new ProfilInstruktorWindow(selektovanInstr);
+                piw.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Morate prvo selektovati instruktora!");
+            }
         }
     }
 }

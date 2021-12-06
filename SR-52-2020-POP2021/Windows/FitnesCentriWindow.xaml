@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SR_52_2020_POP2021.Windows"
         mc:Ignorable="d"
-        Title="Azuriranje fitnes centara" Height="475.281" Width="956.742" WindowStartupLocation="CenterScreen">
+        Title="Azuriranje fitnes centara" Height="505.987" Width="1030.17" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid HorizontalAlignment="Left" Height="330" Margin="52,72,0,0" VerticalAlignment="Top" Width="838"/>
+        <DataGrid x:Name="dgFitnesCentri" HorizontalAlignment="Left" Height="330" Margin="52,72,0,0" VerticalAlignment="Top" Width="915" IsReadOnly="True" SelectionMode="Single"/>
         <Label Content="Lista fitnes centara" HorizontalAlignment="Left" Margin="59,41,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <Button x:Name="btnDodaj" Content="Dodaj" HorizontalAlignment="Left" Margin="564,26,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnIzmeni" Content="Izmeni" HorizontalAlignment="Left" Margin="692,26,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnBrisi" Content="Brisi" HorizontalAlignment="Left" Margin="815,26,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnZatvori" Content="Zatvori" HorizontalAlignment="Left" Margin="864,414,0,0" VerticalAlignment="Top" Width="75" Click="btnZatvori_Click"/>
+        <Button x:Name="btnDodaj" Content="Upis" HorizontalAlignment="Left" Margin="641,26,0,0" VerticalAlignment="Top" Width="75" Click="btnDodaj_Click"/>
+        <Button x:Name="btnIzmeni" Content="Izmena" HorizontalAlignment="Left" Margin="769,26,0,0" VerticalAlignment="Top" Width="75" Click="btnIzmeni_Click"/>
+        <Button x:Name="btnBrisi" Content="Brisanje" HorizontalAlignment="Left" Margin="892,26,0,0" VerticalAlignment="Top" Width="75" Click="btnBrisi_Click"/>
+        <Button x:Name="btnZatvori" Content="Zatvori" HorizontalAlignment="Left" Margin="937,445,0,0" VerticalAlignment="Top" Width="75" Click="btnZatvori_Click"/>
 
     </Grid>
 </Window>

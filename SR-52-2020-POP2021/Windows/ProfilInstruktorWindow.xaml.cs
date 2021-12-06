@@ -20,9 +20,31 @@ namespace SR_52_2020_POP2021.Windows
     /// </summary>
     public partial class ProfilInstruktorWindow : Window
     {
-        public ProfilInstruktorWindow()
+        Instruktor selektovanInstruktor = null;// ako se prijavio polaznik, ima opciju na pocetnoj strani, kada selektuje instruktora da otvori ovu formu i zakaze termin treninga
+        public ProfilInstruktorWindow(Instruktor selektovanInstruktor) //ova forma je dostupna i polaznicima kada zakazuju termin treninga zato sto ujedno su prikazani i podaci po datumima za odabranog instruktora
         {
             InitializeComponent();
+            this.selektovanInstruktor = selektovanInstruktor;
+
+            if (selektovanInstruktor != null)//formu je otvorio polaznik da zakaze termin i prosledjen je selektovani instruktor
+            {
+                this.Title = "Zakazivanje termina treninga";
+                lbInstruktorPodaci.Content = "Instruktor: " + selektovanInstruktor.Korisnik.Ime + " " + selektovanInstruktor.Korisnik.Prezime;
+                lbInstruktorPodaci.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                lbInstruktorPodaci.Visibility = Visibility.Hidden;
+
+            }
+
+            if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.INSTRUKTOR) //samo ako je instruktor prijavljen mogu se prikazati svi detalji njegovog profila
+                btnPodaciProfila.Visibility = Visibility.Visible;
+            else
+                btnPodaciProfila.Visibility = Visibility.Hidden;
+
+
+            dtDatumPrikaz.SelectedDate = DateTime.Now;
         }
 
         private void btnPodaciProfila_Click(object sender, RoutedEventArgs e)

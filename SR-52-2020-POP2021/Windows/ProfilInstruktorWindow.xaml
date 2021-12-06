@@ -15,6 +15,7 @@
         <Button x:Name="btnDodajTermin" Content="Dodaj termin" HorizontalAlignment="Left" Margin="571,103,0,0" VerticalAlignment="Top" Width="93"/>
         <Button x:Name="btnZatvori" Content="Zatvori" HorizontalAlignment="Left" Margin="692,381,0,0" VerticalAlignment="Top" Width="75" Click="btnZatvori_Click"/>
         <Button x:Name="btnZakaziTermin" Content="Zakazi termin" HorizontalAlignment="Left" Margin="571,152,0,0" VerticalAlignment="Top" Width="93"/>
+        <Label x:Name="lbInstruktorPodaci" Content="Label" HorizontalAlignment="Left" Margin="66,10,0,0" VerticalAlignment="Top" Width="469"/>
 
     </Grid>
 </Window>
