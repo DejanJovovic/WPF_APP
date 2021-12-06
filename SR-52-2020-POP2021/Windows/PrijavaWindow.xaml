@@ -5,16 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SR_52_2020_POP2021.Windows"
         mc:Ignorable="d"
-        Title="Prijava korisnika" Height="353.933" Width="620.506" WindowStartupLocation="CenterScreen">
+        Title="Prijava korisnika" Height="290.305" Width="620.506" WindowStartupLocation="CenterScreen">
     <Grid>
         <Label Content="Korisnicko ime:" HorizontalAlignment="Left" Margin="112,80,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbKorisnicko" HorizontalAlignment="Left" Height="23" Margin="239,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="254"/>
         <Label Content="Lozinka:" HorizontalAlignment="Left" Margin="150,131,0,0" VerticalAlignment="Top"/>
         <PasswordBox x:Name="pbLozinka" HorizontalAlignment="Left" Margin="239,139,0,0" VerticalAlignment="Top" Width="254"/>
-        <Label Content="Tip korisnika:" HorizontalAlignment="Left" Margin="123,200,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cbTipoviKorisnika" HorizontalAlignment="Left" Margin="239,204,0,0" VerticalAlignment="Top" Width="254"/>
-        <Button x:Name="btnPrijava" Content="Prijavi se" HorizontalAlignment="Left" Margin="239,274,0,0" VerticalAlignment="Top" Width="75" Click="btnPrijava_Click"/>
-        <Button x:Name="btnZatvori" Content="Zatvori" HorizontalAlignment="Left" Margin="418,274,0,0" VerticalAlignment="Top" Width="75" Click="btnZatvori_Click"/>
+        <Button x:Name="btnPrijava" Content="Prijavi se" HorizontalAlignment="Left" Margin="239,203,0,0" VerticalAlignment="Top" Width="75" Click="btnPrijava_Click"/>
+        <Button x:Name="btnZatvori" Content="Zatvori" HorizontalAlignment="Left" Margin="418,203,0,0" VerticalAlignment="Top" Width="75" Click="btnZatvori_Click"/>
 
     </Grid>
 </Window>

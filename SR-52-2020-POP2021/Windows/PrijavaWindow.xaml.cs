@@ -23,8 +23,7 @@ namespace SR_52_2020_POP2021.Windows
         public PrijavaWindow()
         {
             InitializeComponent();
-            cbTipoviKorisnika.ItemsSource = Enum.GetValues(typeof(ETipKorisnika)).Cast<ETipKorisnika>(); //inicijalizuje combo za tipove korisnika
-            cbTipoviKorisnika.SelectedIndex = 1;
+
         }
 
         private void btnPrijava_Click(object sender, RoutedEventArgs e)
@@ -36,46 +35,39 @@ namespace SR_52_2020_POP2021.Windows
             else
             {
                 bool pronadjen = false;
-                if (cbTipoviKorisnika.SelectedIndex == 0)//admini selektovana opcija
+
+                foreach(Korisnik k in Podaci.Instanca.lstAdmini)//pretraga kroz listu admina
                 {
-                    foreach(Korisnik k in Podaci.Instanca.lstAdmini)//pretraga kroz listu admina
+                    if(k.Jmbg==tbKorisnicko.Text && k.Lozinka == pbLozinka.Password)//ako se odredjenom adminu poklapaju korisnicko i lozinka s unetim
                     {
-                        if(k.Jmbg==tbKorisnicko.Text && k.Lozinka == pbLozinka.Password)//ako se odredjenom adminu poklapaju korisnicko i lozinka s unetim
-                        {
-                            pronadjen = true;//indikator promenjen da je pronadjen
-                            Podaci.Instanca.jmbgPrijavljen = k.Jmbg;
-                            Podaci.Instanca.tipPrijavljen = k.TipKorisnika; //setovana ova dva podatka u klasi Podaci da se zna u proverama kome se sta prikazuje kao opcija
-                            DialogResult = true;
-                        }
-                    }
-                }
-                else if (cbTipoviKorisnika.SelectedIndex == 1)//polaznici
-                {
-                    foreach (Polaznik p in Podaci.Instanca.lstPolaznici)
-                    {
-                        if (p.Korisnik.Jmbg == tbKorisnicko.Text && p.Korisnik.Lozinka == pbLozinka.Password)
-                        {
-                            pronadjen = true;
-                            Podaci.Instanca.jmbgPrijavljen = p.Korisnik.Jmbg;
-                            Podaci.Instanca.tipPrijavljen = p.Korisnik.TipKorisnika;
-                            DialogResult = true;
-                        }
-                    }
-                }
-                else if (cbTipoviKorisnika.SelectedIndex == 2)//instruktori
-                {
-                    foreach (Instruktor instr in Podaci.Instanca.lstInstruktori)
-                    {
-                        if (instr.Korisnik.Jmbg == tbKorisnicko.Text && instr.Korisnik.Lozinka == pbLozinka.Password)
-                        {
-                            pronadjen = true;
-                            Podaci.Instanca.jmbgPrijavljen = instr.Korisnik.Jmbg;
-                            Podaci.Instanca.tipPrijavljen = instr.Korisnik.TipKorisnika;
-                            DialogResult = true;
-                        }
+                        pronadjen = true;//indikator promenjen da je pronadjen
+                        Podaci.Instanca.jmbgPrijavljen = k.Jmbg;
+                        Podaci.Instanca.tipPrijavljen = k.TipKorisnika; //setovana ova dva podatka u klasi Podaci da se zna u proverama kome se sta prikazuje kao opcija
+                        DialogResult = true;
                     }
                 }
 
+                foreach (Polaznik p in Podaci.Instanca.lstPolaznici)
+                {
+                    if (p.Korisnik.Jmbg == tbKorisnicko.Text && p.Korisnik.Lozinka == pbLozinka.Password)
+                    {
+                        pronadjen = true;
+                        Podaci.Instanca.jmbgPrijavljen = p.Korisnik.Jmbg;
+                        Podaci.Instanca.tipPrijavljen = p.Korisnik.TipKorisnika;
+                        DialogResult = true;
+                    }
+                }
+
+                foreach (Instruktor instr in Podaci.Instanca.lstInstruktori)
+                {
+                    if (instr.Korisnik.Jmbg == tbKorisnicko.Text && instr.Korisnik.Lozinka == pbLozinka.Password)
+                    {
+                        pronadjen = true;
+                        Podaci.Instanca.jmbgPrijavljen = instr.Korisnik.Jmbg;
+                        Podaci.Instanca.tipPrijavljen = instr.Korisnik.TipKorisnika;
+                        DialogResult = true;
+                    }
+                }
 
                 if (!pronadjen)
                     MessageBox.Show("Uneli ste nepostojecu kombinaciju korisnickog imena i lozinke!");
