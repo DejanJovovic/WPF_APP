@@ -18,6 +18,8 @@ namespace SR_52_2020_POP2021.Model
 
         string jmbg;
         string imePrezime;
+        string ime;
+        string prezime;
 
         public Instruktor(Korisnik korisnik, int idFitnesCentra)
         {
@@ -25,6 +27,8 @@ namespace SR_52_2020_POP2021.Model
             this.IdFitnesCentra = idFitnesCentra;
 
             this.Jmbg = korisnik.Jmbg;
+            this.Ime = korisnik.Ime;
+            this.Prezime = korisnik.Prezime;
             this.ImePrezime = korisnik.Ime + " " + korisnik.Prezime;
         }
         public Instruktor()
@@ -58,6 +62,8 @@ namespace SR_52_2020_POP2021.Model
             this.obrisano = instr.obrisano;
 
             this.Jmbg = instr.Jmbg;
+            this.Ime = instr.Korisnik.Ime;
+            this.Prezime = instr.Korisnik.Prezime;
             this.ImePrezime = instr.Korisnik.Ime + " " + instr.Korisnik.Prezime;
 
         }
@@ -79,6 +85,9 @@ namespace SR_52_2020_POP2021.Model
         }
 
         public string Jmbg { get => jmbg; set => jmbg = value; }
+
+        public string Ime { get => ime; set => ime = value; }
+        public string Prezime { get => prezime; set => prezime = value; }
         public string ImePrezime { get => imePrezime; set => imePrezime = value; }
         //public int IdFitnesCentra { get => idFitnesCentra; set => idFitnesCentra = value; }
         public int IdFitnesCentra
@@ -94,7 +103,7 @@ namespace SR_52_2020_POP2021.Model
             }
         }
 
-
+       
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(String propertyName)

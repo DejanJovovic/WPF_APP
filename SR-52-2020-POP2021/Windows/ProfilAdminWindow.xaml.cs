@@ -231,15 +231,16 @@ namespace SR_52_2020_POP2021.Windows
         private void dgKorisnici_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (
-                (string)e.Column.Header == "Ime" ||
-                (string)e.Column.Header == "Prezime" ||
+                //(string)e.Column.Header == "Ime" ||
+                //(string)e.Column.Header == "Prezime" ||
                 //(string)e.Column.Header == "Jmbg" ||
                 (string)e.Column.Header == "Pol" ||
                 (string)e.Column.Header == "Adresa" ||
                 (string)e.Column.Header == "Email" ||
                 (string)e.Column.Header == "Lozinka" ||
                 (string)e.Column.Header == "TipKorisnika" ||
-                (string)e.Column.Header == "Korisnik" 
+                (string)e.Column.Header == "Korisnik" ||
+                (string)e.Column.Header == "ImePrezime"
                 )  //ove kolone se nece prikazati u data gridu
             {
                 e.Cancel = true;
@@ -282,6 +283,70 @@ namespace SR_52_2020_POP2021.Windows
         private void btnZatvori_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void tbPretragaInstruktora_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            if (tbPretraga.Text == "")
+            {
+                osveziDGKorisnici();
+            }
+            else
+            {
+                if (cbTipKorisnika.SelectedIndex == 0)//admini selektovani u combo
+                    viewKorisnici = CollectionViewSource.GetDefaultView(Podaci.Instanca.lstAdmini.Where(
+                            a => a.obrisano == false && a.Jmbg != Podaci.Instanca.jmbgPrijavljen &&
+                            (
+                               a.Ime.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                               a.Prezime.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                               a.Email.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                               a.Adresa.Ulica.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                               a.Adresa.Broj.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                               a.Adresa.Grad.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                               a.Adresa.Drzava.ToLower().Contains(tbPretraga.Text.ToLower()) 
+                            )
+                        
+                        ).ToList());
+                //log brisanje, neobrisani svi. Ne prikazuju se oni kojima je obrisano=true i admin koji se prijavio za admine
+                //prvi uslov da podatak nije obrisan a ostali uslovi medjusobno iskljucivi ako je u text boxu unet deo vrednosti property-ja. toLower() da bi bilo case insensitive
+                
+                else if (cbTipKorisnika.SelectedIndex == 1)//polaznici
+                    viewKorisnici = CollectionViewSource.GetDefaultView(Podaci.Instanca.lstPolaznici.Where(
+                        p => p.obrisano == false &&
+                        (
+                            p.Korisnik.Ime.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            p.Korisnik.Prezime.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            p.Korisnik.Email.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            p.Korisnik.Adresa.Ulica.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            p.Korisnik.Adresa.Broj.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            p.Korisnik.Adresa.Grad.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            p.Korisnik.Adresa.Drzava.ToLower().Contains(tbPretraga.Text.ToLower())
+                        )
+                        
+                        ).ToList());
+                
+                else if (cbTipKorisnika.SelectedIndex == 2)//instruktori
+                    viewKorisnici = CollectionViewSource.GetDefaultView(Podaci.Instanca.lstInstruktori.Where(
+                        ins => ins.obrisano == false &&
+                        (
+                            ins.Korisnik.Ime.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            ins.Korisnik.Prezime.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            ins.Korisnik.Email.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            ins.Korisnik.Adresa.Ulica.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            ins.Korisnik.Adresa.Broj.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            ins.Korisnik.Adresa.Grad.ToLower().Contains(tbPretraga.Text.ToLower()) ||
+                            ins.Korisnik.Adresa.Drzava.ToLower().Contains(tbPretraga.Text.ToLower())
+                        )
+                        ).ToList());
+
+
+                dgKorisnici.ItemsSource = viewKorisnici;
+                dgKorisnici.IsSynchronizedWithCurrentItem = true;
+                dgKorisnici.ColumnWidth = new DataGridLength(1, DataGridLengthUnitType.Star);
+            }
+
+
         }
     }
 }

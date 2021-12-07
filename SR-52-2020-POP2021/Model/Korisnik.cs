@@ -74,7 +74,18 @@ namespace SR_52_2020_POP2021.Model
         //public string Lozinka { get => lozinka; set => lozinka = value; }
         //public ETipKorisnika TipKorisnika { get => tipKorisnika; set => tipKorisnika = value; }
 
-
+        public string Jmbg
+        {
+            get
+            {
+                return jmbg;
+            }
+            set
+            {
+                jmbg = value;
+                OnPropertyChanged("Jmbg");
+            }
+        }
         public string Ime
         {
             get
@@ -99,18 +110,7 @@ namespace SR_52_2020_POP2021.Model
                 OnPropertyChanged("Prezime");
             }
         }
-        public string Jmbg
-        {
-            get
-            {
-                return jmbg;
-            }
-            set
-            {
-                jmbg = value;
-                OnPropertyChanged("Jmbg");
-            }
-        }
+       
         public EPol Pol
         {
             get

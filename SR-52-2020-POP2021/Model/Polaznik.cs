@@ -16,6 +16,8 @@ namespace SR_52_2020_POP2021.Model
         public bool obrisano = false;//logicko brisanje
 
         string jmbg;
+        string ime;
+        string prezime;
         string imePrezime;
 
         public Polaznik(Korisnik korisnik)
@@ -23,6 +25,8 @@ namespace SR_52_2020_POP2021.Model
             this.Korisnik = korisnik;
 
             this.jmbg = korisnik.Jmbg;
+            this.Ime = korisnik.Ime;
+            this.Prezime = korisnik.Prezime;
             this.ImePrezime = korisnik.Ime + " " + korisnik.Prezime;
         }
         public Polaznik()
@@ -52,6 +56,8 @@ namespace SR_52_2020_POP2021.Model
             this.obrisano = polaznik.obrisano;
 
             this.jmbg = polaznik.Korisnik.Jmbg;
+            this.Ime = polaznik.Korisnik.Ime;
+            this.Prezime = polaznik.Korisnik.Prezime;
             this.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
 
         }
@@ -75,7 +81,8 @@ namespace SR_52_2020_POP2021.Model
 
         public string Jmbg { get => jmbg; set => jmbg = value; }
         public string ImePrezime { get => imePrezime; set => imePrezime = value; }
-    
+        public string Ime { get => ime; set => ime = value; }
+        public string Prezime { get => prezime; set => prezime = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(String propertyName)

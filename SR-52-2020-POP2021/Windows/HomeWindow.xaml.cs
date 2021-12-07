@@ -65,7 +65,7 @@ namespace SR_52_2020_POP2021.Windows
         {
 
 
-            if (nazivFC == "svi")//ako je prosledjeno svi prikazuje sve instruktore
+            if (nazivFC == "Svi fitnes centri")//ako je prosledjeno svi prikazuje sve instruktore
                 viewInstruktori = CollectionViewSource.GetDefaultView(Podaci.Instanca.lstInstruktori.Where(ins => ins.obrisano == false).ToList());//log brisanje, neobrisani svi
             else {
                 FitnesCentar fc = Podaci.Instanca.lstFitnesCentri.Where(f => f.Naziv == nazivFC).FirstOrDefault();//nadje objekat fc po nazivu 
@@ -101,13 +101,13 @@ namespace SR_52_2020_POP2021.Windows
             else  //svi 
             {
                 lbAdresaFitnesCentra.Content = "Adresa:";
-                osveziDGInstruktori("svi");//prikaze sve instruktore
+                osveziDGInstruktori("Svi fitnes centri");//prikaze sve instruktore
             }
         }
 
         private void dgInstruktori_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if ((string)e.Column.Header == "IdFitnesCentra" || (string)e.Column.Header == "Korisnik") //da ne prikaze ove podatke u kolonama data grida
+            if ((string)e.Column.Header == "IdFitnesCentra" || (string)e.Column.Header == "Korisnik" || (string)e.Column.Header == "ImePrezime") //da ne prikaze ove podatke u kolonama data grida
             {
                 e.Cancel = true;
             }
@@ -216,6 +216,55 @@ namespace SR_52_2020_POP2021.Windows
             else
             {
                 MessageBox.Show("Morate prvo selektovati instruktora!");
+            }
+        }
+
+        private void tbPretragaInstruktora_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tbPretragaInstruktora.Text == "")
+            {
+                osveziDGInstruktori(cbFitnesCentri.SelectedItem.ToString());
+            }
+            else
+            {
+                if (cbFitnesCentri.SelectedIndex == 0)//ako su selektovani svi fitnes centri pretraga za instruktore u svim fitnes centrima
+                {
+                    viewInstruktori = CollectionViewSource.GetDefaultView(Podaci.Instanca.lstInstruktori.Where(
+                        ins => ins.obrisano == false &&  //prvi uslov da nije obrisan logicki a ostali su medjusobno iskljucivi
+                            (
+                                ins.Korisnik.Ime.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) ||  //to lower da bi bilo case insensitive
+                                ins.Korisnik.Prezime.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) ||
+                                ins.Korisnik.Adresa.Ulica.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) ||
+                                ins.Korisnik.Adresa.Broj.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) ||
+                                ins.Korisnik.Adresa.Grad.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) ||
+                                ins.Korisnik.Adresa.Drzava.ToLower().Contains(tbPretragaInstruktora.Text.ToLower())
+                            )
+                        ).ToList());
+                }
+                else  //ako je selektovan odredjeni fitnes centar u combo boxu, filtriranje samo za taj fitnes centar
+                {
+                    FitnesCentar fc = Podaci.Instanca.lstFitnesCentri.Where(f => f.Naziv == cbFitnesCentri.SelectedItem.ToString()).FirstOrDefault();
+                    if (fc != null)
+                    {
+                       viewInstruktori = CollectionViewSource.GetDefaultView(Podaci.Instanca.lstInstruktori.Where(
+                       ins => ins.obrisano == false && ins.IdFitnesCentra==fc.Id &&  //prvi uslov da nije obrisan logicki i da je iz selektovanog fitnes centra a ostali su medjusobno iskljucivi
+                           (
+                               ins.Korisnik.Ime.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) ||  //to lower da bi bilo case insensitive
+                               ins.Korisnik.Prezime.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) ||
+                               ins.Korisnik.Email.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) ||
+                               ins.Korisnik.Adresa.Ulica.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) ||
+                               ins.Korisnik.Adresa.Broj.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) ||
+                               ins.Korisnik.Adresa.Grad.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) ||
+                               ins.Korisnik.Adresa.Drzava.ToLower().Contains(tbPretragaInstruktora.Text.ToLower()) 
+                           )
+                       ).ToList());
+                    }
+
+                }
+
+                dgInstruktori.ItemsSource = viewInstruktori;
+                dgInstruktori.IsSynchronizedWithCurrentItem = true;
+                dgInstruktori.ColumnWidth = new DataGridLength(1, DataGridLengthUnitType.Star);
             }
         }
     }
