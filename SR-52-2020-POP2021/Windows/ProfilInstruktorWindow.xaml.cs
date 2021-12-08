@@ -18,18 +18,32 @@ namespace SR_52_2020_POP2021.Windows
     /// <summary>
     /// Interaction logic for ProfilInstruktorWindow.xaml
     /// </summary>
+    /// 
+    // ako se prijavio polaznik, ima opciju na pocetnoj strani, kada selektuje instruktora da otvori ovu formu i zakaze termin treninga
+    //ova forma je dostupna i polaznicima i adminima kada zakazuju termin treninga zato sto ujedno su prikazani i podaci po datumima za odabranog instruktora
     public partial class ProfilInstruktorWindow : Window
     {
-        Instruktor selektovanInstruktor = null;// ako se prijavio polaznik, ima opciju na pocetnoj strani, kada selektuje instruktora da otvori ovu formu i zakaze termin treninga
-        public ProfilInstruktorWindow(Instruktor selektovanInstruktor) //ova forma je dostupna i polaznicima kada zakazuju termin treninga zato sto ujedno su prikazani i podaci po datumima za odabranog instruktora
+        Instruktor instruktor = null;//ako nije prosledjen selektovan instruktor iz pocetne strane, setovace se na osnovu: Podaci.Instanca.jmbgPrijavljen s profila instruktora kad je prijavljen
+
+        public ProfilInstruktorWindow(Instruktor instruktor) //prosledjuje se selektovan instruktor s pocetne strane ako je prijavljen polaznik ili admin
         {
             InitializeComponent();
-            this.selektovanInstruktor = selektovanInstruktor;
+            this.instruktor = instruktor;//null ako nije prijavljen instruktor, setovace se u nastavku
+            dtDatumPrikaz.SelectedDate = DateTime.Now;
 
-            if (selektovanInstruktor != null)//formu je otvorio polaznik da zakaze termin i prosledjen je selektovani instruktor
+            inicijalizujVidljivosti();
+            osveziPrikazTermina();
+
+
+        }
+
+        //obzirom da je forma dostupna za sva 3 tipa korisnika ovde je podeseno kome su koje opcije vidljive/dostupne
+        void inicijalizujVidljivosti()
+        {
+            if (Podaci.Instanca.tipPrijavljen != ETipKorisnika.INSTRUKTOR)//formu je otvorio polaznik ili admin da zakaze termin i prosledjen je selektovani instruktor
             {
                 this.Title = "Zakazivanje termina treninga";
-                lbInstruktorPodaci.Content = "Instruktor: " + selektovanInstruktor.Korisnik.Ime + " " + selektovanInstruktor.Korisnik.Prezime;
+                lbInstruktorPodaci.Content = "Instruktor: " + instruktor.Korisnik.Ime + " " + instruktor.Korisnik.Prezime;
                 lbInstruktorPodaci.Visibility = Visibility.Visible;
             }
             else
@@ -38,14 +52,30 @@ namespace SR_52_2020_POP2021.Windows
 
             }
 
-            if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.INSTRUKTOR) //samo ako je instruktor prijavljen mogu se prikazati svi detalji njegovog profila
+            if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.INSTRUKTOR)//samo ako je instruktor prijavljen mogu se prikazati svi detalji njegovog profila
+            {
                 btnPodaciProfila.Visibility = Visibility.Visible;
+                Instruktor instrPrijavljen = Podaci.Instanca.lstInstruktori.Where(ins => ins.Korisnik.Jmbg == Podaci.Instanca.jmbgPrijavljen).FirstOrDefault();
+                if (instrPrijavljen != null)
+                    this.instruktor = new Instruktor(instrPrijavljen);
+
+            }
             else
                 btnPodaciProfila.Visibility = Visibility.Hidden;
 
 
-            dtDatumPrikaz.SelectedDate = DateTime.Now;
+            if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)
+            {
+                btnDodajTermin.Visibility = Visibility.Hidden;
+                btnBrisiTermin.Visibility = Visibility.Hidden; //polaznik ne moze dodavati i brisati termine
+            }
+            else
+            {
+                btnZakaziTermin.Visibility = Visibility.Hidden; //instruktori i admini ne mogu zakazivati termine
+            }
         }
+
+
 
         private void btnPodaciProfila_Click(object sender, RoutedEventArgs e)
         {
@@ -69,6 +99,67 @@ namespace SR_52_2020_POP2021.Windows
         private void btnZatvori_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        void osveziPrikazTermina() //svaki put kad se promeni datum ili izmeni nesto u terminima po datumu
+        {
+            if (dtDatumPrikaz.SelectedDate.Value != null && this.instruktor!=null)
+            {
+                dgTerminiTreninga.ItemsSource = Podaci.Instanca.lstTreninzi.Where(t =>
+                      t.obrisano == false &&
+                      t.Instruktor.Korisnik.Jmbg == this.instruktor.Korisnik.Jmbg &&
+                      t.DatumTreninga.Date.Day == dtDatumPrikaz.SelectedDate.Value.Date.Day &&
+                      t.DatumTreninga.Date.Month == dtDatumPrikaz.SelectedDate.Value.Date.Month &&
+                      t.DatumTreninga.Date.Year == dtDatumPrikaz.SelectedDate.Value.Date.Year
+                ).ToList();
+                dgTerminiTreninga.Items.Refresh();
+
+
+
+                if (dgTerminiTreninga.Columns.Count > 0)
+                {
+                    dgTerminiTreninga.Columns[0].Header = "Vreme pocetka";
+                    dgTerminiTreninga.Columns[1].Header = "Trajanje(min)";
+                    dgTerminiTreninga.Columns[2].Header = "Ime i prezime polaznika";
+                }
+            }
+        }
+
+        private void btnDodajTermin_Click(object sender, RoutedEventArgs e)
+        {
+            UpisTerminaWindow ut = new UpisTerminaWindow(dtDatumPrikaz.SelectedDate.Value, this.instruktor);
+            ut.ShowDialog();
+
+            if (ut.DialogResult == true) //ako je potvrdjeno dodavanje
+            {
+                osveziPrikazTermina();
+            }
+        }
+
+        private void dgTerminiTreninga_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (
+                (string)e.Column.Header == "Id" || 
+                (string)e.Column.Header == "DatumTreninga" ||
+                (string)e.Column.Header == "Slobodan" ||
+                (string)e.Column.Header == "Polaznik" ||
+                (string)e.Column.Header == "Instruktor") //da ne prikaze ove podatke u kolonama data grida
+            {
+                e.Cancel = true;
+            }
+
+            //this.Id = id;
+            //this.DatumTreninga = datumTreninga;
+            //this.VremePocetka = vremePocetka;
+            //this.TrajanjeTreninga = trajanjeTreninga;
+            //this.Slobodan = slobodan;
+            //this.Instruktor = instruktor;
+            //this.Polaznik = polaznik;
+        }
+
+        private void dtDatumPrikaz_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            osveziPrikazTermina();
         }
     }
 }

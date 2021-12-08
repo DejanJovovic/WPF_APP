@@ -5,17 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SR_52_2020_POP2021.Windows"
         mc:Ignorable="d"
-        Title="Profil instruktora" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Profil instruktora" Height="474.017" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Button x:Name="btnPodaciProfila" Content="Podaci profila" HorizontalAlignment="Left" Margin="667,21,0,0" VerticalAlignment="Top" Width="102" Click="btnPodaciProfila_Click"/>
-        <DataGrid x:Name="dgTerminiTreninga" HorizontalAlignment="Left" Height="278" Margin="66,103,0,0" VerticalAlignment="Top" Width="470"/>
+        <DataGrid x:Name="dgTerminiTreninga" HorizontalAlignment="Left" Height="278" Margin="66,103,0,0" VerticalAlignment="Top" Width="470" IsReadOnly="True" SelectionMode="Single" AutoGeneratingColumn="dgTerminiTreninga_AutoGeneratingColumn"/>
         <Label Content="Termini treninga po datumu" HorizontalAlignment="Left" Margin="340,69,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
-        <DatePicker x:Name="dtDatumPrikaz" HorizontalAlignment="Left" Margin="188,43,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="dtDatumPrikaz" HorizontalAlignment="Left" Margin="188,43,0,0" VerticalAlignment="Top" SelectedDateChanged="dtDatumPrikaz_SelectedDateChanged"/>
         <Label Content="Odaberite datum:" HorizontalAlignment="Left" Margin="66,41,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnDodajTermin" Content="Dodaj termin" HorizontalAlignment="Left" Margin="571,103,0,0" VerticalAlignment="Top" Width="93"/>
-        <Button x:Name="btnZatvori" Content="Zatvori" HorizontalAlignment="Left" Margin="692,381,0,0" VerticalAlignment="Top" Width="75" Click="btnZatvori_Click"/>
-        <Button x:Name="btnZakaziTermin" Content="Zakazi termin" HorizontalAlignment="Left" Margin="571,152,0,0" VerticalAlignment="Top" Width="93"/>
+        <Button x:Name="btnDodajTermin" Content="Dodaj termin" HorizontalAlignment="Left" Margin="571,324,0,0" VerticalAlignment="Top" Width="93" Click="btnDodajTermin_Click"/>
+        <Button x:Name="btnZatvori" Content="Zatvori" HorizontalAlignment="Left" Margin="707,413,0,0" VerticalAlignment="Top" Width="75" Click="btnZatvori_Click"/>
+        <Button x:Name="btnZakaziTermin" Content="Zakazi termin" HorizontalAlignment="Left" Margin="571,103,0,0" VerticalAlignment="Top" Width="93"/>
         <Label x:Name="lbInstruktorPodaci" Content="Label" HorizontalAlignment="Left" Margin="66,10,0,0" VerticalAlignment="Top" Width="469"/>
+        <Button x:Name="btnBrisiTermin" Content="Brisi termin" HorizontalAlignment="Left" Margin="571,361,0,0" VerticalAlignment="Top" Width="93"/>
 
     </Grid>
 </Window>

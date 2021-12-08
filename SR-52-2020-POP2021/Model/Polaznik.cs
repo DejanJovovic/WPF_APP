@@ -38,27 +38,30 @@ namespace SR_52_2020_POP2021.Model
         {
             this.Korisnik = new Korisnik();
 
-            this.Korisnik.Ime = polaznik.Korisnik.Ime;
-            this.Korisnik.Prezime = polaznik.Korisnik.Prezime;
-            this.Korisnik.Jmbg = polaznik.Korisnik.Jmbg;
-            this.Korisnik.Pol = polaznik.Korisnik.Pol;
+            if (polaznik != null)
+            {
+                this.Korisnik.Ime = polaznik.Korisnik.Ime;
+                this.Korisnik.Prezime = polaznik.Korisnik.Prezime;
+                this.Korisnik.Jmbg = polaznik.Korisnik.Jmbg;
+                this.Korisnik.Pol = polaznik.Korisnik.Pol;
 
-            this.Korisnik.Adresa.Id = polaznik.Korisnik.Adresa.Id;
-            this.Korisnik.Adresa.Ulica = polaznik.Korisnik.Adresa.Ulica;
-            this.Korisnik.Adresa.Broj = polaznik.Korisnik.Adresa.Broj;
-            this.Korisnik.Adresa.Grad = polaznik.Korisnik.Adresa.Grad;
-            this.Korisnik.Adresa.Drzava = polaznik.Korisnik.Adresa.Drzava;
+                this.Korisnik.Adresa.Id = polaznik.Korisnik.Adresa.Id;
+                this.Korisnik.Adresa.Ulica = polaznik.Korisnik.Adresa.Ulica;
+                this.Korisnik.Adresa.Broj = polaznik.Korisnik.Adresa.Broj;
+                this.Korisnik.Adresa.Grad = polaznik.Korisnik.Adresa.Grad;
+                this.Korisnik.Adresa.Drzava = polaznik.Korisnik.Adresa.Drzava;
 
-            this.Korisnik.Email = polaznik.Korisnik.Email;
-            this.Korisnik.Lozinka = polaznik.Korisnik.Lozinka;
-            this.Korisnik.TipKorisnika = polaznik.Korisnik.TipKorisnika;
+                this.Korisnik.Email = polaznik.Korisnik.Email;
+                this.Korisnik.Lozinka = polaznik.Korisnik.Lozinka;
+                this.Korisnik.TipKorisnika = polaznik.Korisnik.TipKorisnika;
 
-            this.obrisano = polaznik.obrisano;
+                this.obrisano = polaznik.obrisano;
 
-            this.jmbg = polaznik.Korisnik.Jmbg;
-            this.Ime = polaznik.Korisnik.Ime;
-            this.Prezime = polaznik.Korisnik.Prezime;
-            this.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
+                this.jmbg = polaznik.Korisnik.Jmbg;
+                this.Ime = polaznik.Korisnik.Ime;
+                this.Prezime = polaznik.Korisnik.Prezime;
+                this.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
+            }
 
         }
         //public Korisnik(string ime, string prezime, string jmbg, EPol pol, Adresa adresa, string email, string lozinka, ETipKorisnika tipKorisnika)

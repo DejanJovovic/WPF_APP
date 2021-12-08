@@ -66,7 +66,10 @@ namespace SR_52_2020_POP2021.Windows
             if (status == EStatus.DODAJ)//ako je forma u modu za dodavanje
             {
                 this.admin.TipKorisnika = ETipKorisnika.ADMINISTRATOR;//setuje ovo polje zato sto se ne unosi
-                this.admin.Adresa.Id = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese, max id adrese uvecan za 1. 
+                int idAdrese = 1;
+                if(Podaci.Instanca.lstAdrese.Count>0)
+                    idAdrese= Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese, max id adrese uvecan za 1. 
+                this.admin.Adresa.Id = idAdrese;
                 this.admin.ImePrezime = this.admin.Ime + " " + this.admin.Prezime;//ovo polje postoji u adminu i sluzi za prikaz u data gridu
 
                 Podaci.Instanca.lstAdmini.Add(admin);

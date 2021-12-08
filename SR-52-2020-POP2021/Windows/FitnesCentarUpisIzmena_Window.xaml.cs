@@ -63,7 +63,12 @@ namespace SR_52_2020_POP2021.Windows
         {
             if (status == EStatus.DODAJ)
             {
-                this.fitnesCentar.Id = Podaci.Instanca.lstFitnesCentri.Max(fc => fc.Id) + 1;//generise novi id fitnes centra
+                int idFC = 1;
+                if(Podaci.Instanca.lstFitnesCentri.Count>0)
+                    idFC= Podaci.Instanca.lstFitnesCentri.Max(fc => fc.Id) + 1;//generise novi id fitnes centra
+                this.fitnesCentar.Id = idFC;
+
+
                 this.fitnesCentar.Adresa.Id = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese
 
                 Podaci.Instanca.lstFitnesCentri.Add(fitnesCentar);

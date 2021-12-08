@@ -80,7 +80,12 @@ namespace SR_52_2020_POP2021.Windows
             if (status == EStatus.DODAJ)
             {
                 this.instruktor.Korisnik.TipKorisnika = ETipKorisnika.INSTRUKTOR;
-                this.instruktor.Korisnik.Adresa.Id = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese
+
+                int idAdrese = 1;
+                if (Podaci.Instanca.lstAdrese.Count > 0)
+                    idAdrese = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese, max id adrese uvecan za 1. 
+                this.instruktor.Korisnik.Adresa.Id = idAdrese;
+
                 this.instruktor.ImePrezime = instruktor.Korisnik.Ime + " " + instruktor.Korisnik.Prezime;
                 this.instruktor.Jmbg = instruktor.Korisnik.Jmbg;
                 if (cbIdFitnesCentra.SelectedIndex > -1)

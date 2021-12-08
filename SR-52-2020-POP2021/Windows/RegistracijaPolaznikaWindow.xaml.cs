@@ -67,7 +67,12 @@ namespace SR_52_2020_POP2021.Windows
             if (status == EStatus.DODAJ)
             {
                 this.polaznik.Korisnik.TipKorisnika = ETipKorisnika.POLAZNIK;
-                this.polaznik.Korisnik.Adresa.Id = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese
+
+                int idAdrese = 1;
+                if (Podaci.Instanca.lstAdrese.Count > 0)
+                    idAdrese = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese, max id adrese uvecan za 1. 
+                this.polaznik.Korisnik.Adresa.Id = idAdrese;
+
                 this.polaznik.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
                 this.polaznik.Jmbg = polaznik.Korisnik.Jmbg;
 
