@@ -162,8 +162,8 @@ namespace SR_52_2020_POP2021.Windows
                     btnRegistracija.Content = "Prikazi profil";//promeni tekst buttona za registraciju 
                     btnPrijava.Content = "Odjava"; //ako je uspesna prijava dugme postaje dugme za odjavu
 
-
-                    if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)//samo polaznik moze da zakaze termin treninga kod selektovanog instruktora
+                    //samo polaznik moze da zakaze termin treninga kod selektovanog instruktora ili admin za izabranog polaznika
+                    if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK || Podaci.Instanca.tipPrijavljen == ETipKorisnika.ADMINISTRATOR)
                         btnPrikaziTermine.Visibility = Visibility.Visible;
                 }
 

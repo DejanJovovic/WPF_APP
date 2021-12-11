@@ -1,4 +1,5 @@
 ﻿using SR_52_2020_POP2021.Model;
+using SR_52_2020_POP2021.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,9 +70,10 @@ namespace SR_52_2020_POP2021.Windows
                 btnDodajTermin.Visibility = Visibility.Hidden;
                 btnBrisiTermin.Visibility = Visibility.Hidden; //polaznik ne moze dodavati i brisati termine
             }
-            else
+            if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.INSTRUKTOR)
             {
-                btnZakaziTermin.Visibility = Visibility.Hidden; //instruktori i admini ne mogu zakazivati termine
+                btnZakaziTermin.Visibility = Visibility.Hidden; //instruktori ne mogu zakazivati termine
+                btnOtkaziTermin.Visibility = Visibility.Hidden;
             }
         }
 
@@ -111,7 +113,7 @@ namespace SR_52_2020_POP2021.Windows
                       t.DatumTreninga.Date.Day == dtDatumPrikaz.SelectedDate.Value.Date.Day &&
                       t.DatumTreninga.Date.Month == dtDatumPrikaz.SelectedDate.Value.Date.Month &&
                       t.DatumTreninga.Date.Year == dtDatumPrikaz.SelectedDate.Value.Date.Year
-                ).ToList();
+                ).OrderBy(t => int.Parse(t.VremePocetka.Split(':')[0])).ThenBy(t => int.Parse(t.VremePocetka.Split(':')[1])).ToList();
                 dgTerminiTreninga.Items.Refresh();
 
 
@@ -160,6 +162,90 @@ namespace SR_52_2020_POP2021.Windows
         private void dtDatumPrikaz_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             osveziPrikazTermina();
+        }
+
+        private void btnZakaziTermin_Click(object sender, RoutedEventArgs e)
+        {
+            if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)
+            {
+                if (dgTerminiTreninga.SelectedIndex > -1)//ako je selektovan termin treninga iz data grida
+                {
+                    Trening selektovanTrening = (Trening)dgTerminiTreninga.SelectedItem;//napravi objekat od selektovanog reda tabele
+                    if (selektovanTrening.Polaznik != null)
+                    {
+                        MessageBox.Show("Selektovani termin treninga je vec zakazan!");
+                    }
+                    else if (selektovanTrening.DatumTreninga < DateTime.Now.AddDays(-1))
+                    {
+                        MessageBox.Show("Ne mozete zakazati trening pre danasnjeg dana!");
+                    }
+                    else
+                    {
+                        //pronaci objekat polaznika iz liste polaznika na osnovu jmbg prijavljenog polaznika
+                        Polaznik prijavljeniPolaznik = Podaci.Instanca.lstPolaznici.Where(p => p.Jmbg == Podaci.Instanca.jmbgPrijavljen).FirstOrDefault();
+                        if (prijavljeniPolaznik != null)
+                        {
+                            Trening treningZakazi = Podaci.Instanca.lstTreninzi.Where(t => t.Id == selektovanTrening.Id).FirstOrDefault();
+                            if (treningZakazi != null)
+                            {
+                                treningZakazi.Polaznik = new Polaznik(prijavljeniPolaznik);//setuje polaznika u objektu
+                                treningZakazi.ImePrezimePolaznika = prijavljeniPolaznik.Ime + " " + prijavljeniPolaznik.Prezime;
+                                osveziPrikazTermina();
+
+                                TreninziServis ts = new TreninziServis();
+                                ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Prvo morate selektovati trening!");
+                }
+            }
+        }
+
+        private void btnOtkaziTermin_Click(object sender, RoutedEventArgs e)
+        {
+            if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)
+            {
+                if (dgTerminiTreninga.SelectedIndex > -1)//ako je selektovan termin treninga iz data grida
+                {
+                    Trening selektovanTrening = (Trening)dgTerminiTreninga.SelectedItem;//napravi objekat od selektovanog reda tabele
+                    if (selektovanTrening.Polaznik != null)//moze se otkazati ako je zakazan, i to za prijavljenog polaznika-provera u nastavku
+                    {
+                        Polaznik prijavljeniPolaznik = Podaci.Instanca.lstPolaznici.Where(p => p.Jmbg == Podaci.Instanca.jmbgPrijavljen).FirstOrDefault();
+                        if (prijavljeniPolaznik != null)
+                        {
+                            if (selektovanTrening.Polaznik.Korisnik.Jmbg == Podaci.Instanca.jmbgPrijavljen)//moze otkazivati samo svoje prijave
+                            {
+                                Trening treningOtkazi = Podaci.Instanca.lstTreninzi.Where(t => t.Id == selektovanTrening.Id).FirstOrDefault();
+                                if (treningOtkazi != null)
+                                {
+                                    treningOtkazi.Polaznik = null;//brise polaznika, setuje na null, otkazana prijava
+                                    treningOtkazi.ImePrezimePolaznika = "";
+                                    osveziPrikazTermina();
+
+                                    TreninziServis ts = new TreninziServis();
+                                    ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Mozete otkazati samo sopstvene prijave termina!");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selektovani termin nije zakazan!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Prvo morate selektovati trening!");
+                }
+            }
         }
     }
 }
