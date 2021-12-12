@@ -34,7 +34,8 @@ namespace SR_52_2020_POP2021.Windows
                 btnDodaj.Content = "Izmeni";
                 this.Title = "Izmena podataka o instruktoru";
                 cbIdFitnesCentra.Text = instruktor.IdFitnesCentra.ToString();
-               
+
+                tbJmbg.IsEnabled = false;
 
                 //cbIdFitnesCentra.Text = instruktor.IdFitnesCentra.ToString();
             }
@@ -75,52 +76,85 @@ namespace SR_52_2020_POP2021.Windows
                 cbIdFitnesCentra.SelectedIndex = 0;
         }
 
+        bool validanUnos()
+        {
+            if (tbIme.Text == "" || tbPrezime.Text == "" || tbJmbg.Text == "" || tbEmail.Text == "" || tbLozinka.Text == "" || tbEmail.Text == "" ||
+                tbUlica.Text == "" || tbBroj.Text == "" || tbGrad.Text == "")
+            {
+                MessageBox.Show("Niste uneli sve podatke!");
+                return false;
+            }
+            if (!tbEmail.Text.Contains("@") || !tbEmail.Text.EndsWith(".com"))
+            {
+                MessageBox.Show("Unet email nije u ispravnom formatu!");
+                return false;
+            }
+
+            if (
+                this.status == EStatus.DODAJ &&
+                (
+                    Podaci.Instanca.lstAdmini.Any(a => a.Jmbg == tbJmbg.Text) ||
+                    Podaci.Instanca.lstInstruktori.Any(ins => ins.Jmbg == tbJmbg.Text) ||
+                    Podaci.Instanca.lstPolaznici.Any(p => p.Jmbg == tbJmbg.Text)
+                )
+               )
+            {
+                MessageBox.Show("Uneli ste postojeci jmbg!");
+                return false;
+            }
+
+            return true;
+        }
+
         private void btnDodaj_Click(object sender, RoutedEventArgs e)
         {
-            if (status == EStatus.DODAJ)
+            if (validanUnos())
             {
-                this.instruktor.Korisnik.TipKorisnika = ETipKorisnika.INSTRUKTOR;
+                if (status == EStatus.DODAJ)
+                {
+                    this.instruktor.Korisnik.TipKorisnika = ETipKorisnika.INSTRUKTOR;
 
-                int idAdrese = 1;
-                if (Podaci.Instanca.lstAdrese.Count > 0)
-                    idAdrese = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese, max id adrese uvecan za 1. 
-                this.instruktor.Korisnik.Adresa.Id = idAdrese;
+                    int idAdrese = 1;
+                    if (Podaci.Instanca.lstAdrese.Count > 0)
+                        idAdrese = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese, max id adrese uvecan za 1. 
+                    this.instruktor.Korisnik.Adresa.Id = idAdrese;
 
-                this.instruktor.ImePrezime = instruktor.Korisnik.Ime + " " + instruktor.Korisnik.Prezime;
-                this.instruktor.Jmbg = instruktor.Korisnik.Jmbg;
-                if (cbIdFitnesCentra.SelectedIndex > -1)
-                    this.instruktor.IdFitnesCentra = int.Parse(cbIdFitnesCentra.SelectedItem.ToString());
+                    this.instruktor.ImePrezime = instruktor.Korisnik.Ime + " " + instruktor.Korisnik.Prezime;
+                    this.instruktor.Jmbg = instruktor.Korisnik.Jmbg;
+                    if (cbIdFitnesCentra.SelectedIndex > -1)
+                        this.instruktor.IdFitnesCentra = int.Parse(cbIdFitnesCentra.SelectedItem.ToString());
 
-                Podaci.Instanca.lstInstruktori.Add(instruktor);
-                Podaci.Instanca.lstAdrese.Add(instruktor.Korisnik.Adresa);
+                    Podaci.Instanca.lstInstruktori.Add(instruktor);
+                    Podaci.Instanca.lstAdrese.Add(instruktor.Korisnik.Adresa);
 
-                InstruktoriServis instrServis = new InstruktoriServis();
-                instrServis.upisFajla(Podaci.Instanca.lstInstruktori);
-                AdreseServis adrServis = new AdreseServis();
-                adrServis.upisFajla(Podaci.Instanca.lstAdrese);
+                    InstruktoriServis instrServis = new InstruktoriServis();
+                    instrServis.upisFajla(Podaci.Instanca.lstInstruktori);
+                    AdreseServis adrServis = new AdreseServis();
+                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);
 
+                }
+                else if (status == EStatus.IZMENI)
+                {
+                    this.instruktor.ImePrezime = instruktor.Korisnik.Ime + " " + instruktor.Korisnik.Prezime;
+                    this.instruktor.Jmbg = instruktor.Korisnik.Jmbg;
+                    if (cbIdFitnesCentra.SelectedIndex > -1)
+                        this.instruktor.IdFitnesCentra = int.Parse(cbIdFitnesCentra.SelectedItem.ToString());
+
+                    if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.INSTRUKTOR)//ako je instruktor promenio svoj jmbg
+                        Podaci.Instanca.jmbgPrijavljen = instruktor.Korisnik.Jmbg; //ukoliko je promenjen jmbg promeniti ga u klasi Podaci za prijavljenog instruktora
+
+                    Adresa a = Podaci.Instanca.lstAdrese.Where(adr => adr.Id == instruktor.Korisnik.Adresa.Id).FirstOrDefault();//prvo naci adresu iz liste adresa na osnovu id
+                    int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);
+                    Podaci.Instanca.lstAdrese[indexAdrese] = new Adresa(instruktor.Korisnik.Adresa);//na indeksu te adrese dodeliti modifikovanu adresu
+
+                    InstruktoriServis instrServis = new InstruktoriServis();
+                    instrServis.upisFajla(Podaci.Instanca.lstInstruktori);
+                    AdreseServis adrServis = new AdreseServis();
+                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
+                }
+
+                DialogResult = true;
             }
-            else if (status == EStatus.IZMENI)
-            {
-                this.instruktor.ImePrezime = instruktor.Korisnik.Ime + " " + instruktor.Korisnik.Prezime;
-                this.instruktor.Jmbg = instruktor.Korisnik.Jmbg;
-                if (cbIdFitnesCentra.SelectedIndex > -1)
-                    this.instruktor.IdFitnesCentra = int.Parse(cbIdFitnesCentra.SelectedItem.ToString());
-
-                if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.INSTRUKTOR)//ako je instruktor promenio svoj jmbg
-                    Podaci.Instanca.jmbgPrijavljen = instruktor.Korisnik.Jmbg; //ukoliko je promenjen jmbg promeniti ga u klasi Podaci za prijavljenog instruktora
-
-                Adresa a = Podaci.Instanca.lstAdrese.Where(adr => adr.Id == instruktor.Korisnik.Adresa.Id).FirstOrDefault();//prvo naci adresu iz liste adresa na osnovu id
-                int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);
-                Podaci.Instanca.lstAdrese[indexAdrese] = new Adresa(instruktor.Korisnik.Adresa);//na indeksu te adrese dodeliti modifikovanu adresu
-
-                InstruktoriServis instrServis = new InstruktoriServis();
-                instrServis.upisFajla(Podaci.Instanca.lstInstruktori);
-                AdreseServis adrServis = new AdreseServis();
-                adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
-            }
-
-            DialogResult = true;
         }
 
         private void btnZatvori_Click(object sender, RoutedEventArgs e)

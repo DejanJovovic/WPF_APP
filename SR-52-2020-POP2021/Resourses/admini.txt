@@ -1,3 +1,5 @@
 Petar;Peric;1;M;3;petarp@gmail.com;1;ADMINISTRATOR;False
 Nenad;Nenadovic;345;Z;10;4;345;ADMINISTRATOR;False
 fwe;fwe;234234;M;13;4234;423;ADMINISTRATOR;True
+few;fwe;123;M;21;few;123;ADMINISTRATOR;True
+fwe;fwe;234;M;22;few@fewf.com;few;ADMINISTRATOR;True

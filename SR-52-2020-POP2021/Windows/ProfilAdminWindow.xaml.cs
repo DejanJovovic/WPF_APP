@@ -36,6 +36,7 @@ namespace SR_52_2020_POP2021.Windows
             if (cbTipKorisnika.SelectedIndex == 0)//admini selektovani u combu, otvorice se forma za upis admina
             {
                 Korisnik admin = new Korisnik();//novi admin ce se proslediti formi za reg admina i tamo ce preko data bindinga da se unesu podaci i da bude dodat u listu i u fajl
+                admin.Adresa.Drzava = "Srbija";
 
                 RegistracijaAdminaWindow ra = new RegistracijaAdminaWindow(admin);//prosledjen admin, forma podrazumevano u modu za dodavanje
                 ra.ShowDialog();
@@ -47,6 +48,7 @@ namespace SR_52_2020_POP2021.Windows
             else if (cbTipKorisnika.SelectedIndex == 1)//polaznici
             {
                 Polaznik polaznik = new Polaznik();
+                polaznik.Korisnik.Adresa.Drzava = "Srbija";
 
                 RegistracijaPolaznikaWindow rp = new RegistracijaPolaznikaWindow(polaznik);
                 rp.ShowDialog();
@@ -58,6 +60,7 @@ namespace SR_52_2020_POP2021.Windows
             else if (cbTipKorisnika.SelectedIndex == 2)//instruktori
             {
                 Instruktor instr = new Instruktor();
+                instr.Korisnik.Adresa.Drzava = "Srbija";
 
                 RegistracijaInstruktoraWindow ri = new RegistracijaInstruktoraWindow(instr);
                 ri.ShowDialog();

@@ -59,42 +59,58 @@ namespace SR_52_2020_POP2021.Windows
 
         }
 
+        bool validanUnos()
+        {
+            if (tbNaziv.Text == ""  || tbUlica.Text == "" || tbBroj.Text == "" || tbGrad.Text == "")
+            {
+                MessageBox.Show("Niste uneli sve podatke!");
+                return false;
+            }
+           
+
+            return true;
+        }
+
+
         private void btnDodaj_Click(object sender, RoutedEventArgs e)
         {
-            if (status == EStatus.DODAJ)
+            if (validanUnos())
             {
-                int idFC = 1;
-                if(Podaci.Instanca.lstFitnesCentri.Count>0)
-                    idFC= Podaci.Instanca.lstFitnesCentri.Max(fc => fc.Id) + 1;//generise novi id fitnes centra
-                this.fitnesCentar.Id = idFC;
+                if (status == EStatus.DODAJ)
+                {
+                    int idFC = 1;
+                    if (Podaci.Instanca.lstFitnesCentri.Count > 0)
+                        idFC = Podaci.Instanca.lstFitnesCentri.Max(fc => fc.Id) + 1;//generise novi id fitnes centra
+                    this.fitnesCentar.Id = idFC;
 
 
-                this.fitnesCentar.Adresa.Id = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese
+                    this.fitnesCentar.Adresa.Id = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese
 
-                Podaci.Instanca.lstFitnesCentri.Add(fitnesCentar);
-                Podaci.Instanca.lstAdrese.Add(fitnesCentar.Adresa);
+                    Podaci.Instanca.lstFitnesCentri.Add(fitnesCentar);
+                    Podaci.Instanca.lstAdrese.Add(fitnesCentar.Adresa);
 
-                FitnesCentriServis fcServis = new FitnesCentriServis();
-                fcServis.upisFajla(Podaci.Instanca.lstFitnesCentri);
-                AdreseServis adrServis = new AdreseServis();
-                adrServis.upisFajla(Podaci.Instanca.lstAdrese);
+                    FitnesCentriServis fcServis = new FitnesCentriServis();
+                    fcServis.upisFajla(Podaci.Instanca.lstFitnesCentri);
+                    AdreseServis adrServis = new AdreseServis();
+                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);
 
+                }
+                else if (status == EStatus.IZMENI)
+                {
+
+
+                    Adresa a = Podaci.Instanca.lstAdrese.Where(adr => adr.Id == fitnesCentar.Adresa.Id).FirstOrDefault();//prvo naci adresu iz liste adresa na osnovu id
+                    int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);
+                    Podaci.Instanca.lstAdrese[indexAdrese] = new Adresa(fitnesCentar.Adresa);//na indeksu te adrese dodeliti modifikovanu adresu
+
+                    FitnesCentriServis fcServis = new FitnesCentriServis();
+                    fcServis.upisFajla(Podaci.Instanca.lstFitnesCentri);
+                    AdreseServis adrServis = new AdreseServis();
+                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
+                }
+
+                DialogResult = true;
             }
-            else if (status == EStatus.IZMENI)
-            {
-                
-
-                Adresa a = Podaci.Instanca.lstAdrese.Where(adr => adr.Id == fitnesCentar.Adresa.Id).FirstOrDefault();//prvo naci adresu iz liste adresa na osnovu id
-                int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);
-                Podaci.Instanca.lstAdrese[indexAdrese] = new Adresa(fitnesCentar.Adresa);//na indeksu te adrese dodeliti modifikovanu adresu
-
-                FitnesCentriServis fcServis = new FitnesCentriServis();
-                fcServis.upisFajla(Podaci.Instanca.lstFitnesCentri);
-                AdreseServis adrServis = new AdreseServis();
-                adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
-            }
-
-            DialogResult = true;
         }
 
         private void btnZatvori_Click(object sender, RoutedEventArgs e)

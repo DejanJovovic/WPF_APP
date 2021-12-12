@@ -47,6 +47,7 @@ namespace SR_52_2020_POP2021.Windows
         private void btnDodaj_Click(object sender, RoutedEventArgs e)
         {
             FitnesCentar fc = new FitnesCentar();//novi fitnes centar, prosledice se formi u modu za upis gde ce se dodeliti vrednosti iz text boxova i dodati u listu i u fajl/bazu
+            fc.Adresa.Drzava = "Srbija";
 
             FitnesCentarUpisIzmena_Window ra = new FitnesCentarUpisIzmena_Window(fc);//prosledjen fitnes centar, forma podrazumevano u modu za dodavanje
             ra.ShowDialog();

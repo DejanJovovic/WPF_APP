@@ -2,3 +2,4 @@
 2;Exclusive fitness;2;False
 0;1;19;True
 3;123;20;False
+4;fwe;23;True

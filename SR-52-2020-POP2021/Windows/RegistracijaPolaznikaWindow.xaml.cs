@@ -33,6 +33,7 @@ namespace SR_52_2020_POP2021.Windows
             {
                 btnDodaj.Content = "Izmeni";
                 this.Title = "Izmena podataka o polazniku";
+                tbJmbg.IsEnabled = false;
             }
 
             tbIme.DataContext = polaznik.Korisnik;
@@ -62,47 +63,81 @@ namespace SR_52_2020_POP2021.Windows
             cbDrzava.SelectedIndex = 0;
         }
 
-        private void btnDodaj_Click(object sender, RoutedEventArgs e)
+        bool validanUnos()
         {
-            if (status == EStatus.DODAJ)
+            if (tbIme.Text == "" || tbPrezime.Text == "" || tbJmbg.Text == "" || tbEmail.Text == "" || tbLozinka.Text == "" || tbEmail.Text == "" ||
+                tbUlica.Text == "" || tbBroj.Text == "" || tbGrad.Text == "")
             {
-                this.polaznik.Korisnik.TipKorisnika = ETipKorisnika.POLAZNIK;
-
-                int idAdrese = 1;
-                if (Podaci.Instanca.lstAdrese.Count > 0)
-                    idAdrese = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese, max id adrese uvecan za 1. 
-                this.polaznik.Korisnik.Adresa.Id = idAdrese;
-
-                this.polaznik.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
-                this.polaznik.Jmbg = polaznik.Korisnik.Jmbg;
-
-                Podaci.Instanca.lstPolaznici.Add(polaznik);
-                Podaci.Instanca.lstAdrese.Add(polaznik.Korisnik.Adresa);
-
-                PolazniciServis polazniciServis = new PolazniciServis();
-                polazniciServis.upisFajla(Podaci.Instanca.lstPolaznici);
-                AdreseServis adrServis = new AdreseServis();
-                adrServis.upisFajla(Podaci.Instanca.lstAdrese);
-
-            }else if (status == EStatus.IZMENI)
+                MessageBox.Show("Niste uneli sve podatke!");
+                return false;
+            }
+            if (!tbEmail.Text.Contains("@") || !tbEmail.Text.EndsWith(".com"))
             {
-                this.polaznik.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
-                this.polaznik.Jmbg = polaznik.Korisnik.Jmbg;
-
-                if(Podaci.Instanca.tipPrijavljen==ETipKorisnika.POLAZNIK)//ako je polaznik promenio svoj jmbg
-                    Podaci.Instanca.jmbgPrijavljen = polaznik.Korisnik.Jmbg; //ukoliko je promenjen jmbg promeniti ga u klasi Podaci za prijavljenog polaznika
-
-                Adresa a = Podaci.Instanca.lstAdrese.Where(adr => adr.Id == polaznik.Korisnik.Adresa.Id).FirstOrDefault();//prvo naci adresu iz liste adresa na osnovu id
-                int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);
-                Podaci.Instanca.lstAdrese[indexAdrese] = new Adresa(polaznik.Korisnik.Adresa);//na indeksu te adrese dodeliti modifikovanu adresu
-
-                PolazniciServis polazniciServis = new PolazniciServis();
-                polazniciServis.upisFajla(Podaci.Instanca.lstPolaznici);
-                AdreseServis adrServis = new AdreseServis();
-                adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
+                MessageBox.Show("Unet email nije u ispravnom formatu!");
+                return false;
             }
 
-            DialogResult = true;
+            if (
+                this.status == EStatus.DODAJ &&
+                (
+                    Podaci.Instanca.lstAdmini.Any(a => a.Jmbg == tbJmbg.Text) ||
+                    Podaci.Instanca.lstInstruktori.Any(ins => ins.Jmbg == tbJmbg.Text) ||
+                    Podaci.Instanca.lstPolaznici.Any(p => p.Jmbg == tbJmbg.Text)
+                )
+               )
+            {
+                MessageBox.Show("Uneli ste postojeci jmbg!");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void btnDodaj_Click(object sender, RoutedEventArgs e)
+        {
+            if (validanUnos())
+            {
+                if (status == EStatus.DODAJ)
+                {
+                    this.polaznik.Korisnik.TipKorisnika = ETipKorisnika.POLAZNIK;
+
+                    int idAdrese = 1;
+                    if (Podaci.Instanca.lstAdrese.Count > 0)
+                        idAdrese = Podaci.Instanca.lstAdrese.Max(adr => adr.Id) + 1;//generise novi id adrese, max id adrese uvecan za 1. 
+                    this.polaznik.Korisnik.Adresa.Id = idAdrese;
+
+                    this.polaznik.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
+                    this.polaznik.Jmbg = polaznik.Korisnik.Jmbg;
+
+                    Podaci.Instanca.lstPolaznici.Add(polaznik);
+                    Podaci.Instanca.lstAdrese.Add(polaznik.Korisnik.Adresa);
+
+                    PolazniciServis polazniciServis = new PolazniciServis();
+                    polazniciServis.upisFajla(Podaci.Instanca.lstPolaznici);
+                    AdreseServis adrServis = new AdreseServis();
+                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);
+
+                }
+                else if (status == EStatus.IZMENI)
+                {
+                    this.polaznik.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
+                    this.polaznik.Jmbg = polaznik.Korisnik.Jmbg;
+
+                    if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)//ako je polaznik promenio svoj jmbg
+                        Podaci.Instanca.jmbgPrijavljen = polaznik.Korisnik.Jmbg; //ukoliko je promenjen jmbg promeniti ga u klasi Podaci za prijavljenog polaznika
+
+                    Adresa a = Podaci.Instanca.lstAdrese.Where(adr => adr.Id == polaznik.Korisnik.Adresa.Id).FirstOrDefault();//prvo naci adresu iz liste adresa na osnovu id
+                    int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);
+                    Podaci.Instanca.lstAdrese[indexAdrese] = new Adresa(polaznik.Korisnik.Adresa);//na indeksu te adrese dodeliti modifikovanu adresu
+
+                    PolazniciServis polazniciServis = new PolazniciServis();
+                    polazniciServis.upisFajla(Podaci.Instanca.lstPolaznici);
+                    AdreseServis adrServis = new AdreseServis();
+                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
+                }
+
+                DialogResult = true;
+            }
         }
 
         private void btnZatvori_Click(object sender, RoutedEventArgs e)
