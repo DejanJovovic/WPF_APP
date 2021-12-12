@@ -107,6 +107,9 @@
     <Compile Include="Windows\UpisTerminaWindow.xaml.cs">
       <DependentUpon>UpisTerminaWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ZakazivanjeTerminaWindow.xaml.cs">
+      <DependentUpon>ZakazivanjeTerminaWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Windows\FitnesCentarUpisIzmena_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -152,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\UpisTerminaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ZakazivanjeTerminaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,5 @@
 ﻿using SR_52_2020_POP2021.Model;
+using SR_52_2020_POP2021.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,6 +85,24 @@ namespace SR_52_2020_POP2021.Windows
         private void dtDatumPrikaz_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             osveziPrikazDataGrid();
+        }
+
+        private void btnOtkaziSelektovan_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgTreninzi.SelectedIndex > -1)
+            {
+                Trening treningSelektovan = (Trening)dgTreninzi.SelectedItem;
+                Trening treningOtkazi = Podaci.Instanca.lstTreninzi.Where(t => t.Id == treningSelektovan.Id).FirstOrDefault();
+                if (treningOtkazi != null)
+                {
+                    treningOtkazi.Polaznik = null;
+                    treningOtkazi.ImePrezimePolaznika = "";
+
+                    TreninziServis ts = new TreninziServis();
+                    ts.upisFajla(Podaci.Instanca.lstTreninzi);
+                    osveziPrikazDataGrid();
+                }
+            }
         }
     }
 }

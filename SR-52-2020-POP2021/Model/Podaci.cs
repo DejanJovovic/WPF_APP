@@ -17,6 +17,8 @@ namespace SR_52_2020_POP2021.Model
         public string jmbgPrijavljen = "";
         public ETipKorisnika tipPrijavljen; //prilikom prijave setuju se da bi se znao tip korisnika i jmbg prijavljenog. Odjavom jmbgPrijavljen se vraca na ""
 
+        public string jmbgZakazivanje = "";//samo kada admin zakazuje termin polaznika
+
 
         private static readonly Podaci instanca = new Podaci();
 

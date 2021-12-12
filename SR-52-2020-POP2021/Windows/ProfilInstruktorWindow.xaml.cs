@@ -166,75 +166,105 @@ namespace SR_52_2020_POP2021.Windows
 
         private void btnZakaziTermin_Click(object sender, RoutedEventArgs e)
         {
-            if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)
+            if (dgTerminiTreninga.SelectedIndex > -1)//ako je selektovan termin treninga iz data grida
             {
-                if (dgTerminiTreninga.SelectedIndex > -1)//ako je selektovan termin treninga iz data grida
+                Trening selektovanTrening = (Trening)dgTerminiTreninga.SelectedItem;//napravi objekat od selektovanog reda tabele
+                if (selektovanTrening.Polaznik != null)
                 {
-                    Trening selektovanTrening = (Trening)dgTerminiTreninga.SelectedItem;//napravi objekat od selektovanog reda tabele
-                    if (selektovanTrening.Polaznik != null)
-                    {
-                        MessageBox.Show("Selektovani termin treninga je vec zakazan!");
-                    }
-                    else if (selektovanTrening.DatumTreninga < DateTime.Now.AddDays(-1))
-                    {
-                        MessageBox.Show("Ne mozete zakazati trening pre danasnjeg dana!");
-                    }
-                    else
-                    {
-                        //pronaci objekat polaznika iz liste polaznika na osnovu jmbg prijavljenog polaznika
-                        Polaznik prijavljeniPolaznik = Podaci.Instanca.lstPolaznici.Where(p => p.Jmbg == Podaci.Instanca.jmbgPrijavljen).FirstOrDefault();
-                        if (prijavljeniPolaznik != null)
-                        {
-                            Trening treningZakazi = Podaci.Instanca.lstTreninzi.Where(t => t.Id == selektovanTrening.Id).FirstOrDefault();
-                            if (treningZakazi != null)
-                            {
-                                treningZakazi.Polaznik = new Polaznik(prijavljeniPolaznik);//setuje polaznika u objektu
-                                treningZakazi.ImePrezimePolaznika = prijavljeniPolaznik.Ime + " " + prijavljeniPolaznik.Prezime;
-                                osveziPrikazTermina();
-
-                                TreninziServis ts = new TreninziServis();
-                                ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
-                            }
-                        }
-                    }
+                    MessageBox.Show("Selektovani termin treninga je vec zakazan!");
+                }
+                else if (selektovanTrening.DatumTreninga < DateTime.Now.AddDays(-1))
+                {
+                    MessageBox.Show("Ne mozete zakazati trening pre danasnjeg dana!");
                 }
                 else
                 {
-                    MessageBox.Show("Prvo morate selektovati trening!");
+
+
+                    if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)
+                    {
+
+                        zakaziTerminTreninga(Podaci.Instanca.jmbgPrijavljen, selektovanTrening.Id);
+                        
+                    }
+
+                    else if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.ADMINISTRATOR)
+                    {
+                        if (Podaci.Instanca.lstPolaznici.Count > 0)
+                        {
+                            ZakazivanjeTerminaWindow ztw = new ZakazivanjeTerminaWindow();
+                            ztw.ShowDialog();//otvara prozor za odabir polaznika
+
+                            if (ztw.DialogResult==true && Podaci.Instanca.jmbgZakazivanje != "")
+                            {
+                                zakaziTerminTreninga(Podaci.Instanca.jmbgZakazivanje, selektovanTrening.Id);
+                               
+                            }
+
+                        }
+                    }
+
+
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Prvo morate selektovati trening!");
+            }
+        }
+
+        void zakaziTerminTreninga(string jmbgPolaznika, int idTreninga)
+        {
+            Polaznik polaznikZakazi = Podaci.Instanca.lstPolaznici.Where(p => p.Jmbg == jmbgPolaznika).FirstOrDefault();
+            if (polaznikZakazi != null)
+            {
+                Trening treningZakazi = Podaci.Instanca.lstTreninzi.Where(t => t.Id == idTreninga).FirstOrDefault();
+                if (treningZakazi != null)
+                {
+                    treningZakazi.Polaznik = new Polaznik(polaznikZakazi);//setuje polaznika u objektu
+                    treningZakazi.ImePrezimePolaznika = polaznikZakazi.Ime + " " + polaznikZakazi.Prezime;
+                    osveziPrikazTermina();
+
+                    TreninziServis ts = new TreninziServis();
+                    ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
                 }
             }
         }
 
         private void btnOtkaziTermin_Click(object sender, RoutedEventArgs e)
         {
-            if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)
+            if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK || Podaci.Instanca.tipPrijavljen == ETipKorisnika.ADMINISTRATOR)
             {
                 if (dgTerminiTreninga.SelectedIndex > -1)//ako je selektovan termin treninga iz data grida
                 {
                     Trening selektovanTrening = (Trening)dgTerminiTreninga.SelectedItem;//napravi objekat od selektovanog reda tabele
                     if (selektovanTrening.Polaznik != null)//moze se otkazati ako je zakazan, i to za prijavljenog polaznika-provera u nastavku
                     {
-                        Polaznik prijavljeniPolaznik = Podaci.Instanca.lstPolaznici.Where(p => p.Jmbg == Podaci.Instanca.jmbgPrijavljen).FirstOrDefault();
-                        if (prijavljeniPolaznik != null)
-                        {
-                            if (selektovanTrening.Polaznik.Korisnik.Jmbg == Podaci.Instanca.jmbgPrijavljen)//moze otkazivati samo svoje prijave
-                            {
-                                Trening treningOtkazi = Podaci.Instanca.lstTreninzi.Where(t => t.Id == selektovanTrening.Id).FirstOrDefault();
-                                if (treningOtkazi != null)
-                                {
-                                    treningOtkazi.Polaznik = null;//brise polaznika, setuje na null, otkazana prijava
-                                    treningOtkazi.ImePrezimePolaznika = "";
-                                    osveziPrikazTermina();
 
-                                    TreninziServis ts = new TreninziServis();
-                                    ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
+                        if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)
+                        {
+                            //prvo preuzeti prijavljenog polaznika na osnovu jmbg prijavljenog iz Podaci klase
+                            Polaznik prijavljeniPolaznik = Podaci.Instanca.lstPolaznici.Where(p => p.Jmbg == Podaci.Instanca.jmbgPrijavljen).FirstOrDefault();
+                            if (prijavljeniPolaznik != null)
+                            {
+                                if (selektovanTrening.Polaznik.Korisnik.Jmbg == Podaci.Instanca.jmbgPrijavljen)//moze otkazivati samo svoje prijave
+                                {
+                                    otkaziTrening(selektovanTrening.Id);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Mozete otkazati samo sopstvene prijave termina!");
                                 }
                             }
-                            else
-                            {
-                                MessageBox.Show("Mozete otkazati samo sopstvene prijave termina!");
-                            }
                         }
+                        else if(Podaci.Instanca.tipPrijavljen == ETipKorisnika.ADMINISTRATOR) //admin moze otkazati bilo koji zakazan termin
+                        {
+                            otkaziTrening(selektovanTrening.Id);
+                        }
+
+
+
                     }
                     else
                     {
@@ -244,6 +274,67 @@ namespace SR_52_2020_POP2021.Windows
                 else
                 {
                     MessageBox.Show("Prvo morate selektovati trening!");
+                }
+            }
+        }
+
+        void otkaziTrening(int idTreninga)
+        {
+            Trening treningOtkazi = Podaci.Instanca.lstTreninzi.Where(t => t.Id == idTreninga).FirstOrDefault();
+            if (treningOtkazi != null)
+            {
+                treningOtkazi.Polaznik = null;//brise polaznika, setuje na null, otkazana prijava
+                treningOtkazi.ImePrezimePolaznika = "";
+                osveziPrikazTermina();
+
+                TreninziServis ts = new TreninziServis();
+                ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
+            }
+        }
+
+        private void btnBrisiTermin_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgTerminiTreninga.SelectedIndex > -1)
+            {
+                Trening selektovanTrening = (Trening)dgTerminiTreninga.SelectedItem;//napravi objekat od selektovanog reda tabele
+                Trening treningBrisi = Podaci.Instanca.lstTreninzi.Where(t => t.Id == selektovanTrening.Id).FirstOrDefault();
+                if (treningBrisi != null)
+                {
+
+                    if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.ADMINISTRATOR)
+                    {
+                        PotvrdaBrisanjaWindow pbw = new PotvrdaBrisanjaWindow();
+                        pbw.ShowDialog();
+                        if (pbw.DialogResult == true)
+                        {
+                            treningBrisi.obrisano = true;
+                            TreninziServis ts = new TreninziServis();
+                            ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
+
+                            osveziPrikazTermina();
+                        }
+                    }
+                    else if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.INSTRUKTOR)
+                    {
+                        if (treningBrisi.Polaznik != null)
+                        {
+                            MessageBox.Show("Instruktor ne moze obrisati zakazan trening!");
+                        }
+                        else
+                        {
+                            PotvrdaBrisanjaWindow pbw = new PotvrdaBrisanjaWindow();
+                            pbw.ShowDialog();
+                            if (pbw.DialogResult == true)
+                            {
+                                treningBrisi.obrisano = true;
+                                TreninziServis ts = new TreninziServis();
+                                ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
+
+                                osveziPrikazTermina();
+                            }
+                        }
+                    }
+
                 }
             }
         }
