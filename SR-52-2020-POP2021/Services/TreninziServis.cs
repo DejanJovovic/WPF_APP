@@ -48,6 +48,10 @@ namespace SR_52_2020_POP2021.Services
 
 
                 Trening t = new Trening(id, datumTreninga, vremePocetka, trajanjeTreninga, slobodan, instruktor, polaznik);
+                if(polaznik!=null)
+                    t.ImePrezimePolaznika = polaznik.Ime + " " + polaznik.Prezime;
+                if(instruktor!=null)
+                    t.ImePrezimeInstruktora = instruktor.Ime + " " + instruktor.Prezime;
                 t.obrisano = obrisano;
 
 

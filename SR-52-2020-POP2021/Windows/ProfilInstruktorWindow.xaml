@@ -8,7 +8,7 @@
         Title="Profil instruktora" Height="474.017" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Button x:Name="btnPodaciProfila" Content="Podaci profila" HorizontalAlignment="Left" Margin="667,21,0,0" VerticalAlignment="Top" Width="102" Click="btnPodaciProfila_Click"/>
-        <DataGrid x:Name="dgTerminiTreninga" HorizontalAlignment="Left" Height="278" Margin="66,103,0,0" VerticalAlignment="Top" Width="470" IsReadOnly="True" SelectionMode="Single" AutoGeneratingColumn="dgTerminiTreninga_AutoGeneratingColumn"/>
+        <DataGrid x:Name="dgTerminiTreninga" HorizontalAlignment="Left" Height="278" Margin="66,103,0,0" VerticalAlignment="Top" Width="470" IsReadOnly="True" SelectionMode="Single" AutoGeneratingColumn="dgTerminiTreninga_AutoGeneratingColumn" AutoGenerateColumns="False"/>
         <Label Content="Termini treninga po datumu" HorizontalAlignment="Left" Margin="340,69,0,0" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
         <DatePicker x:Name="dtDatumPrikaz" HorizontalAlignment="Left" Margin="188,43,0,0" VerticalAlignment="Top" SelectedDateChanged="dtDatumPrikaz_SelectedDateChanged"/>
         <Label Content="Odaberite datum:" HorizontalAlignment="Left" Margin="66,41,0,0" VerticalAlignment="Top"/>

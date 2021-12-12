@@ -33,9 +33,30 @@ namespace SR_52_2020_POP2021.Windows
             dtDatumPrikaz.SelectedDate = DateTime.Now;
 
             inicijalizujVidljivosti();
+            inicijalizujDGKolone();
             osveziPrikazTermina();
 
 
+        }
+
+        void inicijalizujDGKolone()
+        {
+            DataGridTextColumn textColumn1 = new DataGridTextColumn();
+            textColumn1.Header = "Vreme pocetka";
+            textColumn1.Binding = new Binding("VremePocetka");
+            dgTerminiTreninga.Columns.Add(textColumn1);
+
+            DataGridTextColumn textColumn2 = new DataGridTextColumn();
+            textColumn2.Header = "Trajanje(min)";
+            textColumn2.Binding = new Binding("TrajanjeTreninga");
+            dgTerminiTreninga.Columns.Add(textColumn2);
+
+            DataGridTextColumn textColumn3 = new DataGridTextColumn();
+            textColumn3.Header = "Ime i prezime polaznika";
+            textColumn3.Binding = new Binding("ImePrezimePolaznika");
+            dgTerminiTreninga.Columns.Add(textColumn3);
+
+            //AutoGenerateColumns="False" u xaml kodu
         }
 
         //obzirom da je forma dostupna za sva 3 tipa korisnika ovde je podeseno kome su koje opcije vidljive/dostupne
@@ -107,6 +128,8 @@ namespace SR_52_2020_POP2021.Windows
         {
             if (dtDatumPrikaz.SelectedDate.Value != null && this.instruktor!=null)
             {
+
+    
                 dgTerminiTreninga.ItemsSource = Podaci.Instanca.lstTreninzi.Where(t =>
                       t.obrisano == false &&
                       t.Instruktor.Korisnik.Jmbg == this.instruktor.Korisnik.Jmbg &&
@@ -114,16 +137,19 @@ namespace SR_52_2020_POP2021.Windows
                       t.DatumTreninga.Date.Month == dtDatumPrikaz.SelectedDate.Value.Date.Month &&
                       t.DatumTreninga.Date.Year == dtDatumPrikaz.SelectedDate.Value.Date.Year
                 ).OrderBy(t => int.Parse(t.VremePocetka.Split(':')[0])).ThenBy(t => int.Parse(t.VremePocetka.Split(':')[1])).ToList();
+
                 dgTerminiTreninga.Items.Refresh();
 
+               
 
+                //if (dgTerminiTreninga.Columns.Count > 0)
+                //{
+                //    dgTerminiTreninga.Columns[0].Header = "Vreme pocetka";
+                //    dgTerminiTreninga.Columns[1].Header = "Trajanje(min)";
+                //    dgTerminiTreninga.Columns[2].Header = "Ime i prezime polaznika";
+                //}
 
-                if (dgTerminiTreninga.Columns.Count > 0)
-                {
-                    dgTerminiTreninga.Columns[0].Header = "Vreme pocetka";
-                    dgTerminiTreninga.Columns[1].Header = "Trajanje(min)";
-                    dgTerminiTreninga.Columns[2].Header = "Ime i prezime polaznika";
-                }
+                //dgTerminiTreninga.Items.Refresh();
             }
         }
 
@@ -145,7 +171,8 @@ namespace SR_52_2020_POP2021.Windows
                 (string)e.Column.Header == "DatumTreninga" ||
                 (string)e.Column.Header == "Slobodan" ||
                 (string)e.Column.Header == "Polaznik" ||
-                (string)e.Column.Header == "Instruktor") //da ne prikaze ove podatke u kolonama data grida
+                (string)e.Column.Header == "ImePrezimeInstruktora" ||
+                (string)e.Column.Header == "Instruktor") //da ne prikaze ove podatke u kolonama data grida   
             {
                 e.Cancel = true;
             }

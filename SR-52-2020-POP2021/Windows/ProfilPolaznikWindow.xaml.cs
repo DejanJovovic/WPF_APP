@@ -26,8 +26,29 @@ namespace SR_52_2020_POP2021.Windows
             InitializeComponent();
 
             dtDatumPrikaz.SelectedDate = DateTime.Now;
+            inicijalizujDGKolone();
             osveziPrikazDataGrid();
            
+        }
+
+        void inicijalizujDGKolone()
+        {
+            DataGridTextColumn textColumn1 = new DataGridTextColumn();
+            textColumn1.Header = "Vreme pocetka";
+            textColumn1.Binding = new Binding("VremePocetka");
+            dgTreninzi.Columns.Add(textColumn1);
+
+            DataGridTextColumn textColumn2 = new DataGridTextColumn();
+            textColumn2.Header = "Trajanje(min)";
+            textColumn2.Binding = new Binding("TrajanjeTreninga");
+            dgTreninzi.Columns.Add(textColumn2);
+
+            DataGridTextColumn textColumn3 = new DataGridTextColumn();
+            textColumn3.Header = "Ime i prezime instruktora";
+            textColumn3.Binding = new Binding("ImePrezimeInstruktora");
+            dgTreninzi.Columns.Add(textColumn3);
+
+            //AutoGenerateColumns="False" u xaml kodu
         }
 
         void osveziPrikazDataGrid()
@@ -40,6 +61,8 @@ namespace SR_52_2020_POP2021.Windows
                    t.DatumTreninga.Date.Month == dtDatumPrikaz.SelectedDate.Value.Date.Month &&
                    t.DatumTreninga.Date.Year == dtDatumPrikaz.SelectedDate.Value.Date.Year
                ).OrderBy(t => int.Parse(t.VremePocetka.Split(':')[0])).ThenBy(t => int.Parse(t.VremePocetka.Split(':')[1])).ToList();
+
+            dgTreninzi.Items.Refresh();
         }
 
         private void btnPodaciProfila_Click(object sender, RoutedEventArgs e)
@@ -75,8 +98,10 @@ namespace SR_52_2020_POP2021.Windows
                (string)e.Column.Header == "Id" ||
                (string)e.Column.Header == "DatumTreninga" ||
                (string)e.Column.Header == "Slobodan" ||
+               (string)e.Column.Header == "Instruktor" ||
                (string)e.Column.Header == "Polaznik" ||
-               (string)e.Column.Header == "Instruktor") //da ne prikaze ove podatke u kolonama data grida
+               (string)e.Column.Header == "ImePrezimePolaznika"
+               ) //da ne prikaze ove podatke u kolonama data grida
             {
                 e.Cancel = true;
             }

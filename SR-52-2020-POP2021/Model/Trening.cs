@@ -18,6 +18,7 @@ namespace SR_52_2020_POP2021.Model
         Polaznik polaznik;
 
         string imePrezimePolaznika;
+        string imePrezimeInstruktora;
 
         public bool obrisano = false;//logicko brisanje
 
@@ -33,6 +34,9 @@ namespace SR_52_2020_POP2021.Model
 
             if (this.Polaznik != null)
                 this.ImePrezimePolaznika = this.Polaznik.Korisnik.Ime + " " + this.Polaznik.Korisnik.Prezime;
+            if(this.Instruktor!=null)
+                this.ImePrezimeInstruktora = this.Instruktor.Korisnik.Ime + " " + this.Instruktor.Korisnik.Prezime;
+
         }
 
         public Trening(Trening t)
@@ -47,6 +51,8 @@ namespace SR_52_2020_POP2021.Model
 
             if(t.Polaznik!=null)
                 this.ImePrezimePolaznika = t.ImePrezimePolaznika;
+            if (t.Instruktor != null)
+                this.ImePrezimeInstruktora = t.ImePrezimeInstruktora;
 
             this.obrisano = t.obrisano;
 
@@ -148,6 +154,7 @@ namespace SR_52_2020_POP2021.Model
         }
 
         public string ImePrezimePolaznika { get => imePrezimePolaznika; set => imePrezimePolaznika = value; }
+        public string ImePrezimeInstruktora { get => imePrezimeInstruktora; set => imePrezimeInstruktora = value; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(String propertyName)
