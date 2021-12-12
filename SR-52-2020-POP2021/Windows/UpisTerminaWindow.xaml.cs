@@ -118,8 +118,20 @@ namespace SR_52_2020_POP2021.Windows
                     noviTrening.obrisano = false;
                     Podaci.Instanca.lstTreninzi.Add(noviTrening);
 
-                    TreninziServis trenServis = new TreninziServis();
-                    trenServis.upisFajla(Podaci.Instanca.lstTreninzi);//upis u fajl
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("insert into Trening values(" +
+                                                                       noviTrening.Id + ", '" +
+                                                                       noviTrening.DatumTreninga + "', '" +
+                                                                       noviTrening.VremePocetka + "', " +
+                                                                       noviTrening.TrajanjeTreninga + ", '" +
+                                                                       noviTrening.Slobodan + "', '" +
+                                                                       noviTrening.Instruktor.Jmbg + "', " +
+                                                                       "null" + ", '" +
+                                                                       noviTrening.obrisano + "'" +
+                                                                       ");");
+
+                    //TreninziServis trenServis = new TreninziServis();
+                    //trenServis.upisFajla(Podaci.Instanca.lstTreninzi);//upis u fajl
 
 
                     DialogResult = true;

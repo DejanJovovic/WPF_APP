@@ -89,10 +89,26 @@ namespace SR_52_2020_POP2021.Windows
                     Podaci.Instanca.lstFitnesCentri.Add(fitnesCentar);
                     Podaci.Instanca.lstAdrese.Add(fitnesCentar.Adresa);
 
-                    FitnesCentriServis fcServis = new FitnesCentriServis();
-                    fcServis.upisFajla(Podaci.Instanca.lstFitnesCentri);
-                    AdreseServis adrServis = new AdreseServis();
-                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("insert into Adresa values(" +
+                                                                       fitnesCentar.Adresa.Id + ", '" +
+                                                                       fitnesCentar.Adresa.Ulica + "', '" +
+                                                                       fitnesCentar.Adresa.Broj + "', '" +
+                                                                       fitnesCentar.Adresa.Grad + "', '" +
+                                                                       fitnesCentar.Adresa.Drzava + "', '" +
+                                                                       fitnesCentar.Adresa.obrisano + "'" +
+                                                                       ");");
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("insert into FitnesCentar values(" +
+                                                                        fitnesCentar.Id + ", '" +
+                                                                        fitnesCentar.Naziv + "', " +
+                                                                        fitnesCentar.Adresa.Id + ", '" +
+                                                                        fitnesCentar.obrisano + "'" +
+                                                                        ");");
+
+                    //FitnesCentriServis fcServis = new FitnesCentriServis();
+                    //fcServis.upisFajla(Podaci.Instanca.lstFitnesCentri);
+                    //AdreseServis adrServis = new AdreseServis();
+                    //adrServis.upisFajla(Podaci.Instanca.lstAdrese);
 
                 }
                 else if (status == EStatus.IZMENI)
@@ -103,10 +119,21 @@ namespace SR_52_2020_POP2021.Windows
                     int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);
                     Podaci.Instanca.lstAdrese[indexAdrese] = new Adresa(fitnesCentar.Adresa);//na indeksu te adrese dodeliti modifikovanu adresu
 
-                    FitnesCentriServis fcServis = new FitnesCentriServis();
-                    fcServis.upisFajla(Podaci.Instanca.lstFitnesCentri);
-                    AdreseServis adrServis = new AdreseServis();
-                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Adresa set " +
+                                                                      "ulica='" + fitnesCentar.Adresa.Ulica + "', " +
+                                                                      "broj='" + fitnesCentar.Adresa.Broj + "', " +
+                                                                      "grad='" + fitnesCentar.Adresa.Grad + "', " +
+                                                                      "drzava='" + fitnesCentar.Adresa.Drzava + "' " +
+                                                                      "where id=" + fitnesCentar.Adresa.Id + ";");
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update FitnesCentar set " +
+                                                                       "naziv='" + fitnesCentar.Naziv + "' " +
+                                                                       "where id=" + fitnesCentar.Id + ";");
+
+                    //FitnesCentriServis fcServis = new FitnesCentriServis();
+                    //fcServis.upisFajla(Podaci.Instanca.lstFitnesCentri);
+                    //AdreseServis adrServis = new AdreseServis();
+                    //adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
                 }
 
                 DialogResult = true;

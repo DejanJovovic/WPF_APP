@@ -19,7 +19,7 @@ namespace SR_52_2020_POP2021.Services
 
         }
 
-        public static void azuriranjeBaze(string sql)  
+        public static void insertUpdateDelete_Baza(string sql)  
         {
 
             SqlConnection conn = new SqlConnection(ucitajConnectionString());

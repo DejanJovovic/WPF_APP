@@ -90,8 +90,12 @@ namespace SR_52_2020_POP2021.Windows
             if (pb.DialogResult == true)//ako je kliknuto na Da u formi za potvrdu brisanja
             {
                 selektovanFC.obrisano = true;//logicko brisanje, prikazace se oni kojima je obrisano false
-                FitnesCentriServis fcServis = new FitnesCentriServis();
-                fcServis.upisFajla(Podaci.Instanca.lstFitnesCentri);//azuriraj fajl, prebrise sve podatke u fajlu. Dodavanjem baze pozivace se metoda kojoj ce se proslediti sql naredba
+
+                AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update FitnesCentar set " +
+                                                                   "obrisano='" + true + "' " +
+                                                                   "where id=" + selektovanFC.Id + ";");
+                //FitnesCentriServis fcServis = new FitnesCentriServis();
+                //fcServis.upisFajla(Podaci.Instanca.lstFitnesCentri);//azuriraj fajl, prebrise sve podatke u fajlu. Dodavanjem baze pozivace se metoda kojoj ce se proslediti sql naredba
 
                 osveziDGFitnesCentri();//refresh nakon brisanja. Prikazuju se samo podaci kojima je obrisan na false
             }

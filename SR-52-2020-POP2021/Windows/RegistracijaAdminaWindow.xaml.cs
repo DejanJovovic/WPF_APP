@@ -110,10 +110,34 @@ namespace SR_52_2020_POP2021.Windows
                     Podaci.Instanca.lstAdmini.Add(admin);
                     Podaci.Instanca.lstAdrese.Add(admin.Adresa);//dodavanje u liste. Postoji posebna lista adresa 
 
-                    AdminiServis adminiServis = new AdminiServis();
-                    adminiServis.upisFajla(Podaci.Instanca.lstAdmini);
-                    AdreseServis adrServis = new AdreseServis();
-                    adrServis.upisFajla(Podaci.Instanca.lstAdrese); //azuriranje fajlova za admine i adrese, prebrisu se podaci
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("insert into Adresa values(" +
+                                                                       admin.Adresa.Id + ", '" +
+                                                                       admin.Adresa.Ulica + "', '" +
+                                                                       admin.Adresa.Broj + "', '" +
+                                                                       admin.Adresa.Grad + "', '" +
+                                                                       admin.Adresa.Drzava + "', '" +
+                                                                       admin.Adresa.obrisano + "'" +
+                                                                       ");");
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("insert into Korisnik values('" +
+                                                                        admin.Ime + "', '" +
+                                                                        admin.Prezime + "', '" +
+                                                                        admin.Jmbg + "', '" +
+                                                                        admin.Pol + "', " +
+                                                                        admin.Adresa.Id + ", '" +
+                                                                        admin.Email + "', '" +
+                                                                        admin.Lozinka + "', '" +
+                                                                        admin.TipKorisnika + "', '" +
+                                                                        admin.obrisano + "', null" +
+                                                                        ");");
+                   
+
+
+                    //AdminiServis adminiServis = new AdminiServis();
+                    //adminiServis.upisFajla(Podaci.Instanca.lstAdmini);
+                    //AdreseServis adrServis = new AdreseServis();
+                    //adrServis.upisFajla(Podaci.Instanca.lstAdrese); //azuriranje fajlova za admine i adrese, prebrisu se podaci
 
                 }
                 else if (status == EStatus.IZMENI)
@@ -127,10 +151,28 @@ namespace SR_52_2020_POP2021.Windows
                     int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);
                     Podaci.Instanca.lstAdrese[indexAdrese] = new Adresa(admin.Adresa);//na indeksu te adrese dodeliti modifikovanu adresu
 
-                    AdminiServis adminiServis = new AdminiServis();
-                    adminiServis.upisFajla(Podaci.Instanca.lstAdmini);
-                    AdreseServis adrServis = new AdreseServis();
-                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Adresa set " +
+                                                                       "ulica='" + admin.Adresa.Ulica + "', " +
+                                                                       "broj='" + admin.Adresa.Broj + "', " +
+                                                                       "grad='" + admin.Adresa.Grad + "', " +
+                                                                       "drzava='" + admin.Adresa.Drzava + "' " +
+                                                                       "where id=" + admin.Adresa.Id + ";");
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Korisnik set " +
+                                                                       "ime='" + admin.Ime + "', " +
+                                                                       "prezime='" + admin.Prezime + "', " +
+                                                                       "pol='" + admin.Pol + "', " +
+                                                                       "email='" + admin.Email + "', " +
+                                                                       "lozinka='" + admin.Lozinka + "' " +
+                                                                       "where jmbg=" + admin.Jmbg + ";");
+
+
+
+                    //AdminiServis adminiServis = new AdminiServis();
+                    //adminiServis.upisFajla(Podaci.Instanca.lstAdmini);
+                    //AdreseServis adrServis = new AdreseServis();
+                    //adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
                 }
 
                 DialogResult = true;//indikator formi koja je otvorila ovu formu da se desilo dodavanje/izmena

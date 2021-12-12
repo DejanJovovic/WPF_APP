@@ -107,20 +107,45 @@ namespace SR_52_2020_POP2021.Windows
                     this.polaznik.Korisnik.Adresa.Id = idAdrese;
 
                     this.polaznik.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
+                    this.polaznik.Ime = polaznik.Korisnik.Ime;
+                    this.polaznik.Prezime= polaznik.Korisnik.Prezime;
                     this.polaznik.Jmbg = polaznik.Korisnik.Jmbg;
 
                     Podaci.Instanca.lstPolaznici.Add(polaznik);
                     Podaci.Instanca.lstAdrese.Add(polaznik.Korisnik.Adresa);
 
-                    PolazniciServis polazniciServis = new PolazniciServis();
-                    polazniciServis.upisFajla(Podaci.Instanca.lstPolaznici);
-                    AdreseServis adrServis = new AdreseServis();
-                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("insert into Adresa values(" +
+                                                                      polaznik.Korisnik.Adresa.Id + ", '" +
+                                                                      polaznik.Korisnik.Adresa.Ulica + "', '" +
+                                                                      polaznik.Korisnik.Adresa.Broj + "', '" +
+                                                                      polaznik.Korisnik.Adresa.Grad + "', '" +
+                                                                      polaznik.Korisnik.Adresa.Drzava + "', '" +
+                                                                      polaznik.Korisnik.Adresa.obrisano + "'" +
+                                                                      ");");
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("insert into Korisnik values('" +
+                                                                        polaznik.Korisnik.Ime + "', '" +
+                                                                        polaznik.Korisnik.Prezime + "', '" +
+                                                                        polaznik.Korisnik.Jmbg + "', '" +
+                                                                        polaznik.Korisnik.Pol + "', " +
+                                                                        polaznik.Korisnik.Adresa.Id + ", '" +
+                                                                        polaznik.Korisnik.Email + "', '" +
+                                                                        polaznik.Korisnik.Lozinka + "', '" +
+                                                                        polaznik.Korisnik.TipKorisnika + "', '" +
+                                                                        polaznik.Korisnik.obrisano + "', null" +
+                                                                        ");");
+
+                    //PolazniciServis polazniciServis = new PolazniciServis();
+                    //polazniciServis.upisFajla(Podaci.Instanca.lstPolaznici);
+                    //AdreseServis adrServis = new AdreseServis();
+                    //adrServis.upisFajla(Podaci.Instanca.lstAdrese);
 
                 }
                 else if (status == EStatus.IZMENI)
                 {
                     this.polaznik.ImePrezime = polaznik.Korisnik.Ime + " " + polaznik.Korisnik.Prezime;
+                    this.polaznik.Ime = polaznik.Korisnik.Ime;
+                    this.polaznik.Prezime = polaznik.Korisnik.Prezime;
                     this.polaznik.Jmbg = polaznik.Korisnik.Jmbg;
 
                     if (Podaci.Instanca.tipPrijavljen == ETipKorisnika.POLAZNIK)//ako je polaznik promenio svoj jmbg
@@ -130,10 +155,26 @@ namespace SR_52_2020_POP2021.Windows
                     int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);
                     Podaci.Instanca.lstAdrese[indexAdrese] = new Adresa(polaznik.Korisnik.Adresa);//na indeksu te adrese dodeliti modifikovanu adresu
 
-                    PolazniciServis polazniciServis = new PolazniciServis();
-                    polazniciServis.upisFajla(Podaci.Instanca.lstPolaznici);
-                    AdreseServis adrServis = new AdreseServis();
-                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Adresa set " +
+                                                                     "ulica='" + polaznik.Korisnik.Adresa.Ulica + "', " +
+                                                                     "broj='" + polaznik.Korisnik.Adresa.Broj + "', " +
+                                                                     "grad='" + polaznik.Korisnik.Adresa.Grad + "', " +
+                                                                     "drzava='" + polaznik.Korisnik.Adresa.Drzava + "' " +
+                                                                     "where id=" + polaznik.Korisnik.Adresa.Id + ";");
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Korisnik set " +
+                                                                       "ime='" + polaznik.Korisnik.Ime + "', " +
+                                                                       "prezime='" + polaznik.Korisnik.Prezime + "', " +
+                                                                       "pol='" + polaznik.Korisnik.Pol + "', " +
+                                                                       "email='" + polaznik.Korisnik.Email + "', " +
+                                                                       "lozinka='" + polaznik.Korisnik.Lozinka + "' " +
+                                                                       "where jmbg=" + polaznik.Korisnik.Jmbg + ";");
+
+                    //PolazniciServis polazniciServis = new PolazniciServis();
+                    //polazniciServis.upisFajla(Podaci.Instanca.lstPolaznici);
+                    //AdreseServis adrServis = new AdreseServis();
+                    //adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
                 }
 
                 DialogResult = true;

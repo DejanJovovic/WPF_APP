@@ -249,12 +249,17 @@ namespace SR_52_2020_POP2021.Windows
                 Trening treningZakazi = Podaci.Instanca.lstTreninzi.Where(t => t.Id == idTreninga).FirstOrDefault();
                 if (treningZakazi != null)
                 {
+                    treningZakazi.Slobodan = false;
                     treningZakazi.Polaznik = new Polaznik(polaznikZakazi);//setuje polaznika u objektu
                     treningZakazi.ImePrezimePolaznika = polaznikZakazi.Ime + " " + polaznikZakazi.Prezime;
                     osveziPrikazTermina();
 
-                    TreninziServis ts = new TreninziServis();
-                    ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Trening set " +
+                                                                      "jmbgPolaznik='" + jmbgPolaznika + "', " +
+                                                                      "slobodan='" + false + "' " +
+                                                                      "where id=" + treningZakazi.Id + ";");
+                    //TreninziServis ts = new TreninziServis();
+                    //ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
                 }
             }
         }
@@ -314,8 +319,12 @@ namespace SR_52_2020_POP2021.Windows
                 treningOtkazi.ImePrezimePolaznika = "";
                 osveziPrikazTermina();
 
-                TreninziServis ts = new TreninziServis();
-                ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
+                AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Trening set " +
+                                                                      "jmbgPolaznik=null, " +
+                                                                      "slobodan='" + true + "' " +
+                                                                      "where id=" + treningOtkazi.Id + ";");
+                //TreninziServis ts = new TreninziServis();
+                //ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
             }
         }
 
@@ -335,8 +344,12 @@ namespace SR_52_2020_POP2021.Windows
                         if (pbw.DialogResult == true)
                         {
                             treningBrisi.obrisano = true;
-                            TreninziServis ts = new TreninziServis();
-                            ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
+
+                            AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Trening set " +
+                                                                       "obrisano='" + true + "' " +
+                                                                       "where id=" + treningBrisi.Id + ";");
+                            //TreninziServis ts = new TreninziServis();
+                            //ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
 
                             osveziPrikazTermina();
                         }
@@ -354,8 +367,12 @@ namespace SR_52_2020_POP2021.Windows
                             if (pbw.DialogResult == true)
                             {
                                 treningBrisi.obrisano = true;
-                                TreninziServis ts = new TreninziServis();
-                                ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
+
+                                AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Trening set " +
+                                                                      "obrisano='" + true + "' " +
+                                                                      "where id=" + treningBrisi.Id + ";");
+                                //TreninziServis ts = new TreninziServis();
+                                //ts.upisFajla(Podaci.Instanca.lstTreninzi);//sacuva modifikovanu listu u fajlu
 
                                 osveziPrikazTermina();
                             }

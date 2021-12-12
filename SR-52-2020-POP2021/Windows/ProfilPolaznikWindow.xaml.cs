@@ -123,8 +123,13 @@ namespace SR_52_2020_POP2021.Windows
                     treningOtkazi.Polaznik = null;
                     treningOtkazi.ImePrezimePolaznika = "";
 
-                    TreninziServis ts = new TreninziServis();
-                    ts.upisFajla(Podaci.Instanca.lstTreninzi);
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Trening set " +
+                                                                      "jmbgPolaznik=null, " +
+                                                                      "slobodan='" + true + "' " +
+                                                                      "where id=" + treningOtkazi.Id + ";");
+                    //TreninziServis ts = new TreninziServis();
+                    //ts.upisFajla(Podaci.Instanca.lstTreninzi);
+
                     osveziPrikazDataGrid();
                 }
             }

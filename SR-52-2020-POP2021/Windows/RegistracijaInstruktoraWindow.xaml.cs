@@ -120,6 +120,9 @@ namespace SR_52_2020_POP2021.Windows
                     this.instruktor.Korisnik.Adresa.Id = idAdrese;
 
                     this.instruktor.ImePrezime = instruktor.Korisnik.Ime + " " + instruktor.Korisnik.Prezime;
+                    this.instruktor.Ime = instruktor.Korisnik.Ime;
+                    this.instruktor.Prezime = instruktor.Korisnik.Prezime;
+
                     this.instruktor.Jmbg = instruktor.Korisnik.Jmbg;
                     if (cbIdFitnesCentra.SelectedIndex > -1)
                         this.instruktor.IdFitnesCentra = int.Parse(cbIdFitnesCentra.SelectedItem.ToString());
@@ -127,16 +130,41 @@ namespace SR_52_2020_POP2021.Windows
                     Podaci.Instanca.lstInstruktori.Add(instruktor);
                     Podaci.Instanca.lstAdrese.Add(instruktor.Korisnik.Adresa);
 
-                    InstruktoriServis instrServis = new InstruktoriServis();
-                    instrServis.upisFajla(Podaci.Instanca.lstInstruktori);
-                    AdreseServis adrServis = new AdreseServis();
-                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("insert into Adresa values(" +
+                                                                      instruktor.Korisnik.Adresa.Id + ", '" +
+                                                                      instruktor.Korisnik.Adresa.Ulica + "', '" +
+                                                                      instruktor.Korisnik.Adresa.Broj + "', '" +
+                                                                      instruktor.Korisnik.Adresa.Grad + "', '" +
+                                                                      instruktor.Korisnik.Adresa.Drzava + "', '" +
+                                                                      instruktor.Korisnik.Adresa.obrisano + "'" +
+                                                                      ");");
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("insert into Korisnik values('" +
+                                                                        instruktor.Korisnik.Ime + "', '" +
+                                                                        instruktor.Korisnik.Prezime + "', '" +
+                                                                        instruktor.Korisnik.Jmbg + "', '" +
+                                                                        instruktor.Korisnik.Pol + "', " +
+                                                                        instruktor.Korisnik.Adresa.Id + ", '" +
+                                                                        instruktor.Korisnik.Email + "', '" +
+                                                                        instruktor.Korisnik.Lozinka + "', '" +
+                                                                        instruktor.Korisnik.TipKorisnika + "', '" +
+                                                                        instruktor.Korisnik.obrisano + "', " +
+                                                                        instruktor.IdFitnesCentra + 
+                                                                        ");");
+                    //InstruktoriServis instrServis = new InstruktoriServis();
+                    //instrServis.upisFajla(Podaci.Instanca.lstInstruktori);
+                    //AdreseServis adrServis = new AdreseServis();
+                    //adrServis.upisFajla(Podaci.Instanca.lstAdrese);
 
                 }
                 else if (status == EStatus.IZMENI)
                 {
                     this.instruktor.ImePrezime = instruktor.Korisnik.Ime + " " + instruktor.Korisnik.Prezime;
+                    this.instruktor.Ime = instruktor.Korisnik.Ime;
+                    this.instruktor.Prezime = instruktor.Korisnik.Prezime;
                     this.instruktor.Jmbg = instruktor.Korisnik.Jmbg;
+
                     if (cbIdFitnesCentra.SelectedIndex > -1)
                         this.instruktor.IdFitnesCentra = int.Parse(cbIdFitnesCentra.SelectedItem.ToString());
 
@@ -147,10 +175,27 @@ namespace SR_52_2020_POP2021.Windows
                     int indexAdrese = Podaci.Instanca.lstAdrese.IndexOf(a);
                     Podaci.Instanca.lstAdrese[indexAdrese] = new Adresa(instruktor.Korisnik.Adresa);//na indeksu te adrese dodeliti modifikovanu adresu
 
-                    InstruktoriServis instrServis = new InstruktoriServis();
-                    instrServis.upisFajla(Podaci.Instanca.lstInstruktori);
-                    AdreseServis adrServis = new AdreseServis();
-                    adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Adresa set " +
+                                                                      "ulica='" + instruktor.Korisnik.Adresa.Ulica + "', " +
+                                                                      "broj='" + instruktor.Korisnik.Adresa.Broj + "', " +
+                                                                      "grad='" + instruktor.Korisnik.Adresa.Grad + "', " +
+                                                                      "drzava='" + instruktor.Korisnik.Adresa.Drzava + "' " +
+                                                                      "where id=" + instruktor.Korisnik.Adresa.Id + ";");
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Korisnik set " +
+                                                                       "ime='" + instruktor.Korisnik.Ime + "', " +
+                                                                       "prezime='" + instruktor.Korisnik.Prezime + "', " +
+                                                                       "pol='" + instruktor.Korisnik.Pol + "', " +
+                                                                       "email='" + instruktor.Korisnik.Email + "', " +
+                                                                       "lozinka='" + instruktor.Korisnik.Lozinka + "', " +
+                                                                       "idFitnesCentar=" + instruktor.IdFitnesCentra + " " +
+                                                                       "where jmbg=" + instruktor.Korisnik.Jmbg + ";");
+
+                    //InstruktoriServis instrServis = new InstruktoriServis();
+                    //instrServis.upisFajla(Podaci.Instanca.lstInstruktori);
+                    //AdreseServis adrServis = new AdreseServis();
+                    //adrServis.upisFajla(Podaci.Instanca.lstAdrese);//overwrite podataka u fajlovima
                 }
 
                 DialogResult = true;

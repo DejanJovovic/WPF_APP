@@ -24,8 +24,8 @@ namespace SR_52_2020_POP2021.Windows
         ICollectionView viewInstruktori;
         public HomeWindow()
         {
-            Podaci.Instanca.ucitajFajlove();//pokretanjem aplikacije prvo se ucitaju svi fajlovi u liste koje su u Podaci klasi
-            //Podaci.Instanca.ucitajTabeleBaze();//pokretanjem aplikacije prvo se ucitaju sve tabele baze u liste koje su u Podaci klasi
+            //Podaci.Instanca.ucitajFajlove();//pokretanjem aplikacije prvo se ucitaju svi fajlovi u liste koje su u Podaci klasi
+            Podaci.Instanca.ucitajTabeleBaze();//pokretanjem aplikacije prvo se ucitaju sve tabele baze u liste koje su u Podaci klasi
 
             //MessageBox.Show(
             //    "\n#Broj ucitanih adresa: " + Podaci.Instanca.lstAdrese.Count.ToString() +
@@ -80,8 +80,6 @@ namespace SR_52_2020_POP2021.Windows
             dgInstruktori.IsSynchronizedWithCurrentItem = true;
             dgInstruktori.ColumnWidth = new DataGridLength(1, DataGridLengthUnitType.Star);
 
-            if (dgInstruktori.Columns.Count > 0)
-                dgInstruktori.Columns[1].Header = "Ime i prezime";//naziv kolone za ime i prezime
 
 
 

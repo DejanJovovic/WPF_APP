@@ -173,8 +173,12 @@ namespace SR_52_2020_POP2021.Windows
                 if (pb.DialogResult == true)//ako je kliknuto na Da u formi za potvrdu brisanja
                 {
                     selektovanAdmin.obrisano = true;//logicko brisanje, prikazace se oni kojima je obrisano false
-                    AdminiServis admServis = new AdminiServis();
-                    admServis.upisFajla(Podaci.Instanca.lstAdmini);//azuriraj fajl, prebrise sve podatke u fajlu. Dodavanjem baze pozivace se metoda kojoj ce se proslediti sql naredba
+
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Korisnik set " +
+                                                                       "obrisano='" + true + "' " +
+                                                                       "where jmbg=" + selektovanAdmin.Jmbg + ";");
+                    //AdminiServis admServis = new AdminiServis();
+                    //admServis.upisFajla(Podaci.Instanca.lstAdmini);//azuriraj fajl, prebrise sve podatke u fajlu. Dodavanjem baze pozivace se metoda kojoj ce se proslediti sql naredba
 
                     osveziDGKorisnici();//refresh nakon brisanja. Prikazuju se samo podaci kojima je obrisan na false
                 }
@@ -186,8 +190,11 @@ namespace SR_52_2020_POP2021.Windows
                 if (pb.DialogResult == true)
                 {
                     selektovanPolaznik.obrisano = true;
-                    PolazniciServis polazServis = new PolazniciServis();
-                    polazServis.upisFajla(Podaci.Instanca.lstPolaznici);//azuriraj fajl
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Korisnik set " +
+                                                                      "obrisano='" + true + "' " +
+                                                                      "where jmbg=" + selektovanPolaznik.Jmbg + ";");
+                    //PolazniciServis polazServis = new PolazniciServis();
+                    //polazServis.upisFajla(Podaci.Instanca.lstPolaznici);//azuriraj fajl
 
                     osveziDGKorisnici();
                 }
@@ -200,8 +207,11 @@ namespace SR_52_2020_POP2021.Windows
                 if (pb.DialogResult == true)
                 {
                     selektovanInstruktor.obrisano = true;
-                    InstruktoriServis instrServis = new InstruktoriServis();
-                    instrServis.upisFajla(Podaci.Instanca.lstInstruktori);//azuriraj fajl
+                    AzuriranjeBaze<Object>.insertUpdateDelete_Baza("update Korisnik set " +
+                                                                    "obrisano='" + true + "' " +
+                                                                    "where jmbg=" + selektovanInstruktor.Jmbg + ";");
+                    //InstruktoriServis instrServis = new InstruktoriServis();
+                    //instrServis.upisFajla(Podaci.Instanca.lstInstruktori);//azuriraj fajl
 
                     osveziDGKorisnici();
                 }
