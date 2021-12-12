@@ -25,6 +25,7 @@ namespace SR_52_2020_POP2021.Windows
         public HomeWindow()
         {
             Podaci.Instanca.ucitajFajlove();//pokretanjem aplikacije prvo se ucitaju svi fajlovi u liste koje su u Podaci klasi
+            //Podaci.Instanca.ucitajTabeleBaze();//pokretanjem aplikacije prvo se ucitaju sve tabele baze u liste koje su u Podaci klasi
 
             //MessageBox.Show(
             //    "\n#Broj ucitanih adresa: " + Podaci.Instanca.lstAdrese.Count.ToString() +

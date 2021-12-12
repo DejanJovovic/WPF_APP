@@ -1,0 +1,118 @@
+
+create table Adresa(
+	id int not null,
+	ulica varchar(30),
+	broj varchar(5),
+	grad varchar(30),
+	drzava varchar(30),
+	obrisano bit,
+	constraint pk_Adresa primary key(id)
+);
+
+create table FitnesCentar(
+	id int not null,
+	naziv varchar(30),
+	idAdresa int not null,
+	obrisano bit,
+	constraint pk_FitnesCentar primary key(id),
+	constraint fk_FitnesCentar_Adresa foreign key(idAdresa) references Adresa(id)
+);
+
+create table Korisnik(
+	ime varchar(30),
+	prezime varchar(30),
+	jmbg varchar(13) not null,
+	pol varchar(6),
+	idAdresa int not null,
+	email varchar(30),
+	lozinka varchar(20),
+	tipKorisnika varchar(20),
+	obrisano bit,
+	idFitnesCentar int,
+	constraint pk_Korisnik primary key(jmbg),
+	constraint fk_Korisnik_Adresa foreign key(idAdresa) references Adresa(id),
+	constraint fk_Korisnik_FitnesCentar foreign key(idFitnesCentar) references FitnesCentar(id)
+
+);
+
+create table Trening(
+	id int not null,
+	datumTreninga varchar(50),
+	vremePocetka varchar(5),
+	trajanjeTreninga int,
+	slobodan bit,
+	jmbgInstruktor varchar(13),
+	jmbgPolaznik varchar(13),
+	obrisano bit,
+	constraint pk_Trening primary key(id),
+	constraint fk_Trening_KorisnikI foreign key(jmbgInstruktor) references Korisnik(jmbg),
+	constraint fk_Trening_KorisnikP foreign key(jmbgPolaznik) references Korisnik(jmbg)
+	
+);
+
+insert into Adresa values(1, 'Neznanog junaka', '22', 'Novi Sad', 'Srbija', 0);
+insert into Adresa values(2, 'Kumodraska', '12', 'Novi Sad', 'Srbija', 0);
+insert into Adresa values(3, 'Mihajla Pupina', '32', 'Novi Sad', 'Srbija', 0);
+insert into Adresa values(4, 'Kralja Petra I', '44', 'Novi Sad', 'Srbija', 0);
+insert into Adresa values(5, 'Nikole Tesle', '45', 'Novi Sad', 'Srbija', 0);
+insert into Adresa values(6, 'Cara Lazara', '14', 'Novi Sad', 'Srbija', 0);
+insert into Adresa values(7, 'Cara Lazara', '54', 'Novi Sad', 'Srbija', 0);
+insert into Adresa values(8, 'Cara Lazara', '33', 'Novi Sad', 'Srbija', 0);
+
+insert into FitnesCentar values(1, 'Strong fitness', 1, 0);
+insert into FitnesCentar values(2, 'Exclusive fitness', 2, 0);
+
+insert into Korisnik values('Petar', 'Peric', '1', 'M', 3, 'petarp@gmail.com', '1', 'ADMINISTRATOR', 0, null);
+insert into Korisnik values('Nikola', 'Nikolic', '2', 'M', 4, 'nikolan@gmail.com', '2', 'INSTRUKTOR', 0, 1);
+insert into Korisnik values('Jovana', 'Jovic', '21', 'Z', 6, 'jovanaj@gmail.com', '21', 'INSTRUKTOR', 0, 1);
+insert into Korisnik values('Svetlana', 'Svetic', '22', 'Z', 7, 'svetlanas@gmail.com', '22', 'INSTRUKTOR', 0, 2);
+insert into Korisnik values('Mirjana', 'Miric', '3', 'Z', 5, 'mirjanam@gmail.com', '3', 'POLAZNIK', 0, null);
+
+
+/*
+
+Podaci upisa u fajl:
+
+Mirjana;Miric;3;Z;5;mirjanam@gmail.com;3;POLAZNIK;False
+
+Nikola;Nikolic;2;M;4;nikolan@gmail.com;2;INSTRUKTOR;False;1
+Jovana;Jovic;21;M;6;nikolan@gmail.com;21;INSTRUKTOR;False;1
+Svetlana;Svetic;22;M;7;nikolan@gmail.com;22;INSTRUKTOR;False;2
+
+Petar;Peric;1;M;3;petarp@gmail.com;1;ADMINISTRATOR;False
+
+1;Strong fitness;1;False
+2;Exclusive fitness;2;False
+
+1;Neznanog junaka;22;Novi Sad;Srbija;False
+2;Kumodraska;12;Novi Sad;Srbija;False
+3;Mihajla Pupina;3;Novi Sad;Srbija;False
+4;Kralja Petra I;45;Novi Sad;Srbija;False
+5;Nikole Tesle;14;Novi Sad;Srbija;False
+6;Cara Lazara;88;Novi Sad;Srbija;False
+7;Cara Lazara;89;Novi Sad;Srbija;False
+8;Cara Lazara;80;Novi Sad;Srbija;False
+
+
+
+
+sw.WriteLine(adresa.Id + ";" + adresa.Ulica + ";" + adresa.Broj + ";" + adresa.Grad + ";" + adresa.Drzava + ";" + adresa.obrisano);
+sw.WriteLine(fc.Id + ";" + fc.Naziv + ";" + fc.Adresa.Id + ";" + fc.obrisano);
+
+ sw.WriteLine(admin.Ime + ";" + admin.Prezime + ";" + admin.Jmbg + ";" + admin.Pol + ";" +
+                    admin.Adresa.Id + ";" + admin.Email + ";" + admin.Lozinka + ";" + admin.TipKorisnika + ";" + admin.obrisano);
+
+ sw.WriteLine(instr.Korisnik.Ime + ";" + instr.Korisnik.Prezime + ";" + instr.Korisnik.Jmbg + ";" + instr.Korisnik.Pol + ";" +
+                    instr.Korisnik.Adresa.Id + ";" + instr.Korisnik.Email + ";" + instr.Korisnik.Lozinka + ";" + instr.Korisnik.TipKorisnika + ";" +
+                    instr.obrisano + ";" + instr.IdFitnesCentra);
+
+ sw.WriteLine(polaznik.Korisnik.Ime + ";" + polaznik.Korisnik.Prezime + ";" + polaznik.Korisnik.Jmbg + ";" + polaznik.Korisnik.Pol + ";" +
+                    polaznik.Korisnik.Adresa.Id + ";" + polaznik.Korisnik.Email + ";" + polaznik.Korisnik.Lozinka + ";" + polaznik.Korisnik.TipKorisnika + ";" +
+                    polaznik.obrisano);
+
+ sw.WriteLine(t.Id + ";" + t.DatumTreninga + ";" + t.VremePocetka + ";" + t.TrajanjeTreninga + ";" +
+                    t.Slobodan + ";" + t.Instruktor.Korisnik.Jmbg + ";" + idPolaznik + ";" + t.obrisano);
+
+
+
+*/

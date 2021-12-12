@@ -70,6 +70,18 @@ namespace SR_52_2020_POP2021.Model
             ucitajTreninge_InstruktoriPolaznici(); //dodatno dodati lsite treninga instruktorima i polaznicima
         }
 
+        public void ucitajTabeleBaze()  //poziva se pokretanjem aplikacije da se podaci iscitaju iz tabela baze u liste
+        {
+            lstAdrese = adreseServis.citanjeBaze();
+            lstFitnesCentri = fitnesCentriServis.citanjeBaze();
+            lstInstruktori = instruktoriServis.citanjeBaze();
+            lstAdmini = adminiServis.citanjeBaze();
+            lstPolaznici = polazniciServis.citanjeBaze();
+            lstTreninzi = treninziServis.citanjeBaze();
+
+            ucitajTreninge_InstruktoriPolaznici(); //dodatno dodati lsite treninga instruktorima i polaznicima
+        }
+
         //ucitane treninge treba dodati u liste odgovarajucih instruktora i polaznika
         void ucitajTreninge_InstruktoriPolaznici()
         {

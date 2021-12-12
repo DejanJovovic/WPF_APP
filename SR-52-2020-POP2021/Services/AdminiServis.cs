@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,64 @@ using System.Threading.Tasks;
 
 namespace SR_52_2020_POP2021.Services
 {
-    public class AdminiServis : IAzuriranjaFajlova<Korisnik>
+    public class AdminiServis : AzuriranjeBaze<Korisnik>, IAzuriranjaFajlova<Korisnik>
     {
+
+        public override ObservableCollection<Korisnik> citanjeBaze()
+        {
+            ObservableCollection<Korisnik> lst = new ObservableCollection<Korisnik>();
+
+            SqlConnection conn = new SqlConnection(AzuriranjeBaze<Korisnik>.ucitajConnectionString()); //uzima connection string na lokalnu bazu u folderu Baza
+            conn.Open();
+
+            SqlCommand sqlCmd = new SqlCommand("select * from Korisnik", conn);//selekcija svih korisnika
+            SqlDataReader sqlDataReader = sqlCmd.ExecuteReader();//data reader sadrzi listu svih korisnika ucitanih iz tabele baze
+
+            while (sqlDataReader.Read())//za svaki ucitan red preuzeti pojedinacne vrednosti kolona
+            {
+
+                ETipKorisnika tipKorisnika = (ETipKorisnika)Enum.Parse(typeof(ETipKorisnika), sqlDataReader.GetValue(7).ToString());
+                if (tipKorisnika == ETipKorisnika.ADMINISTRATOR)
+                {
+
+                    string ime = sqlDataReader.GetValue(0).ToString();
+                    string prezime = sqlDataReader.GetValue(1).ToString();
+                    string jmbg = sqlDataReader.GetValue(2).ToString();
+                    EPol pol = (EPol)Enum.Parse(typeof(EPol), sqlDataReader.GetValue(3).ToString());
+
+                    int idAdresa = int.Parse(sqlDataReader.GetValue(4).ToString());
+                    AdreseServis adrServis = new AdreseServis();
+                    Adresa adr = adrServis.citanjeBaze().Where(ad => ad.Id == idAdresa).FirstOrDefault();
+                    Adresa adresa = null;
+                    if (adr != null)
+                        adresa = new Adresa(adr);
+
+                    string email = sqlDataReader.GetValue(5).ToString();
+                    string lozinka = sqlDataReader.GetValue(6).ToString();
+                    //ETipKorisnika tipKorisnika = (ETipKorisnika)Enum.Parse(typeof(ETipKorisnika), sqlDataReader.GetValue(7).ToString());
+
+                    bool obrisano = Convert.ToBoolean(sqlDataReader.GetValue(8).ToString());
+
+
+                    Korisnik admin = new Korisnik(ime, prezime, jmbg, pol, adresa, email, lozinka, tipKorisnika);//napravljen objekat admina
+                    admin.obrisano = obrisano;
+
+                    lst.Add(admin);//dodat u listu
+
+                }
+
+               
+
+            }
+
+            sqlDataReader.Close();
+            sqlCmd.Dispose();
+            conn.Close();  //oslobadja resurse zauzete otvaranjem konekcije
+
+            return lst;
+        }
+
+
         public ObservableCollection<Korisnik> citanjeFajla() //cita sve admine, admini su klasa Korisnik
         {
             ObservableCollection<Korisnik> lst = new ObservableCollection<Korisnik>();//prvo prazna lista
